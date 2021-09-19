@@ -33,7 +33,7 @@
     	  <script src="/resources/js/header.js"></script>
 
         <!---------- API-KEY ---------->
-        <fmt:setBundle basename="application-API-KEY" var="API_KEY" />
+        <fmt:setBundle basename="KEY" var="API_KEY" />
         
         <script>
             Kakao.init('<fmt:message key="kakao-login-key" bundle="${API_KEY}"/>');
