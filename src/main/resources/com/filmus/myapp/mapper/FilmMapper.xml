@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.filmus.myapp.mapper.FilmMapper">
+	
+	<select id='getFilmDetail' resultType='com.filmus.myapp.domain.FilmDetailVO'>
+		SELECT original_title, to_char(release_date, 'yyyy'), plot, poster_path, backdrop_path
+		FROM fm_film
+		WHERE film_id=#{filmId}
+	</select>
+	
+	<select id='getFilmPeople' resultType='com.filmus.myapp.domain.FilmPeopleVO'>
+		SELECT fp.people_id, fp.credit_order, p.enname
+		FROM fm_film_people fp
+		INNER JOIN fm_people p
+				ON fp.people_id = p.people_id
+		WHERE fp.film_id=#{filmId}
+		ORDER BY fp.credit_order
+	</select>
+
+</mapper>

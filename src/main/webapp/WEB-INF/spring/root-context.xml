@@ -15,6 +15,8 @@
    
    <!-- Root Context: defines shared resources visible to all other web components -->
       
+   <context:property-placeholder location="/WEB-INF/classes/KEY.properties" /> 
+      
    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
       <description>HikariCP Configuration</description>
 
@@ -23,8 +25,8 @@
 
       <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202106301639_high?TNS_ADMIN=C:/OPT/FilmeeCloudWallet/ATP"/>      
 
-      <property name="username" value="FILMUS"/>
-      <property name="password" value="Oracle12345!!!"/>
+      <property name="username" value="${oracleUser}"/>
+      <property name="password" value="${oraclePw}"/>
 
       <property name="maximumPoolSize" value="10"/>
       <property name="minimumIdle" value="2"/>
@@ -46,11 +48,6 @@
       <property name="dataSource" ref="hikariDataSource"></property>
       <property name="configLocation" value="classpath:mybatis-config.xml"></property>
    </bean>   
-
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="/WEB-INF/classes/application-API-KEY.properties"/>
-        <property name="fileEncoding" value="UTF-8" />
-    </bean>
 
 
    <context:component-scan base-package="com.filmus.myapp.service" />
@@ -84,7 +81,7 @@
    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
-        <property name="username" value="shawnshhan@gmail.com"/>
+        <property name="username" value="${gmail}"/>
         <property name="password" value="${gmailpw}" />
         <property name="javaMailProperties">
             <props>
