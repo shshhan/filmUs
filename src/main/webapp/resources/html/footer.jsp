@@ -19,6 +19,7 @@
         a{color:#333;text-decoration:none;text-align: center;}
         a:hover,a:active,a:focus,a:visited{color:#333;text-decoration:none;}
 		#footer{
+			margin-top : 60px;
 		    height : 130px;
             background: lightgray;
 		}
