@@ -120,6 +120,9 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
+		aside button{
+			border-radius: 100%;
+		}
 	</style>
 
 </head>
@@ -162,6 +165,7 @@
 				<div>
 					<img src="https://www.themoviedb.org/t/p/original${filmDetail.posterPath}" alt="filmPoster" id="filmPoster">
 					<p>${filmDetail.originalTitle}</p>
+					<button type="button" class="btn btn-outline-dark">register a review</button>
 				</div>
 			</aside>
 		</div>

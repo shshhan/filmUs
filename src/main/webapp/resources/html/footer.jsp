@@ -44,17 +44,12 @@
 		
 		#footer_buttons div{
 		    text-align: center;
-		    margin-top: 15px;
+		    margin-top: 50px;
 		}
 		
 		#footer_buttons button:first-of-type{
 		    border-radius: 100px;
-		}
-		
-		#footer_buttons div:nth-of-type(2){
-		    margin-top: 20px;
-		}
-		
+		}		
 	</style>
 
 
@@ -70,13 +65,13 @@
                 </div>
 
                 <div class="col-6" id="footer_info">
-                    <p>Team_FILMEE</p>
+                    <p>Team_FILMUS</p>
                     <p>
                         address : 서울 강남구 강남대로94길 20 삼오빌딩 602호<br>
-                        contact : 02-1234-5678 / team_filmee@filmee.co<a href="/admin/main">m</a>
+                        contact : 02-1234-5678 / team_filmus@filmus.co<a href="/admin/main">m</a>
                     </p>
                     <p>
-                        ⓒ2021.FILMEE All rights reserved.
+                        ⓒ2021.FILMUS All rights reserved.
                     </p>
                 </div>
 
@@ -85,9 +80,6 @@
                         <a href="#"">
                             <button type="button" class="btn btn-outline-dark">TOP</button>
                         </a>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-outline-secondary">의견보내기</button>
                     </div>
                 </div>    
             </div>

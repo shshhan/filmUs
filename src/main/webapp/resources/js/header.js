@@ -210,8 +210,6 @@ $(function() {
 			$("#forgot_pw").modal('hide');
 			alertModalMessaging("이메일 주소를 입력하세요.");
 
-		
-
 		} else if(!isEmail(email)){
 			$("#forgot_pw").modal('hide');
 			alertModalMessaging("옳바른 이메일 형식이 아닙니다.");
