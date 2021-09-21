@@ -5,6 +5,7 @@ import lombok.Value;
 @Value
 public class FilmDetailVO {
 
+	private Integer filmId;
 	private String originalTitle;
 	private String releaseDate;
 	private String plot;
