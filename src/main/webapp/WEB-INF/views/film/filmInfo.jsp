@@ -91,6 +91,7 @@
 		.sub_header{
 			font-size: 23px;
 			text-decoration: underline;
+			margin-bottom: 10px;
 		}
 
 		#people div span{
@@ -107,7 +108,7 @@
 			margin-top: 70px;
 			margin-bottom : 20px;
 			width: 650px;
-			font-size: 15px;
+			font-size: 14px;
 		}
 
 		#reviews strong{
@@ -116,13 +117,16 @@
 		}
 
 		#review_content{
-			/* height: 100px; */
 			overflow: hidden;
         	text-overflow: ellipsis;
 			word-wrap: break-word;
         	display: -webkit-box;
         	-webkit-line-clamp: 5 ;
        		-webkit-box-orient: vertical;  	
+		}
+
+		#profile_photo{
+			text-align: center;
 		}
 
 		aside{
@@ -146,8 +150,8 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
-		aside button{
-			border-radius: 100%;
+		#register_review_btn{
+			display: none;
 		}
 
 		.inner-star::before {
@@ -173,6 +177,7 @@
             content: '\f005 \f005 \f005 \f005 \f005';
             font-family: 'Font Awesome 5 free';
             font-weight: 900;
+			font-size: 150%;
         }
 	</style>
 
@@ -189,6 +194,14 @@
 						<strong>${filmDetail.originalTitle}</strong>
 						[${filmDetail.releaseDate}]
 					</p>
+					<div class='RatingStar'>
+						<div class='RatingScore'>
+							<div class='outer-star'>
+								<div class='inner-star' style='width: ${filmDetail.width}%'></div>
+							</div>
+							${filmDetail.avgRate} / 5.0
+						</div>
+					</div>
 				</div>	
 				<div id="plot">
 					${filmDetail.plot}
@@ -215,8 +228,8 @@
 					<p class="sub_header">REVIEW</p>
 						<c:forEach items="${reviews}" var="review">
 							<div class="row">
-								<div class="col-2">
-									<img src="//" alt="Personal Profic">
+								<div class="col-2" id="profile_photo">
+									<img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px">
 								</div>
 								<div class="col-10">
 									<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>
@@ -228,14 +241,15 @@
 								  	<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
 									<div class='RatingStar'>
 										<div class='RatingScore'>
-											<span class='outer-star'>
+											<div class='outer-star'>
 												<div class='inner-star' style='width: ${review.width}%'></div>
-											</span>
+											</div>
 											<p>${review.rate} / 5.0</p>                               
 										</div>
-									</div>   
-									
-									<div id="review_content">${review.content}</div>
+									</div>
+									<div id="review_content">
+										${review.content}
+									</div>
 									<hr>
 
 
@@ -250,7 +264,7 @@
 				<div>
 					<img src="https://www.themoviedb.org/t/p/original${filmDetail.posterPath}" alt="filmPoster" id="filmPoster">
 					<p>${filmDetail.originalTitle}</p>
-					<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#reg_review">Register a review</button>
+					<button type="button" class="btn btn-outline-dark" id="register_review_btn" data-bs-toggle="modal" data-bs-target="#reg_review">Register a review</button>
 				</div>
 			</aside>
 		</div>
