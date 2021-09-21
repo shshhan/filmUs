@@ -6,10 +6,14 @@
 
 <mapper namespace="com.filmus.myapp.mapper.FilmMapper">
 	
-	<select id='getFilmDetail' resultType='com.filmus.myapp.domain.FilmDetailVO'>
-		SELECT film_id, original_title, to_char(release_date, 'yyyy'), plot, poster_path, backdrop_path
-		FROM fm_film
-		WHERE film_id=#{filmId}
+	<select id='getFilmDetail' resultType='com.filmus.myapp.domain.FilmDetailVO'>		
+		SELECT f.film_id, f.original_title, to_char(f.release_date, 'yyyy'), f.plot, f.poster_path, f.backdrop_path, NVL(r.avgRate, 0), NVL(r.width, 0)
+		FROM fm_film f
+		LEFT OUTER JOIN (SELECT film_id, AVG(rate) AS avgRate, AVG(rate)*20 AS width
+		                 FROM fm_review	
+		                 GROUP BY film_id) r
+		             ON f.film_id=r.film_id
+		WHERE f.film_id=#{filmId}
 	</select>
 	
 	<select id='getFilmPeople' resultType='com.filmus.myapp.domain.FilmPeopleVO'>
@@ -28,10 +32,10 @@
 	
 	<select id="getReviews" resultType="com.filmus.myapp.domain.FilmReviewVO">
 		SELECT	/*+ index_desc(fm_review_pk) */
-				f.rno, f.writer, f.rate, f.rate*20 AS width, f.content, f.insert_ts, f.update_ts, f.like_cnt, f.comment_cnt, u.nickname, u.profile_photo_path
-		FROM fm_review f
+				r.rno, r.writer, r.rate, r.rate*20 AS width, r.content, r.insert_ts, r.update_ts, r.like_cnt, r.comment_cnt, u.nickname, u.profile_photo_path
+		FROM fm_review r
 		INNER JOIN fm_user u
-				ON f.writer = u.user_id
+				ON r.writer = u.user_id
 		WHERE film_id=#{filmId}
 	</select>
 
