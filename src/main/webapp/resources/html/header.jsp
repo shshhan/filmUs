@@ -185,7 +185,8 @@
 			    height: 150px;
 			    margin: 0 auto;
 			    font-size: 20px;
-			    font-family: 'ELAND 초이스';    
+			    font-family: 'ELAND 초이스'; 
+			   
 			    	    
 			}
 			

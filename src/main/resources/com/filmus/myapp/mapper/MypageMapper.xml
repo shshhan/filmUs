@@ -60,7 +60,8 @@
 	
 	<select id='getMainReview' resultType='com.filmus.myapp.domain.MainReviewVO'>
 		<![CDATA[			
-			SELECT B.film_id filmid, A.rno rno, B.poster_path poster, A.content content, A.rate rate, B.original_title title, A.rate * 20 width, A.insert_ts insert_ts 
+			SELECT B.film_id filmid, A.rno rno, B.poster_path poster, A.content content, A.rate rate, B.original_title title, 
+					A.rate * 20 width, A.insert_ts insert_ts 
 			FROM fm_review A
 			LEFT OUTER JOIN fm_film B ON A.film_id = B.film_id
 			WHERE A.writer = #{userid}
