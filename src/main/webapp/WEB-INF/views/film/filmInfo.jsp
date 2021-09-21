@@ -116,7 +116,7 @@
 		}
 
 		#review_content{
-			height: 100px;
+			/* height: 100px; */
 			overflow: hidden;
         	text-overflow: ellipsis;
 			word-wrap: break-word;
@@ -215,10 +215,10 @@
 					<p class="sub_header">REVIEW</p>
 						<c:forEach items="${reviews}" var="review">
 							<div class="row">
-								<div class="col-3">
+								<div class="col-2">
 									<img src="//" alt="Personal Profic">
 								</div>
-								<div class="col-9">
+								<div class="col-10">
 									<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>
 									<!-- <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.insertTs}"/>
 									<c:if test="${review.updateTs!=null}">
@@ -228,10 +228,10 @@
 								  	<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
 									<div class='RatingStar'>
 										<div class='RatingScore'>
-											<div class='outer-star'>	                                
+											<span class='outer-star'>
 												<div class='inner-star' style='width: ${review.width}%'></div>
-												<p>${review.rate} / 5.0</p>
-											</div>
+											</span>
+											<p>${review.rate} / 5.0</p>                               
 										</div>
 									</div>   
 									
