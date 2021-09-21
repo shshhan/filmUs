@@ -116,6 +116,19 @@
     </script>
 
     <style>
+    	
+    	body {
+    		padding: 0px;
+    		margin: 0px;
+    	}
+    	
+    	#mainback {
+    		width: 100%; 
+    		height: 813px; 
+    		overflow:hidden; 
+    		margin: 0px auto; 
+    		position: relative;
+    	}
     
     	.hoverTest {
     		z-index: 8; 
@@ -153,6 +166,18 @@
             font-family: 'Font Awesome 5 free';
             font-weight: 900;
             
+        }
+        
+        #mypage_review_content {             
+            overflow: hidden;
+        	text-overflow: ellipsis;
+        	white-space: normal;
+        	line-height: 1.2;
+        	text-align: left;
+        	word-wrap: break-word;
+        	display: -webkit-box;
+        	-webkit-line-clamp: 6 ;
+       		-webkit-box-orient: vertical;  			
         }
     
     	#container {
@@ -215,14 +240,17 @@
 
 <body>
     <%@include file="/resources/html/header.jsp"  %>
+    
+    
+        <div id="mainback">
+            <!-- <img class="img-fluid" src="/resources/img/common.jpg" alt="mainbackimg" width="998"> -->
+            
+    		<iframe width="100%" height="813" src="https://www.youtube.com/embed/Ko2NWhXI9e8?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
 
     <div id="container">
             
         
-        <div id="mainback">
-            <img class="img-fluid" src="/resources/img/common.jpg" alt="mainbackimg" width="998">
-    
-        </div>
 
         <div id="mainText">
             <p>
@@ -284,7 +312,7 @@
                   </div>                                  
                                       
                     
-                  <h6>${reviews.rate} / 5</h6>
+                  <h6>${reviews.rate} / 5.0</h6>
                   
                   <div class='row' style='margin-top: 5px;'>
                   

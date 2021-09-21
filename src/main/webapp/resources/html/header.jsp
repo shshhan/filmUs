@@ -46,6 +46,7 @@
                   $(".strangerHeadermenu").attr("style", "display:none");
                   $(".memberHeadermenu").attr("style", "display:inline");
                   $(".memberHeadermenu").attr("style", "font-size:19px");
+                  $(".memberHeadermenu").attr("style", "color:black");
                 $(".memberHeadermenu").attr("style", "font-weight:bold");
               }//if
               //전달된 message가 있으면 alert
@@ -127,7 +128,7 @@
                           console.log('nickname : ' + listUser[i].nickname);
                           $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
                           $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
-                          $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='../resources/img/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
+                          $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
                               $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
                         } //for
                         } //success
@@ -181,7 +182,12 @@
 			    height: 150px;
 			    margin: 0 auto;
 			    font-size: 20px;
-			    font-family: 'ELAND 초이스';
+			    font-family: 'ELAND 초이스';    
+			    	    
+			}
+			
+			a {
+				color: black !important;
 			}
 			
             #header_nav_logo {
@@ -238,7 +244,7 @@
                       </li>
                       <li class="nav-item">
                         <a class="nav-link strangerHeadermenu" data-bs-toggle="modal" data-bs-target="#join" href="#" style='display: inline-block; font-size: 19px; font-weight: bold;'>Join</a>
-                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none'>Mypage</a>
+                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none;'>Mypage</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/board/list" style='font-size: 19px; font-weight: bold;'>Board</a>
