@@ -9,9 +9,9 @@
     <insert id="insertUser">
         
 		INSERT INTO
-	    	fm_user(email, password, nickname, salt, auth_code)
+	    	fm_user(email, password, nickname, salt, auth_code, profile_photo_path)
 		VALUES
-	    	(#{email}, #{password}, #{nickname}, #{salt}, #{authCode})
+	    	(#{email}, #{password}, #{nickname}, #{salt}, #{authCode}, 'default.png')
 
 	</insert>
 	
