@@ -9,9 +9,12 @@ import java.util.Objects;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.filmus.myapp.domain.FilmDetailVO;
 import com.filmus.myapp.domain.FilmPeopleVO;
+import com.filmus.myapp.domain.FilmReviewDTO;
+import com.filmus.myapp.domain.FilmReviewVO;
 import com.filmus.myapp.mapper.FilmMapper;
 
 import lombok.NoArgsConstructor;
@@ -35,17 +38,19 @@ public class FilmServiceImpl
 		Objects.requireNonNull(this.mapper);
 	}//afterPropertiesSet
 	
-	
+	@Transactional
 	@Override
 	public Map<String, Object> showFilmInfo(String filmId) {
 		log.debug("showFilmInfo({}) invoked", filmId);
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		
+		//영화 정보 가져오기
 		FilmDetailVO filmDetail = this.mapper.getFilmDetail(filmId);
 		log.info(filmDetail);
 		resultMap.put("filmDetail", filmDetail);
 		
+		//영화 감독, 출연진 정보 가져오기
 		List<FilmPeopleVO> filmPeople = this.mapper.getFilmPeople(filmId);
 		filmPeople.forEach(log::info);
 		
@@ -70,7 +75,19 @@ public class FilmServiceImpl
 		resultMap.put("director", director);
 		resultMap.put("cast", cast);
 		
+		//영화 리뷰 정보 가져오기
+		List<FilmReviewVO> reviews = this.mapper.getReviews(filmId);
+		resultMap.put("reviews", reviews);
+		
 		return resultMap;
 	}//showFilmInfo
+
+	@Override
+	public int registerReview(FilmReviewDTO dto) {
+		log.debug("registerReview({}) invoked.", dto);
+		
+		return this.mapper.insertReview(dto);
+		
+	}//registerReview
 	
 }//end class

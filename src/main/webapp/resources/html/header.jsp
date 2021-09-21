@@ -30,7 +30,7 @@
         <script src="https://www.google.com/recaptcha/api.js"></script>
 
         <!---------- External JS ---------->
-    	  <script src="/resources/js/header.js"></script>
+    	<script src="/resources/js/header.js"></script>
 
         <!---------- API-KEY ---------->
         <fmt:setBundle basename="KEY" var="API_KEY" />
@@ -40,12 +40,13 @@
             console.log("API Initialized :", Kakao.isInitialized());
 
             $(function() {
-              console.log('jq started.');
-              //로그인 여부에 따라 보여주는 header 변경
-              if("${__LOGIN__}".length > 0){	//로그인 돼있을 경우
+                console.log('jq started.');
+                //로그인 여부에 따라 보여주는 header 변경
+                if("${__LOGIN__}".length > 0){	//로그인 돼있을 경우
                   $(".strangerHeadermenu").attr("style", "display:none");
                   $(".memberHeadermenu").attr("style", "display:inline");
                   $(".memberHeadermenu").attr("style", "font-size:19px");
+
                   $(".memberHeadermenu").attr("style", "color:black");
                 $(".memberHeadermenu").attr("style", "font-weight:bold");
               }//if
@@ -83,33 +84,35 @@
                   case 'task_failed' :
                       alertModalMessaging("오류 발생! 다시 시도해주세요. 이 메세지가 반복될 시 관리자에게 문의해주세요. ");
                       break;
+
                   default :
-              }//switch-case
-              $('#header_search').on('propertychange change keyup paste input', function() {
-                var selected = $('#header_select').val();                
-                if(selected == 1){
-                    var filmTitle = $('#header_search').val();
-                    var filmTitleComplete = {filmTitle : filmTitle};
-                    $.ajax({
-                        url:'/search/searchFilmAutoComplete',
-                        type:'post',
-                        data: filmTitleComplete,
-                        success : function(listFilm) { 
-                            $('#autocomplete_result_list').css('display', 'inline-block');
-                            $('#autocomplete_result_list').css('z-index', 3);
-                            $('.searchTrTemp').remove();
-                        console.log('length :' + listFilm.length);
-                        for(var i = 0; i < listFilm.length; i++) {
-                          console.log('poster : ' + listFilm[i].poster);
-                          console.log('title : ' + listFilm[i].title);
-                          $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
-                          $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
-                          $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"'><img src='https://www.themoviedb.org/t/p/original"+listFilm[i].poster+"' style='width:150px; height:100px; float: left;'></a>");
-                              $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"' id='searchTitle' style='float: left;'>"+listFilm[i].title+"</a>");
-                        } //for
-                        } //success
-                    }); //ajax
-                } //if
+                }//switch-case
+
+                $('#header_search').on('propertychange change keyup paste input', function() {
+                    var selected = $('#header_select').val();                
+                    if(selected == 1){
+                        var filmTitle = $('#header_search').val();
+                        var filmTitleComplete = {filmTitle : filmTitle};
+                        $.ajax({
+                            url:'/search/searchFilmAutoComplete',
+                            type:'post',
+                            data: filmTitleComplete,
+                            success : function(listFilm) { 
+                                $('#autocomplete_result_list').css('display', 'inline-block');
+                                $('#autocomplete_result_list').css('z-index', 3);
+                                $('.searchTrTemp').remove();
+                            console.log('length :' + listFilm.length);
+                            for(var i = 0; i < listFilm.length; i++) {
+                            console.log('poster : ' + listFilm[i].poster);
+                            console.log('title : ' + listFilm[i].title);
+                            $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
+                            $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
+                            $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"'><img src='https://www.themoviedb.org/t/p/original"+listFilm[i].poster+"' style='width:150px; height:100px; float: left;'></a>");
+                                $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"' id='searchTitle' style='float: left;'>"+listFilm[i].title+"</a>");
+                            } //for
+                            } //success
+                        }); //ajax
+                    } //if
                 	
                 if(selected == 2){
                   var nickname = $('#header_search').val();
@@ -122,6 +125,7 @@
                             $('#autocomplete_result_list').css('display', 'inline-block');
                             $('#autocomplete_result_list').css('z-index', 3);
                             $('.searchTrTemp').remove();
+
                         console.log('length :' + listUser.length);
                         for(var i = 0; i < listUser.length; i++) {
                           console.log('photo : ' + listUser[i].photo);
@@ -131,13 +135,14 @@
                           $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
                               $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
                         } //for
+
                         } //success
                     }); //ajax
                 } //if
-              }); //propertychange change keyup paste input
+            }); //propertychange change keyup paste input
                 
             $('#searchBtn').on('click', function(e) {
-              e.preventDefault();
+                e.preventDefault();
 	            	
 					var searchForm = $('#searchSubmit');
 					var selected = $('#header_select').val();
@@ -151,7 +156,7 @@
 		    			searchForm.find('input[name=searchWord]').val();
 		    			searchForm.find('input[name=currPage]').val();
 		    			searchForm.find('input[name=amount]').val();
-		    			searchForm.find('input[name=pagesPerPage]').val();		    			    			
+		    			searchForm.find('input[name=pagesPerPage]').val();	    			    			
 		    			
 		    			searchForm.submit();
 					
@@ -165,12 +170,10 @@
 		    			searchForm.find('input[name=searchWord]').val();
 		    			searchForm.find('input[name=currPage]').val();
 		    			searchForm.find('input[name=amount]').val();
-		    			searchForm.find('input[name=pagesPerPage]').val();		    			    			
-		    			
+		    			searchForm.find('input[name=pagesPerPage]').val();		    			    		    			
 		    			searchForm.submit();
 						
 					} //if
-	            	
 	            	
 	            }); //click
             }); //.jq        
