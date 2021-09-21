@@ -11,4 +11,7 @@ public class FilmDetailVO {
 	private String plot;
 	private String posterPath;
 	private String backdropPath;
-}
+	private Double avgRate;
+	private Integer width;
+	
+}//end class
