@@ -217,8 +217,8 @@
 						
 					              </div>
 					              <div class="button">
-					                  <div class="back"><a href="#" style='background: url(../resources/img/back-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden">back</span></a></div>
-					                  <div class="next"><a href="#" style='background: url(../resources/img/next-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden">next</span></a></div>
+					                  <div class="back"><a href="#" style='background: url(../resources/img/back-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
+					                  <div class="next"><a href="#" style='background: url(../resources/img/next-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
 					              </div>
 					              
 					          </div>					          
@@ -272,23 +272,7 @@
             </div>	    	
 		</div>
 	
-	    <footer>
-	        <div id="footer">
-	            <a href="/main">
-	                <img id="logoimg" src="/resources/img/filmeeLogo.png" alt="LOGO">
-	            </a>
-	            <div id="pageinfo">
-	                <p>
-	                    서울특별시 강남구 <br> 
-	                    010-9876-5432<br>
-	                    abcedferasdavazsdfzsdf
-	                </p>
-	            </div>
-	            <div id="bugreport">
-	                <button>의견보내기</button>
-	            </div>
-	        </div>
-	    </footer>
+		<%@ include file="/resources/html/footer.jsp" %>
 	    
 	</body>
 </html>

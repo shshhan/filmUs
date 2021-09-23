@@ -87,7 +87,7 @@
 		            <div id='search_user' class='container-sm'>                        
 		
 			            <div>
-			                <a href='/mypage/main?userid=${userList.userid}'><img src='../resources/img/${userList.photo}' id='profile_photo'></a>
+			                <a href='/mypage/main?userid=${userList.userid}'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/${userList.photo}' id='profile_photo'></a>
 			            </div>                                            
 			
 			            <div class='searchUser_nickname'>
@@ -142,24 +142,7 @@
 		
 		</div>
 		
-		
-		<footer>
-	        <div id="footer">
-	            <a href="/main">
-	                <img id="logoimg" src="/resources/img/filmeeLogo.png" alt="LOGO">
-	            </a>
-	            <div id="pageinfo">
-	                <p>
-	                    서울특별시 강남구 <br> 
-	                    010-9876-5432<br>
-	                    abcedferasdavazsdfzsdf
-	                </p>
-	            </div>
-	            <div id="bugreport">
-	                <button>의견보내기</button>
-	            </div>
-	        </div>
-	    </footer>
+		<%@ include file="/resources/html/footer.jsp" %>
 				
 	</body>
 </html>
