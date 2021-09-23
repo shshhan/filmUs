@@ -231,184 +231,187 @@
     </script>
 
     <style>
-    
-    	* {
-    		text-decoration-line: none !important;
-    	}
-        #container {
-            width: 998px;
-            margin: 0 auto;
-            font-family:'Florencesans SC Exp', 'ELAND 초이스'; 
-            font-family: 'ELAND 초이스'; 
-        }
-        #mypage_info {
-            width: 100%;
-            height: 300px;            
-        }
-        #mypage_profile {
-            width: 50%;
-            height: 300px;           
-            padding-left: 10px;
-            padding-right: 10px;
-            
-            float: left;
-        }
-
-        
-        #userProfileRegBtn {
-        	margin-top: 15px;
-        }
-
-        #mypage_usable-statistics {
-            width: 50%;
-            height: 300px;          
-            
-            float: right;
-        }
-        #img-thumbnail {
-            width: 230px;
-            height: 160px;
-            float: left;
-        }
-        #form-control {
-            width: 230px;
-            height: 160px;
-            float: right;
-        }
-       #userRegBtn {
-       		margin-top: 15px;
-       }
-       
-       #followBtn {
-       		margin-top: 15px;
-       }
-       
-       #unfollowBtn {
-       		margin-top: 15px;
-       }
-       
-       #followListBtn {
-       		float: right;
-       		margin-top: 15px;
-       }       
-        #follower_count {
-            width: 45%;
-            height: 45%;
-            float: left;
-        }
-        #following_count {
-            width: 45%;
-            height: 45%;
-            float: right;
-        }
-        #watched_film_count {
-            width: 45%;
-            height: 45%;
-            float: left;
-        }
-        #my_review_count {
-            width: 45%;
-            height: 45%;
-            float: right;
-        }
-        
-        
-        #mypage_usable-statistics li {
-            text-align: center;
-            line-height: 40px;
-            font-size: 20px;
-        }
-        .inWrap {
-            padding-left: 10px;
-            padding-right: 10px;
-        }      
-        
-        #myFilmsBtn {
-        	margin-left: 900px;
-        }      
-        
-        #film_poster {
-            width: 200px;
-            
-        }
-        
-         .inner-star::before {
-            color: pink;
-        }
-        
-        .outer-star {
-            position: relative;
-            display: inline-block;
-            color: rgb(177, 175, 175);
-        }
-        
-        .inner-star {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 0%;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        
-        .outer-star::before, .inner-star::before {
-            content: '\f005 \f005 \f005 \f005 \f005';
-            font-family: 'Font Awesome 5 free';
-            font-weight: 900;
-        }
-        #mypage_review_content {             
-            overflow: hidden;
-        	text-overflow: ellipsis;
-        	white-space: normal;
-        	line-height: 1.2;
-        	text-align: left;
-        	word-wrap: break-word;
-        	display: -webkit-box;
-        	-webkit-line-clamp: 5 ;
-       		-webkit-box-orient: vertical;  			
-        }
-        
-        #mypage_button {
-        	position: relative
-        }
-        #reviewDelBtn {
-        	position: absolute;
-        	bottom: 10px;
-       		right: 20px;
-       }
-       
-       .activity_a {
-        	color: blue !important;
-        	font-weight: bold;
-        }
-        
-        #activity_review_content_a {
-        	display: inline-block;
-        	white-space: nowrap;
-        	overflow: hidden;
-        	text-overflow: ellipsis;
-        	width: 150px;
-        	        	
-        	color: blue;
-        	font-weight: bold;        	
-        }
-        
-        #myReviewsBtn {
-        	margin-left: 900px;
-        }
-        
-        #activityBtn {
-        	margin-left: 320px;
-        }
-        
-        #guestbookBtn {
-        	margin-left: 500px;
-        	margin-top: 20px;
-        }
-        
-        
-        
-    </style>
+		* {
+			text-decoration-line: none !important;
+		}
+		
+		#container {
+			width: 998px;
+			margin: 0 auto;
+			font-family: 'Florencesans SC Exp', 'ELAND 초이스';
+			font-family: 'ELAND 초이스';
+		}
+		
+		#mypage_info {
+			width: 100%;
+			height: 300px;
+		}
+		
+		#mypage_profile {
+			width: 50%;
+			height: 300px;
+			padding-left: 10px;
+			padding-right: 10px;
+			float: left;
+		}
+		
+		#userProfileRegBtn {
+			margin-top: 15px;
+		}
+		
+		#mypage_usable-statistics {
+			width: 50%;
+			height: 300px;
+			float: right;
+		}
+		
+		#img-thumbnail {
+			width: 230px;
+			height: 160px;
+			float: left;
+		}
+		
+		#form-control {
+			width: 230px;
+			height: 160px;
+			float: right;
+		}
+		
+		#userRegBtn {
+			margin-top: 15px;
+		}
+		
+		#followBtn {
+			margin-top: 15px;
+		}
+		
+		#unfollowBtn {
+			margin-top: 15px;
+		}
+		
+		#followListBtn {
+			float: right;
+			margin-top: 15px;
+		}
+		
+		#follower_count {
+			width: 45%;
+			height: 45%;
+			float: left;
+		}
+		
+		#following_count {
+			width: 45%;
+			height: 45%;
+			float: right;
+		}
+		
+		#watched_film_count {
+			width: 45%;
+			height: 45%;
+			float: left;
+		}
+		
+		#my_review_count {
+			width: 45%;
+			height: 45%;
+			float: right;
+		}
+		
+		#mypage_usable-statistics li {
+			text-align: center;
+			line-height: 40px;
+			font-size: 20px;
+		}
+		
+		.inWrap {
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+		
+		#myFilmsBtn {
+			margin-left: 900px;
+		}
+		
+		#film_poster {
+			width: 200px;
+		}
+		
+		.inner-star::before {
+			color: pink;
+		}
+		
+		.outer-star {
+			position: relative;
+			display: inline-block;
+			color: rgb(177, 175, 175);
+		}
+		
+		.inner-star {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 0%;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		
+		.outer-star::before, .inner-star::before {
+			content: '\f005 \f005 \f005 \f005 \f005';
+			font-family: 'Font Awesome 5 free';
+			font-weight: 900;
+		}
+		
+		#mypage_review_content {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: normal;
+			line-height: 1.2;
+			text-align: left;
+			word-wrap: break-word;
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+		}
+		
+		#mypage_button {
+			position: relative
+		}
+		
+		#reviewDelBtn {
+			position: absolute;
+			bottom: 10px;
+			right: 20px;
+		}
+		
+		.activity_a {
+			color: blue !important;
+			font-weight: bold;
+		}
+		
+		#activity_review_content_a {
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 150px;
+			color: blue;
+			font-weight: bold;
+		}
+		
+		#myReviewsBtn {
+			margin-left: 900px;
+		}
+		
+		#activityBtn {
+			margin-left: 320px;
+		}
+		
+		#guestbookBtn {
+			margin-left: 500px;
+			margin-top: 20px;
+		}
+	</style>
 	
 </head>
 

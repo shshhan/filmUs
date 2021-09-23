@@ -38,10 +38,9 @@
             var modalModBtn=$("#modalModBtn");
             var modalRemoveBtn=$("#modalRemoveBtn");
             var modalRegisterBtn=$("#modalRegisterBtn");
-            console.log("nick:",nickname)
-            console.log("userid:",userid);
-            console.log("writer:",boardwriter);
-            if("${__LOGIN__.userId}"==boardwriter){
+
+            //로그인 여부에 따른 버튼 유무
+            if(userid==boardwriter){
                 $("#delete").show();
                 $("#modifyBtn").show();
             } else{
@@ -62,6 +61,7 @@
                 $("#admindeleteBtn").hide();
             }
 
+            //좋아요 여부 체크/좋/좋취
             var likecheck="${heart.likecheck}"
             console.log(">>>> LIKECHECK >>>> ",likecheck); 
             if(likecheck==1){
@@ -90,15 +90,12 @@
                     location.href="/board/get?bno=${board.bno}&currPage=${cri.currPage}&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}"
                 })
             }
+            
+            //댓글 리스트 불러오기
             showList(1);
             function showList(page){
-                console.log("showList ! : nick:",nickname)
+                console.log("Get Reply List >>")
                 replyService.getList({bno:bnoValue,page:page||1},function(list){
-                    if(page== -1){
-                        pageNum=Math.ceil(replyCnt/10.0);
-                        showList(pageNum);
-                        return;
-                    }
                     var str="";
                     if(list==null||list.length==0){
                         str+="<div id='nocomment'>아직 댓글이 없습니다.</div>"
@@ -122,6 +119,7 @@
                 })//end function
             }//showList
             
+            //댓글작성
             $("#addReplyBtn").on("click",function(e){
                 console.log("addReplyBtn")
                 modal.find("input").val("");
@@ -131,6 +129,7 @@
                 replyComment.readOnly=false;
                 $("#createComment").modal("show");
             })//onclick addReplyBtn
+            
             modalRegisterBtn.on("click",function(e){
                 var reply={
                     content:modalInputReply.val(),
@@ -144,7 +143,10 @@
                     showList(1);
                 })
             })//modalRegisterBtn
+            
             // $("#replycontent").css('cursor','pointer')
+            
+            //댓글 상세확인
             $(".chat").on("click","li",function(e){
                 console.log(" >> chat clicked.");
                 bcno=$(this).data("bcno");
@@ -169,6 +171,7 @@
                     $("#createComment").modal("show");
                 })
             })
+            //댓글수정
             modalModBtn.on("click",function(e){
                 console.log("modalModBtn Clicked");
             	var reply2={
@@ -182,6 +185,7 @@
 					showList(1);
 				})
             })
+            //댓글삭제
 			modalRemoveBtn.on("click",function(e){
                 console.log("removeBtn clicked >> bcno:" +bcno);
 				replyService.remove(bcno, function(result){
@@ -190,11 +194,12 @@
 					showList(1);
 				})
 			})
+			//신고버튼
             $("#reportBtn").on("click",function(e){
                 console.log("reportBtn clicked>>")
                 $("#reportmodal").modal("show");
             })
-
+			//신고처리
             $("#modalReportBtn").on("click",function(e){
             	 var modalReportCode=modal.find("#reportcode").val();
                  console.log(modalReportCode);
@@ -219,8 +224,10 @@
                 })
             })
     	})//jq
+    	
+    	
         $(function(){
-            console.debug('>>> jq started.');
+            console.debug("========= BOARD GET JS =======")
             $("#listBtn").on('click',function(){
                 console.log(" >>> listBtn button clicked");
                 location.href="/board/list?currPage=${cri.currPage}&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}"
@@ -230,13 +237,19 @@
                 location.href="/board/modify?bno=${board.bno}&currPage=${cri.currPage}&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}"
             })//onclick
 
+            //게시글 삭제
             $("#delete, #admindeleteBtn").on('click',function(){
-
                 console.log("delete clicked.");
+
                 if(confirm("게시글을 삭제하시겠습니까?")){
                     let formobj=$('form');
                     formobj.attr('action','/board/remove');
                     formobj.attr('method','post');
+                    var inp = $("input")
+                    inp.attr("type", "hidden");
+                    inp.attr("name", "bno");
+                    inp.attr("value", "${board.bno}");
+                    formobj.attr('inp');
                     formobj.submit();
                 } else{
                 	return false;
@@ -244,7 +257,7 @@
             })//delete
             
             
-        })//js
+        })//jq
     </script>
 
     <style>
@@ -468,7 +481,7 @@
             </div>
             <div>
             	<c:if test="${file.fname!=null}">
-	            	<p>&nbsp</p>
+	            	<p>&nbsp;</p>
 	            	<p>첨부파일</p>
 		            <p><a class="btn btn-primary" href="/board/downloadFile/${board.bno}">${file.fname}</a></p>
 	            </c:if>

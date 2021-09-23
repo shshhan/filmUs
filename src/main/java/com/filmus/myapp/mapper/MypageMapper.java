@@ -59,11 +59,11 @@ public interface MypageMapper {
 	
 	public abstract List<FilmReactionVO> getFilmReactionList(CriteriaFilm criFilm);
 	
-	public abstract int deleteFilmReaction(Integer userid, Integer filmid, Integer code);
+	public abstract int deleteFilmReaction(@Param("userid")Integer userid, @Param("filmid")Integer filmid, @Param("code")Integer code);
 	
 	public abstract List<FollowerVO> getFollowerList(CriteriaFollow criF);
 	
-	public abstract int cancelFollower(Integer follower, Integer followee);
+	public abstract int cancelFollower(@Param("follower")Integer follower, @Param("followee")Integer followee);
 	
 	public abstract List<FolloweeVO> getFolloweeList(CriteriaFollow criF);
 	
@@ -77,7 +77,7 @@ public interface MypageMapper {
 	
 	public abstract List<LikedReviewVO> getLikedReviewList(CriteriaReview criR);
 	
-	public abstract int cancelLikedReview(Integer rno, Integer userid);
+	public abstract int cancelLikedReview(@Param("rno")Integer rno, @Param("userid")Integer userid);
 	
 	public abstract List<ActivityVO> getActivityList(CriteriaActivity criA);
 	
