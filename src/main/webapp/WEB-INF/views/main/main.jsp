@@ -12,7 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<title>FILMEE | FILM MEETING</title>
+	<title>FILMUS</title>
 	<link rel="icon" href="/resources/img/favicon_noback.ico"
 		type="image/x-icon">
 	
@@ -83,7 +83,7 @@
 				
 				console.log('#filmPoster'+vs);
 				console.log('#posterHover'+vs);
-			
+
 			  $('#filmPoster'+vs).hover(function(){
 				 	console.log('#filmPoster'+vs);
 					console.log('#posterHover'+vs);

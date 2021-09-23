@@ -9,7 +9,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device=width, initial-scale=1.0">
-    <title>FILMEE | FILM MEETING</title>
+    <title>FILMUS</title>
     <link rel="icon" href="../../resources/img/favicon_noback.ico" type="image/x-icon">
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
