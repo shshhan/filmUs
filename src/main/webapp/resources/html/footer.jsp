@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-3" id="footer_logoimg">
                     <a href="/">
-                    <img id="logoimg" src="/resources/img/filmeeLogo.png" alt="LOGO">
+                    <img id="logoimg" src="/resources/img/filmusLogoFooterNoBack.png" alt="LOGO">
                     </a>
                 </div>
 

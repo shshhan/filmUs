@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 
 <html lang="ko">
-   <head>
-       <meta charset="UTF-8">
-       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FILMEE | FILM MEETING</title>
+	<head>
+    	<meta charset="UTF-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>FILMUS</title>
         <link rel="icon" href="/resources/img/favicon_noback.ico" type="image/x-icon">
 
         <!---------- BootStrap ---------->
@@ -231,7 +231,7 @@
             <div id='header'>
            <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="/"><img id='header_nav_logo'  src='/resources/img/filmeeLogo.png'></a>
+                  <a class="navbar-brand" href="/"><img id='header_nav_logo'  src='/resources/img/filmusLogo.gif'></a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
