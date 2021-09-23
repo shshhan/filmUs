@@ -172,7 +172,7 @@
                   <div id='mypage_follows' class='container-sm'>                        
       
                      <div>
-                         <a href='/mypage/main?userid=${followers.follower}'><img src='../resources/img/${followers.photo}' id='profile_photo'></a>
+                         <a href='/mypage/main?userid=${followers.follower}'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/${followers.photo}' id='profile_photo'></a>
                      </div>                                            
          
                      <div class='mypage_follow_nickname'>

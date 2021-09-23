@@ -91,7 +91,7 @@
         }
         
         .inner-star::before {
-            color: yellow;
+            color: pink;
         }
         
         .outer-star {
@@ -235,7 +235,7 @@
                                </div>
                            </div>                        
                            
-                           <h6>${myReviews.rate} / 5</h6>
+                           <h6>${myReviews.rate} / 5.0</h6>
                            
                            <hr>                          
    

@@ -51,43 +51,45 @@
                   
                 }//if
 
-                //전달된 message가 있으면 alert
-                switch("${message}"){
-                    //회원가입 성공시
-                    case 'just_joinned' :
-                        alertModalMessaging("회원가입완료! 이메일 인증 완료 후 로그인 가능합니다.");
-                        break;
-                    //소셜로그인을 통해 회원가입시
-                    case 'social_join' :
-                        alertModalMessaging("회원가입완료! 카카오 계정으로 로그인 가능합니다.");
-                        break;
-                    //회원가입 후 이메일 인증까지 마쳤을 시
-                    case 'join_complete' :
-                        alertModalMessaging("이메일 인증이 완료되었습니다. 로그인 가능합니다.");
-                        break;
-                    //임시비밀번호 발송시
-                    case 'temp_pw_sent' :
-                        alertModalMessaging("임시비밀번호를 발송했습니다.");
-                        break;
-                    //비밀번호 찾기에서 미가입 이메일 입력시
-                    case 'no_info_forgot_pw' :
-                        alertModalMessaging("등록되지 않은 이메일 주소입니다.");
-                        break;
-                    //비밀번호 변경시
-                    case 'pw_changed' :
-                        alertModalMessaging("비밀번호가 변경되었습니다.");
-                        break;
-                    //회원 탈퇴시
-                    case 'account_deleted' :
-                        alertModalMessaging("회원탈퇴가 정상적으로 처리되었습니다.");
-                        break;
-                    //오류, 정보 불일치 등으로 실패시
-                    case 'task_failed' :
-                        alertModalMessaging("오류 발생! 다시 시도해주세요. 이 메세지가 반복될 시 관리자에게 문의해주세요. ");
-                        break;
-                    case 'review_completed' :
-                        alertModalMessaging("리뷰가 등록되었습니다.");
-                        break;
+
+                  $(".memberHeadermenu").attr("style", "color:black");
+                $(".memberHeadermenu").attr("style", "font-weight:bold");
+              }//if
+              //전달된 message가 있으면 alert
+              switch("${message}"){
+                  //회원가입 성공시
+                  case 'just_joinned' :
+                      alertModalMessaging("회원가입완료! 이메일 인증 완료 후 로그인 가능합니다.");
+                      break;
+                  //소셜로그인을 통해 회원가입시
+                  case 'social_join' :
+                      alertModalMessaging("회원가입완료! 카카오 계정으로 로그인 가능합니다.");
+                      break;
+                  //회원가입 후 이메일 인증까지 마쳤을 시
+                  case 'join_complete' :
+                      alertModalMessaging("이메일 인증이 완료되었습니다. 로그인 가능합니다.");
+                      break;
+                  //임시비밀번호 발송시
+                  case 'temp_pw_sent' :
+                      alertModalMessaging("임시비밀번호를 발송했습니다.");
+                      break;
+                  //비밀번호 찾기에서 미가입 이메일 입력시
+                  case 'no_info_forgot_pw' :
+                      alertModalMessaging("등록되지 않은 이메일 주소입니다.");
+                      break;
+                  //비밀번호 변경시
+                  case 'pw_changed' :
+                      alertModalMessaging("비밀번호가 변경되었습니다.");
+                      break;
+                  //회원 탈퇴시
+                   case 'account_deleted' :
+                      alertModalMessaging("회원탈퇴가 정상적으로 처리되었습니다.");
+                      break;
+                  //오류, 정보 불일치 등으로 실패시
+                  case 'task_failed' :
+                      alertModalMessaging("오류 발생! 다시 시도해주세요. 이 메세지가 반복될 시 관리자에게 문의해주세요. ");
+                      break;
+
                   default :
                 }//switch-case
 
@@ -128,15 +130,17 @@
                             $('#autocomplete_result_list').css('display', 'inline-block');
                             $('#autocomplete_result_list').css('z-index', 3);
                             $('.searchTrTemp').remove();
-                            console.log('length :' + listUser.length);
-                            for(var i = 0; i < listUser.length; i++) {
-                            console.log('photo : ' + listUser[i].photo);
-                            console.log('nickname : ' + listUser[i].nickname);
-                            $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
-                            $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
-                            $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='../resources/img/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
-                                $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
-                            } //for
+
+                        console.log('length :' + listUser.length);
+                        for(var i = 0; i < listUser.length; i++) {
+                          console.log('photo : ' + listUser[i].photo);
+                          console.log('nickname : ' + listUser[i].nickname);
+                          $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
+                          $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
+                          $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
+                              $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
+                        } //for
+
                         } //success
                     }); //ajax
                 } //if
@@ -186,7 +190,13 @@
 			    height: 150px;
 			    margin: 0 auto;
 			    font-size: 20px;
-			    font-family: 'ELAND 초이스';
+			    font-family: 'ELAND 초이스'; 
+			   
+			    	    
+			}
+			
+			a {
+				color: black !important;
 			}
 			
             #header_nav_logo {
@@ -243,7 +253,7 @@
                       </li>
                       <li class="nav-item">
                         <a class="nav-link strangerHeadermenu" data-bs-toggle="modal" data-bs-target="#join" href="#" style='display: inline-block; font-size: 19px; font-weight: bold;'>Join</a>
-                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none'>Mypage</a>
+                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none;'>Mypage</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/board/list" style='font-size: 19px; font-weight: bold;'>Board</a>
