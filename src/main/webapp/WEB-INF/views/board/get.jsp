@@ -309,11 +309,15 @@
             padding: 20px;
             background-color: #ffffff00; 
             border-radius: 30px;
+            white-space: pre-wrap;           
+
         }
         #replycontent{
             width: 90%;
             margin-left: 32px;
             margin-top: 10px;
+            white-space: pre-wrap;           
+         	word-wrap: break-word;
         }
         button {
             margin-left: 20px;
@@ -414,7 +418,7 @@
                 <form action="/mypage/main">
                     <ul id="userinfo">
                         <li>
-                            <a href="/mypage/main?userid=${board.writer}"><img class="rounded-circle" src="/resources/img/common.jpg" alt="내사진" width="100px" height="100px"></a>
+                            <a href="/mypage/main?userid=${board.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/" alt="내사진" width="100px" height="100px"></a>
                         </li>
                         <li><a href="/mypage/main?userid=${board.writer}">${board.nickname}</a></li>
                     </ul>
@@ -467,11 +471,7 @@
 
             </div>
             <hr>
-            <div id="content">
-            	<p>
-	               &nbsp;${board.content}
-            	</p>
-            </div>
+            <div id="content">${board.content}</div>
             <hr>
             <div id="threeBtn">
                 <button type="button" id="admindeleteBtn" class="btn btn-danger">관리자 권한 삭제</button>
