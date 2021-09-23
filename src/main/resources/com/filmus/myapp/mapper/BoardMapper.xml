@@ -62,7 +62,7 @@
 
     <insert id="insertSelectKey">
       <selectKey keyProperty="bno" order="BEFORE" resultType="int">
-        SELECT ISEQ$$_101436.nextval FROM dual
+        SELECT ISEQ$$_113817.nextval FROM dual
       </selectKey>
       <![CDATA[ 
         INSERT INTO fm_board(writer, category, title, content)
