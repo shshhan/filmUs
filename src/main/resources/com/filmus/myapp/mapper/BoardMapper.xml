@@ -78,13 +78,13 @@
       ]]>
     </update>
 
-    <delete id="delete">
+    <update id="delete">
       <![CDATA[ 
         UPDATE fm_board
         SET delete_ts=current_date
         WHERE bno=#{bno}
       ]]>
-    </delete>
+    </update>
 
     <select id="getTotalCount" resultType="int">
 

@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 
 <html lang="ko">
-	<head>
-    	<meta charset="UTF-8">
-    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>FILMEE | FILM MEETING</title>
         <link rel="icon" href="/resources/img/favicon_noback.ico" type="image/x-icon">
 
@@ -30,7 +30,7 @@
         <script src="https://www.google.com/recaptcha/api.js"></script>
 
         <!---------- External JS ---------->
-    	<script src="/resources/js/header.js"></script>
+       <script src="/resources/js/header.js"></script>
 
         <!---------- API-KEY ---------->
         <fmt:setBundle basename="KEY" var="API_KEY" />
@@ -42,7 +42,7 @@
             $(function() {
                 console.log('jq started.');
                 //로그인 여부에 따라 보여주는 header 변경
-                if("${__LOGIN__}".length > 0){	//로그인 돼있을 경우
+                if("${__LOGIN__}".length > 0){   //로그인 돼있을 경우
                   $(".strangerHeadermenu").attr("style", "display:none");
                   $(".memberHeadermenu").attr("style", "display:inline");
                   $(".memberHeadermenu").attr("style", "font-size:19px");
@@ -51,45 +51,43 @@
                   
                 }//if
 
-
-                  $(".memberHeadermenu").attr("style", "color:black");
-                $(".memberHeadermenu").attr("style", "font-weight:bold");
-              }//if
-              //전달된 message가 있으면 alert
-              switch("${message}"){
-                  //회원가입 성공시
-                  case 'just_joinned' :
-                      alertModalMessaging("회원가입완료! 이메일 인증 완료 후 로그인 가능합니다.");
-                      break;
-                  //소셜로그인을 통해 회원가입시
-                  case 'social_join' :
-                      alertModalMessaging("회원가입완료! 카카오 계정으로 로그인 가능합니다.");
-                      break;
-                  //회원가입 후 이메일 인증까지 마쳤을 시
-                  case 'join_complete' :
-                      alertModalMessaging("이메일 인증이 완료되었습니다. 로그인 가능합니다.");
-                      break;
-                  //임시비밀번호 발송시
-                  case 'temp_pw_sent' :
-                      alertModalMessaging("임시비밀번호를 발송했습니다.");
-                      break;
-                  //비밀번호 찾기에서 미가입 이메일 입력시
-                  case 'no_info_forgot_pw' :
-                      alertModalMessaging("등록되지 않은 이메일 주소입니다.");
-                      break;
-                  //비밀번호 변경시
-                  case 'pw_changed' :
-                      alertModalMessaging("비밀번호가 변경되었습니다.");
-                      break;
-                  //회원 탈퇴시
-                   case 'account_deleted' :
-                      alertModalMessaging("회원탈퇴가 정상적으로 처리되었습니다.");
-                      break;
-                  //오류, 정보 불일치 등으로 실패시
-                  case 'task_failed' :
-                      alertModalMessaging("오류 발생! 다시 시도해주세요. 이 메세지가 반복될 시 관리자에게 문의해주세요. ");
-                      break;
-
+                //전달된 message가 있으면 alert
+                switch("${message}"){
+                    //회원가입 성공시
+                    case 'just_joinned' :
+                        alertModalMessaging("회원가입완료! 이메일 인증 완료 후 로그인 가능합니다.");
+                        break;
+                    //소셜로그인을 통해 회원가입시
+                    case 'social_join' :
+                        alertModalMessaging("회원가입완료! 카카오 계정으로 로그인 가능합니다.");
+                        break;
+                    //회원가입 후 이메일 인증까지 마쳤을 시
+                    case 'join_complete' :
+                        alertModalMessaging("이메일 인증이 완료되었습니다. 로그인 가능합니다.");
+                        break;
+                    //임시비밀번호 발송시
+                    case 'temp_pw_sent' :
+                        alertModalMessaging("임시비밀번호를 발송했습니다.");
+                        break;
+                    //비밀번호 찾기에서 미가입 이메일 입력시
+                    case 'no_info_forgot_pw' :
+                        alertModalMessaging("등록되지 않은 이메일 주소입니다.");
+                        break;
+                    //비밀번호 변경시
+                    case 'pw_changed' :
+                        alertModalMessaging("비밀번호가 변경되었습니다.");
+                        break;
+                    //회원 탈퇴시
+                    case 'account_deleted' :
+                        alertModalMessaging("회원탈퇴가 정상적으로 처리되었습니다.");
+                        break;
+                    //오류, 정보 불일치 등으로 실패시
+                    case 'task_failed' :
+                        alertModalMessaging("오류 발생! 다시 시도해주세요. 이 메세지가 반복될 시 관리자에게 문의해주세요. ");
+                        break;
+                    case 'review_completed' :
+                        alertModalMessaging("리뷰가 등록되었습니다.");
+                        break;
                   default :
                 }//switch-case
 
@@ -111,14 +109,14 @@
                             console.log('poster : ' + listFilm[i].poster);
                             console.log('title : ' + listFilm[i].title);
                             $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
-                            $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
+                            $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                             
                             $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"'><img src='https://www.themoviedb.org/t/p/original"+listFilm[i].poster+"' style='width:150px; height:100px; float: left;'></a>");
                                 $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"' id='searchTitle' style='float: left;'>"+listFilm[i].title+"</a>");
                             } //for
                             } //success
                         }); //ajax
                     } //if
-                	
+                   
                 if(selected == 2){
                   var nickname = $('#header_search').val();
                     var nicknameComplete = {nickname : nickname};
@@ -130,17 +128,15 @@
                             $('#autocomplete_result_list').css('display', 'inline-block');
                             $('#autocomplete_result_list').css('z-index', 3);
                             $('.searchTrTemp').remove();
-
-                        console.log('length :' + listUser.length);
-                        for(var i = 0; i < listUser.length; i++) {
-                          console.log('photo : ' + listUser[i].photo);
-                          console.log('nickname : ' + listUser[i].nickname);
-                          $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
-                          $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                    			
-                          $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
-                              $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
-                        } //for
-
+                            console.log('length :' + listUser.length);
+                            for(var i = 0; i < listUser.length; i++) {
+                            console.log('photo : ' + listUser[i].photo);
+                            console.log('nickname : ' + listUser[i].nickname);
+                            $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
+                            $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                             
+                            $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='../resources/img/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
+                                $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
+                            } //for
                         } //success
                     }); //ajax
                 } //if
@@ -148,60 +144,55 @@
                 
             $('#searchBtn').on('click', function(e) {
                 e.preventDefault();
-	            	
-					var searchForm = $('#searchSubmit');
-					var selected = $('#header_select').val();
-					var text = $('#header_search').val();
-					
-					if(selected == 1){
-						
-		    			searchForm.attr('action', '/search/f');
-		    			searchForm.attr('method', 'GET');
-		    			
-		    			searchForm.find('input[name=searchWord]').val();
-		    			searchForm.find('input[name=currPage]').val();
-		    			searchForm.find('input[name=amount]').val();
-		    			searchForm.find('input[name=pagesPerPage]').val();	    			    			
-		    			
-		    			searchForm.submit();
-					
-					} //if
-	    			
-					if(selected == 2){
-						
-						searchForm.attr('action', '/search/u');
-		    			searchForm.attr('method', 'GET');
-		    			
-		    			searchForm.find('input[name=searchWord]').val();
-		    			searchForm.find('input[name=currPage]').val();
-		    			searchForm.find('input[name=amount]').val();
-		    			searchForm.find('input[name=pagesPerPage]').val();		    			    		    			
-		    			searchForm.submit();
-						
-					} //if
-	            	
-	            }); //click
+                  
+               var searchForm = $('#searchSubmit');
+               var selected = $('#header_select').val();
+               var text = $('#header_search').val();
+               
+               if(selected == 1){
+                  
+                   searchForm.attr('action', '/search/f');
+                   searchForm.attr('method', 'GET');
+                   
+                   searchForm.find('input[name=searchWord]').val();
+                   searchForm.find('input[name=currPage]').val();
+                   searchForm.find('input[name=amount]').val();
+                   searchForm.find('input[name=pagesPerPage]').val();                             
+                   
+                   searchForm.submit();
+               
+               } //if
+                
+               if(selected == 2){
+                  
+                  searchForm.attr('action', '/search/u');
+                   searchForm.attr('method', 'GET');
+                   
+                   searchForm.find('input[name=searchWord]').val();
+                   searchForm.find('input[name=currPage]').val();
+                   searchForm.find('input[name=amount]').val();
+                   searchForm.find('input[name=pagesPerPage]').val();                                          
+                   searchForm.submit();
+                  
+               } //if
+                  
+               }); //click
             }); //.jq        
         </script>
-    	
-    	<style>    		
-			#header {
-			    width: 998px;
-			    height: 150px;
-			    margin: 0 auto;
-			    font-size: 20px;
-			    font-family: 'ELAND 초이스'; 
-			   
-			}
-			
-			a {
-				color: black !important;
-			}
-			
+       
+       <style>          
+         #header {
+             width: 998px;
+             height: 150px;
+             margin: 0 auto;
+             font-size: 20px;
+             font-family: 'ELAND 초이스';
+         }
+         
             #header_nav_logo {
-			    width: 200px;
-			    margin: 0;
-			}
+             width: 200px;
+             margin: 0;
+         }
             #autocomplete_result_list {
                 position: absolute;
                 top: 90px;
@@ -212,17 +203,17 @@
             }
             
             #header_select {
-            	width: 100px;
-            	height: 38px;
+               width: 100px;
+               height: 38px;
             }
             
             #header_search {
-            	width: 300px;
-            	height: 38px;
+               width: 300px;
+               height: 38px;
             }
             
             #forgot_pw_a_wrapper{
-            	font-size: 13px;
+               font-size: 13px;
                 margin: 5px 0 0 160px;
             }
             
@@ -232,13 +223,13 @@
             .wrong_info{
                 background-color: #f0adce96;
             }
-    	</style>
-	</head>
-	<body>
-	
-		<header>
+       </style>
+   </head>
+   <body>
+   
+      <header>
             <div id='header'>
-	        <nav class="navbar navbar-expand-lg">
+           <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                   <a class="navbar-brand" href="/"><img id='header_nav_logo'  src='/resources/img/filmeeLogo.png'></a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -252,7 +243,7 @@
                       </li>
                       <li class="nav-item">
                         <a class="nav-link strangerHeadermenu" data-bs-toggle="modal" data-bs-target="#join" href="#" style='display: inline-block; font-size: 19px; font-weight: bold;'>Join</a>
-                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none;'>Mypage</a>
+                        <a class="nav-link memberHeadermenu" href="/mypage/main?userid=${__LOGIN__.userId}" style='display: none'>Mypage</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/board/list" style='font-size: 19px; font-weight: bold;'>Board</a>
@@ -267,18 +258,18 @@
                             <option value="1" selected>Film</option>
                             <option value="2">User</option>                            
                         </select>  
-                      	<input id='header_search' class="form-control me-2" type="search" name='searchWord' placeholder="Search" aria-label="Search" style='width: 300px'>
-                      	<table id='autocomplete_result_list' class='table table-hover' style='display: none; background-color: white;'>
+                         <input id='header_search' class="form-control me-2" type="search" name='searchWord' placeholder="Search" aria-label="Search" style='width: 300px'>
+                         <table id='autocomplete_result_list' class='table table-hover' style='display: none; background-color: white;'>
                           <tr id='searchTr'><th style='display: none;'></th></tr>
                                                                          
-                      	</table>
-                      	<button id='searchBtn' class="btn btn-secondary" type="submit" style='width: 80px; font-size: 13px;'>Search</button>
+                         </table>
+                         <button id='searchBtn' class="btn btn-secondary" type="submit" style='width: 80px; font-size: 13px;'>Search</button>
                     </form>
                   </div>
                 </div>
               </nav>
             </div>
-    	</header>
+       </header>
 
         <!-- alert Modal -->
         <div class="modal fade" id="alert_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -406,6 +397,6 @@
             </div>
             </div>
         </div>         
-	</body>
+   </body>
 
 </html>
