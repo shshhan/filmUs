@@ -119,6 +119,7 @@
 		#review_content{
 			overflow: hidden;
         	text-overflow: ellipsis;
+        	white-space: pre-wrap;        	
 			word-wrap: break-word;
         	display: -webkit-box;
         	-webkit-line-clamp: 5 ;
