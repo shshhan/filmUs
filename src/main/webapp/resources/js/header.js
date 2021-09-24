@@ -186,51 +186,18 @@ $(function() {
 	//modal 새로 열 때 input 초기화
 	$(".input_modal").on('show.bs.modal',function(){
 		$(this).find('form')[0].reset();
+		$(".input_message").text("");
+
+		isEmailChecked=false;
+		isPwValid=false;
+		isNickChecked=false;
+		isEmailExist=false;
+
+		// console.log("isEmailChecked : ", isEmailChecked);
+		// console.log("isPwValid : ", isPwValid);
+		// console.log("isNickChecked : ", isNickChecked);
+		// console.log("isEmailExist : ", isEmailExist);
 	});//modal hidden.bs.modal            
-
-	//social_join_modal, join 닫을 때 새로고침
-	$("#social_join, #join").on('hidden.bs.modal', function(){           
-		location.reload();  
-		// 카카오 간편로그인을 통한 회원가입, 일반회원가입, 비밀번호 찾기 모두 시도 중에 창을 꺼버리면 checkEmail()과 isEmailChecked, isPwValid 변수의 상태가 변경되어 있기 때문에, 새로고침을 통해 위 세 항목을 초기화 시키지 않으면 새롭게 join modal을 열었을 때 않은 결과가 발생한다.
-	});//social join on hidden
-
-	//forgot_pw modal에서 submit 누를 시
-	$(".fg_pw_send_btn").on('click', function(e){
-		e.preventDefault();		//submit 취소
-
-		let email = $('#forgot_pw_email').val(); //email : 지역변수
-		console.log("email forgotPw: ", email);
-
-		let alertModalEl = document.getElementById('alert_modal');
-		alertModalEl.addEventListener('hidden.bs.modal',function(){
-			$("#forgot_pw").modal("show");
-		});
-
-		if(email.length == 0){
-			$("#forgot_pw").modal('hide');
-			alertModalMessaging("이메일 주소를 입력하세요.");
-
-		} else if(!isEmail(email)){
-			$("#forgot_pw").modal('hide');
-			alertModalMessaging("옳바른 이메일 형식이 아닙니다.");
-
-		} else {
-			checkEmail(email);
-
-			if(!isEmailExist){
-				console.log("isEmailExist:",isEmailExist);
-
-				$("#forgot_pw").modal('hide');
-				alertModalMessaging("등록된 이메일 주소가 아닙니다.");
-
-			}else{
-				// $("#new_pw_form").submit();
-	
-			}//if-else
-
-		}//if-elseIf-else
-
-	});//onclick .fg_pw_send_btn
 
 	//login modal에서 sign in 버튼 누를 시
 	$(".login_submit_btn").on('click', function(){

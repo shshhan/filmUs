@@ -418,7 +418,7 @@ public class MypageController {
 			case 1: 
 				log.info(">>>>> result : 1 >>>>>>");				
 				rttrs.addFlashAttribute("message", "temp_pw_sent");
-				return "redirect:/main";	//비밀번호 찾기로 Redirect 후 메세지 띄움
+				return "redirect:/";	//비밀번호 찾기로 Redirect 후 메세지 띄움
 
 			case 2:
 				log.info(">>>>> result : 2 >>>>>>");
