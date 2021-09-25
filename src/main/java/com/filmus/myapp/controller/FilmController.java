@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.filmus.myapp.domain.AdminUserPageDTO;
 import com.filmus.myapp.domain.Criteria;
+import com.filmus.myapp.domain.FilmInfoReactionVO;
 import com.filmus.myapp.domain.FilmReviewDTO;
 import com.filmus.myapp.domain.FilmReviewVO;
-import com.filmus.myapp.domain.UserVO;
 import com.filmus.myapp.service.FilmService;
 
 import lombok.NoArgsConstructor;
@@ -78,4 +79,47 @@ public class FilmController {
 		
 	}//regReview
 
+	@ResponseBody
+	@GetMapping("getFilmReaction")
+	public Map<String, Object> getFilmReaction(String userId, String filmId){
+		log.debug("getFilmeaction({}, {}) invokedd", userId, filmId);
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		FilmInfoReactionVO filmReaction = this.service.getFilmReactionOfThis(filmId);
+		result.put("favoriteCnt", filmReaction.getFavorite());
+		result.put("watchedCnt", filmReaction.getWatched());
+		result.put("wishToWatchCnt", filmReaction.getWishToWatch());
+		
+		if(userId != null) {
+			List<Integer> userReaction = this.service.getFilmReactionOfUser(userId, filmId);			
+			result.put("userReaction", userReaction);
+		}//if
+				
+		return result; 
+	}//getFilmReaction
+	
+	@ResponseBody
+	@PostMapping("addReaction")
+	public Integer addReaction(String userId, String filmId, Integer code) {
+		log.debug("addReaction({}, {}, {}) invoked.", userId, filmId, code);
+		
+		int aLine = this.service.addFilmReactionOfUser(userId, filmId, code);
+		log.info("result : ", aLine);
+		
+		return aLine;			
+	}//addReaction
+	
+	@ResponseBody
+	@PostMapping("removeReaction")
+	public Integer removeReaction(String userId, String filmId, Integer code) {
+		log.debug("removeReaction({}, {}, {}) invoked.", userId, filmId, code);
+		
+		int aLine = this.service.removeFilmReactionOfUser(userId, filmId, code);
+		log.info("result : ", aLine);
+		
+		return aLine;			
+	}//addReaction
+	
+	
 } // end class

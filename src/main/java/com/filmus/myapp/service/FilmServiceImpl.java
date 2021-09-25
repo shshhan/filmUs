@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.filmus.myapp.domain.FilmDetailVO;
+import com.filmus.myapp.domain.FilmInfoReactionVO;
 import com.filmus.myapp.domain.FilmPeopleVO;
 import com.filmus.myapp.domain.FilmReviewDTO;
 import com.filmus.myapp.domain.FilmReviewVO;
@@ -99,6 +100,32 @@ public class FilmServiceImpl
 		return this.mapper.insertReview(dto);							
 	}//registerReview
 
+	@Override
+	public List<Integer> getFilmReactionOfUser(String userId, String filmId) {
+		log.debug("getFilmReactionOfUser({}, {}) invoked.", userId, filmId);
+		
+		return this.mapper.getFilmReactionOfUser(userId, filmId);
+	}//getFilmReactionOfUser
 
+	@Override
+	public FilmInfoReactionVO getFilmReactionOfThis(String filmId) {
+		log.debug("getFilmReactionOfThis ({}) invoked.", filmId);
+		
+		return this.mapper.getFilmReactionOfThis(filmId);
+	}//getFilmReactionOfThis
+
+	@Override
+	public int addFilmReactionOfUser(String userId, String filmId, Integer code) {
+		log.debug("addFilmReactionOfUser ({}, {}, {}) invoked.", userId, filmId, code);
+		
+		return this.mapper.InsertFilmReactionOfUser(userId, filmId, code);
+	}//addFilmReactionOfUser
+
+	@Override
+	public int removeFilmReactionOfUser(String userId, String filmId, Integer code) {
+		log.debug("removeFilmReactionOfUser ({}, {}, {}) invoked.", userId, filmId, code);
+
+		return this.mapper.DeleteFilmReactionOfUser(userId, filmId, code);
+	}//removeFilmReactionOfUser
 	
 }//end class

@@ -22,7 +22,99 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
 	<script>
+		function reaction(){
+			$.ajax({
+				async : true,
+				data : {
+					userId : "${__LOGIN__.userId}",
+					filmId : "${filmDetail.filmId}"
+				},
+				type : 'get',
+				url : "/film/getFilmReaction",
+				dataType : 'json',
+				success : function(data){
+					console.log("data :", data);
+					console.log("favoriteCnt : ", data.favoriteCnt);
+					console.log("watchedCnt : ", data.watchedCnt);
+					console.log("wishToWatchCnt : ", data.wishToWatchCnt);
+					console.log("userReaction : ", data.userReaction);
+					
+					$("#favorite_cnt").text(data.favoriteCnt);
+					$("#watched_cnt").text(data.watchedCnt);
+					$("#wishToWatch_cnt").text(data.wishToWatchCnt);
+					
+					let userReaction = data.userReaction;
+					
+					userReaction.includes(1) ? 
+					$("#favorite_img").attr({
+						src: "/resources/img/fullheart.png",
+						title: "remove from favorite", 
+						onclick:"javascript:addOrRemoveFilmReaction(1, 'removeReaction')"
+					}) :
+					$("#favorite_img").attr({
+						src: "/resources/img/emptyheart.png",
+						title: "add to favorite",
+						onclick:"javascript:addOrRemoveFilmReaction(1, 'addReaction')"
+					});
+					
+					userReaction.includes(2) ?
+					$("#watched_img").attr({
+						src: "/resources/img/watched2.jpg", 
+						title: "remove from watched", 
+						onclick:"javascript:addOrRemoveFilmReaction(2, 'removeReaction')"
+					}) :
+					$("#watched_img").attr({
+						src: "/resources/img/watched1.jpg", 
+						title: "add to watched", 
+						onclick:"javascript:addOrRemoveFilmReaction(2, 'addReaction')"
+					});
+
+					userReaction.includes(3) ?
+					$("#wishToWatch_img").attr({
+						src: "/resources/img/watchlater2.jpg", 
+						title: "remove from wish to watch", 
+						onclick:"javascript:addOrRemoveFilmReaction(3, 'removeReaction')"
+					}) :
+					$("#wishToWatch_img").attr({
+						src: "/resources/img/watchlater1.jpg", 
+						title: "add to wish to watch", 
+						onclick:"javascript:addOrRemoveFilmReaction(3, 'addReaction')"
+					});
+					
+				} //success
+				
+			});//ajax
+
+		}//reaction
+
+		function addOrRemoveFilmReaction(code, url){
+			console.log("RemoveFilmReaction() invoked.", code, url);
+
+			if("${__LOGIN__}".length > 0){ 		
+				$.ajax({
+					async:true,
+					data : {
+						userId : "${__LOGIN__.userId}",
+						filmId : "${filmDetail.filmId}",
+						code : code
+					},
+					type : 'post',
+					url : "/film/"+url,
+					dataType : 'json',
+					success : function(data){
+						reaction();
+					}//success
+				});//ajax
+			} else{
+				$("#login").modal("show");  
+			}//if-else
+
+		}//addOrRemoveFilmReaction
+
  	 	$(function() {
+
+			reaction();
+			
   	 		$(window).scroll(function() {
   	 		   	 			
 				var scrollTop = $(document).scrollTop();
@@ -32,14 +124,13 @@
 				$("aside div").stop();
 				$("aside div").animate( { "top" : scrollTop });
 			});
-  	 		
-  	 		
+  	 		  	 		
 		    $("#cast_more").on('click', function() {				
 				console.log("cast_more clicked.");
 
 				$("#cast_list").toggleClass("five_lines_allowed");
 				
-			})//onclick cast_more_span
+			});//onclick cast_more_span
 
 			$('a.prev, a.next').on('click', function(e) {
                 console.debug("onclicked for a.next or a.prev");
@@ -72,10 +163,9 @@
 				if( ratingVal == null ){
 					alert("별점 평가는 필수항목 입니다.");
 				} else{
-					e.submit();
+					regReviewForm.submit();
 				}//if-else
 			});//onclick reg_review_btn
-
 
 		});//jquery
 	</script>
@@ -211,10 +301,6 @@
 			margin-top: 6px;
 		}
 
-		#reaction img{
-			width: 40px;
-		}
-
 		#reaction p{
 			font-size: 13px;
 			font-family: 'ELAND 초이스';
@@ -312,7 +398,6 @@
 						<p class="sub_header">CAST</p>
 						<div class="long_text five_lines_allowed" id="cast_list"><c:forEach items="${cast}" var="cast"><a href="/search/people/${cast.peopleId}">${cast.enName}</a></c:forEach></div>
 						<button type="button" class="btn btn-outline-warning" id="cast_more">show all/less</button>
-						<!-- <button type="button" id="cast_more">show all/less</button> -->
 					</div>
 				</div>
 				<div id="reviews">
@@ -323,11 +408,7 @@
 								<a href="http://localhost:8090/mypage/main?userid=${review.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px"></a>
 							</div>
 							<div class="col-10">
-								<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>
-								<!-- <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.insertTs}"/>
-								<c:if test="${review.updateTs!=null}">
-									<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.updateTs}"/>
-								</c:if> -->
+								<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>			
 								<img src='/resources/img/fullheart.png' style='height:25px;'>${review.likeCnt}</a>    
 								<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
 								<div class='RatingStar'>
@@ -350,9 +431,18 @@
 					<img src="https://www.themoviedb.org/t/p/original${filmDetail.posterPath}" alt="filmPoster" id="filmPoster">
 					<p>${filmDetail.originalTitle}</p>
 					<div class="row" id="reaction">
-						<div><img src="/resources/img/fullheart.png" alt="like"><p style="margin-top: 2px;">123</p></div>
-						<div><img src="/resources/img/want1.png" alt="wish to watch"><p>43</p></div>
-						<div><img src="/resources/img/watched1.png" alt="watched"><p>25</p></div>
+						<div>
+							<img id="favorite_img" style="width: 40px; cursor: pointer;">
+							<p id="favorite_cnt" style="margin-top: 2px; margin-left: 4px;"></p>
+						</div>
+						<div>
+							<img id="watched_img" style="width: 43px; margin-top: 5px; cursor: pointer;">
+							<p id="watched_cnt" style="margin-left: 6px;"></p>
+						</div>
+						<div>
+							<img id="wishToWatch_img" style="width: 36px; cursor: pointer;">
+							<p id="wishToWatch_cnt" style="margin-top: 8px;"></p>
+						</div>
 					</div>
 					<button type="button" class="btn btn-outline-dark" id="register_review_btn" data-bs-toggle="modal" data-bs-target="#reg_review">Register a review</button>
 				</div>
@@ -438,6 +528,7 @@
 								<input class="form-check-input" type="checkbox" name="spoiler" id="spoiler">
 							</div>
 							<div class="d-grid gap-2">
+								<!-- <button type="submit" id="reg_review_btn" class="btn btn-primary">REGISTER</button> -->
 								<button type="submit" id="reg_review_btn" class="btn btn-primary g-recaptcha" 
                                 data-sitekey="<fmt:message key='recaptcha-key' bundle='${API_KEY}' />"
                                 data-callback='onSubmit' 

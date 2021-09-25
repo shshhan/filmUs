@@ -69,6 +69,34 @@
 		VALUES (#{filmId}, #{writer}, #{rating}, #{content})
 	</insert>
 	
-
+	<select id="getFilmReactionOfUser" resultType="int">
+		SELECT code
+		FROM fm_film_reaction
+		WHERE film_id = #{filmId}
+  		  AND user_id = #{userId}
+	</select>
+	
+	<select id="getFilmReactionOfThis" resultType="com.filmus.myapp.domain.FilmInfoReactionVO">
+		SELECT COUNT(CASE WHEN code=1 THEN 1 END),
+		       COUNT(CASE WHEN code=2 THEN 1 END),
+		       COUNT(CASE WHEN code=3 THEN 1 END)
+		FROM fm_film_reaction
+		WHERE film_id = #{filmId}
+	</select>
+	
+	<insert id="InsertFilmReactionOfUser">
+		INSERT INTO fm_film_reaction(user_id, film_id, code)
+		VALUES (#{userId}, #{filmId}, #{code})
+	</insert>
+	
+	<delete id="DeleteFilmReactionOfUser">
+		DELETE FROM fm_film_reaction
+		WHERE user_id=#{userId}
+		  AND film_id=#{filmId}
+		  AND code=#{code}
+	</delete>
+	
+	
+	
 
 </mapper>

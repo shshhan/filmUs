@@ -30,6 +30,7 @@
         }
 		
 		#footer_logoimg img{
+            margin-top: 20px;
 		    width : 200px;
 		}
 		
