@@ -184,8 +184,11 @@ $(function() {
 	});//close_login_open_join
 
 	//modal 새로 열 때 input 초기화
-	$(".input_modal").on('show.bs.modal',function(){
+	$(".input_modal").on('hidden.bs.modal',function(){
 		$(this).find('form')[0].reset();
+	});//modal hidden.bs.modal            
+
+	$("#social_join, #join").on('hidden.bs.modal',function(){
 		$(".input_message").text("");
 
 		isEmailChecked=false;
@@ -197,7 +200,9 @@ $(function() {
 		// console.log("isPwValid : ", isPwValid);
 		// console.log("isNickChecked : ", isNickChecked);
 		// console.log("isEmailExist : ", isEmailExist);
-	});//modal hidden.bs.modal            
+	});//social join & join hidden.bs.modal            
+
+
 
 	//login modal에서 sign in 버튼 누를 시
 	$(".login_submit_btn").on('click', function(){
@@ -342,6 +347,9 @@ $(function() {
 						//회원가입
 						isEmailChecked = true;
 						isPwValid = true;
+						
+						console.log("isEmailChecked-login : ", isEmailChecked);
+						console.log("isPwValid-login : ", isPwValid);
 						
 						$("#social_join_email").val(kakao_email);
 						$("#social_join").modal("show");

@@ -34,16 +34,48 @@
 			});
   	 		
   	 		
-		//     $("#cast_more").on('click', function(e) {				
-		// 		console.log("cast_more clicked.");
+		    $("#cast_more").on('click', function() {				
+				console.log("cast_more clicked.");
 
-		// 		$("#cast_more").attr("display", "none");
-		// 		<c:forEach items="${cast}" var="cast" begin="29">
-		// 			<span>
-		// 				<a href="/search/people/${cast.peopleId}">${cast.enName}</a>
-		// 			</span>
-		// 		</c:forEach>
-		// 	})//onclick cast_more_span
+				$("#cast_list").toggleClass("five_lines_allowed");
+				
+			})//onclick cast_more_span
+
+			$('a.prev, a.next').on('click', function(e) {
+                console.debug("onclicked for a.next or a.prev");
+                console.log('\t+ this : ', this);
+
+                e.preventDefault();
+
+                var paginationForm = $('#paginationForm');
+
+                paginationForm.attr('action', '/admin/film/{filmDetail.filmId}');
+                paginationForm.attr('method', 'GET');
+
+                paginationForm.find('input[name=currPage]').val($(this).attr('href') );
+                paginationForm.find('input[name=amount]').val( '${pageMaker.cri.amount}' );
+                paginationForm.find('input[name=pagesPerPage]').val( '${pageMaker.cri.pagesPerPage}' );
+
+                paginationForm.submit();
+
+            });//onclick a.prev, a.next
+
+			$("#reg_review_btn").on('click', function(e){
+				console.log("reg_review_btn clicked.");
+
+				e.preventDefault();
+
+				let regReviewForm = $("#reg_review_form");
+				var ratingVal = regReviewForm.find('input[name=rating]:checked').val();
+				console.log("rating : ", ratingVal);
+				
+				if( ratingVal == null ){
+					alert("별점 평가는 필수항목 입니다.");
+				} else{
+					e.submit();
+				}//if-else
+			});//onclick reg_review_btn
+
 
 		});//jquery
 	</script>
@@ -55,7 +87,7 @@
 		font-family:'Florencesans SC Exp'; 
 		word-break: keep-all;
 
-		background: linear-gradient(to top, white, white 60%, transparent),
+		background: linear-gradient(to top, white, white 70%, transparent),
 					url("https://www.themoviedb.org/t/p/original${filmDetail.backdropPath}");
 		background-repeat: no-repeat;
 		background-size: contain;
@@ -93,15 +125,33 @@
 			text-decoration: underline;
 			margin-bottom: 10px;
 		}
+		
+		#cast{
+			margin-top: 20px;
+		}
+		
+		.five_lines_allowed{
+        	display: -webkit-box;
+        	-webkit-line-clamp: 5 ;
+       		-webkit-box-orient: vertical;
+		}
+		
+		.long_text{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: pre-line;        	
+			word-wrap: break-word;
+		}
+		
+		#cast_more{
+		    padding: 3px 6px;
+		    margin: 10px 0 0 540px;
+		}		
 
-		#people div span{
+		#people a{
 			display: inline;
 			margin-right: 15px;
 			background-color: rgb(224, 224, 224);
-		}
-
-		#cast{
-			margin-top: 20px;
 		}
 
 		#reviews{
@@ -135,9 +185,8 @@
 			text-align: center;
 		}
 
-		aside div{
+		#aside_film{
 			position : absolute;
-			top: 490px;
 		}
 		aside img{
 			margin-top: 10px;
@@ -151,7 +200,28 @@
 			font-size: 18px;
 			font-weight: bold;
 		}
+
+		#reaction div{
+			width: 60px;
+			height: 45px;
+			margin: 0 auto;
+		}
+		
+		#reaction div:nth-of-type(2){
+			margin-top: 6px;
+		}
+
+		#reaction img{
+			width: 40px;
+		}
+
+		#reaction p{
+			font-size: 13px;
+			font-family: 'ELAND 초이스';
+		}
+
 		#register_review_btn{
+			margin-top:40px;
 			display: none;
 		}
 
@@ -180,6 +250,34 @@
             font-weight: 900;
 			font-size: 150%;
         }
+
+		#pageNumber{
+		  	text-align: center;
+            padding: 8px 16px;
+        }
+
+        #pageNumber>li{
+		 	display:inline-table;
+		    text-align: center;
+		    padding: 10px;
+			font-size: 15px;
+        }
+
+        #pageNumber>li:hover{
+            background-color: rgb(224, 224, 224);
+        }
+
+		.prev, .next{
+			font-size: 20px;
+		}
+
+		.currPage{
+            width: 15px;
+        	background-color: #d8d8d88f;
+        	color: rgb(45, 78, 139)!important;
+            border-radius: 10%;
+            font-size: 15px;
+        }
 	</style>
 
 </head>
@@ -204,72 +302,93 @@
 						</div>
 					</div>
 				</div>	
-				<div id="plot">
-					${filmDetail.plot}
-				</div>
+				<div id="plot">${filmDetail.plot}</div>
 				<div id="people">
 					<div id="director">
 						<p class="sub_header">DIRECTOR</p>
-						<c:forEach items="${director}" var="director">
-							<span>
-								<a href="/search/people/${director.peopleId}">${director.enName}</a>
-							</span>
-						</c:forEach>
+						<div class="long_text"><c:forEach items="${director}" var="director"><a href="/search/people/${director.peopleId}">${director.enName}</a></c:forEach></div>
 					</div>
 					<div id="cast">
 						<p class="sub_header">CAST</p>
-						<c:forEach items="${cast}" var="cast">
-							<span>
-								<a href="/search/people/${cast.peopleId}">${cast.enName}</a>
-							</span>
-						</c:forEach>
+						<div class="long_text five_lines_allowed" id="cast_list"><c:forEach items="${cast}" var="cast"><a href="/search/people/${cast.peopleId}">${cast.enName}</a></c:forEach></div>
+						<button type="button" class="btn btn-outline-warning" id="cast_more">show all/less</button>
+						<!-- <button type="button" id="cast_more">show all/less</button> -->
 					</div>
 				</div>
 				<div id="reviews">
 					<p class="sub_header">REVIEW</p>
-						<c:forEach items="${reviews}" var="review">
-							<div class="row">
-								<div class="col-2" id="profile_photo">
-									<img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px">
-								</div>
-								<div class="col-10">
-									<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>
-									<!-- <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.insertTs}"/>
-									<c:if test="${review.updateTs!=null}">
-										<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.updateTs}"/>
-									</c:if> -->
-									<img src='/resources/img/fullheart.png' style='height:25px;'>${review.likeCnt}</a>    
-								  	<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
-									<div class='RatingStar'>
-										<div class='RatingScore'>
-											<div class='outer-star'>
-												<div class='inner-star' style='width: ${review.width}%'></div>
-											</div>
-											<p>${review.rate} / 5.0</p>                               
-										</div>
-									</div>
-									<div id="review_content">
-										${review.content}
-									</div>
-									<hr>
-
-
-									
-									
-								</div>
+					<c:forEach items="${reviews}" var="review">
+						<div class="row">
+							<div class="col-2" id="profile_photo">
+								<a href="http://localhost:8090/mypage/main?userid=${review.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px"></a>
 							</div>
-						</c:forEach>
+							<div class="col-10">
+								<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>
+								<!-- <fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.insertTs}"/>
+								<c:if test="${review.updateTs!=null}">
+									<fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${review.updateTs}"/>
+								</c:if> -->
+								<img src='/resources/img/fullheart.png' style='height:25px;'>${review.likeCnt}</a>    
+								<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
+								<div class='RatingStar'>
+									<div class='RatingScore'>
+										<div class='outer-star'>
+											<div class='inner-star' style='width: ${review.width}%'></div>
+										</div>
+										${review.rate} / 5.0                           
+									</div>
+								</div>
+								<div class="long_text five_lines_allowed"><a href='/film/${filmDetail.filmId}/review/${review.rno}'>${review.content}</a></div>
+								<hr>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
 			</section>
 			<aside class="col-3">
-				<div>
+				<div id="aside_film">
 					<img src="https://www.themoviedb.org/t/p/original${filmDetail.posterPath}" alt="filmPoster" id="filmPoster">
 					<p>${filmDetail.originalTitle}</p>
+					<div class="row" id="reaction">
+						<div><img src="/resources/img/fullheart.png" alt="like"><p style="margin-top: 2px;">123</p></div>
+						<div><img src="/resources/img/want1.png" alt="wish to watch"><p>43</p></div>
+						<div><img src="/resources/img/watched1.png" alt="watched"><p>25</p></div>
+					</div>
 					<button type="button" class="btn btn-outline-dark" id="register_review_btn" data-bs-toggle="modal" data-bs-target="#reg_review">Register a review</button>
 				</div>
 			</aside>
 		</div>
+		<div>
+			<form id="paginationForm">
+				<input type="hidden" name="currPage">
+				<input type="hidden" name="amount">
+				<input type="hidden" name="pagesPerPage">
+	
+				<ul id="pageNumber">
+					<c:if test="${pageMaker.prev}">
+						<li class="prev"><a class="prev" href="${pageMaker.startPage-1}"></a></li>
+					</c:if>    
+	
+					<c:forEach 
+						begin="${pageMaker.startPage}" 
+						end="${pageMaker.endPage}" 
+						var="pageNum">
+						<li class="${pageMaker.cri.currPage==pageNum?'currPage':''}">
+							<a
+								class="${pageMaker.cri.currPage==pageNum?'currPage':''}"
+								href="/film/${filmDetail.filmId}?category=${pageMaker.cri.category}&currPage=${pageNum}&amount=${pageMaker.cri.amount}&pagesPerPage=${pageMaker.cri.pagesPerPage}">
+								${pageNum}
+							</a>    
+						</li>
+					</c:forEach>
+					<c:if test="${pageMaker.next}">
+						<li class="next"><a class="next" href="${pageMaker.endPage+1}"> > </a></li>
+					</c:if>   
+				</ul>
+			</form>
+		</div>
 	</div>
+
 
 	<!-- reg_review Modal -->
 	<div class="modal fade input_modal" id="reg_review" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -287,9 +406,8 @@
 						<p>
 							<strong>${filmDetail.originalTitle}</strong>
 							[${filmDetail.releaseDate}]
-						</p>
-						
-						<form action="/film/regReview" method="POST">
+						</p>						
+						<form action="/film/regReview" method="POST" id="reg_review_form">
 							<input type="hidden" name="filmId" value="${filmDetail.filmId}">
 							<input type="hidden" name="writer" value="${__LOGIN__.userId}">
 							<!-- <input type="hidden" name="currPage" value="${cri.currPage}">
@@ -298,29 +416,32 @@
 
 							<div class='rating-wrap'>
 								<fieldset class='rating'>
-									<input type='radio' id='star5' name='rating' value='5' /><label for='star5' class='full'></label>
+									<input type='radio' id='star5' name='rating' value='5.0' /><label for='star5' class='full'></label>
 									<input type='radio' id='star4.5' name='rating' value='4.5' /><label for='star4.5' class='half'></label>
-									<input type='radio' id='star4' name='rating' value='4' /><label for='star4' class='full'></label>
+									<input type='radio' id='star4' name='rating' value='4.0' /><label for='star4' class='full'></label>
 									<input type='radio' id='star3.5' name='rating' value='3.5' /><label for='star3.5' class='half'></label>
-									<input type='radio' id='star3' name='rating' value='3' /><label for='star3' class='full'></label>
+									<input type='radio' id='star3' name='rating' value='3.0' /><label for='star3' class='full'></label>
 									<input type='radio' id='star2.5' name='rating' value='2.5' /><label for='star2.5' class='half'></label>
-									<input type='radio' id='star2' name='rating' value='2' /><label for='star2' class='full'></label>
+									<input type='radio' id='star2' name='rating' value='2.0' /><label for='star2' class='full'></label>
 									<input type='radio' id='star1.5' name='rating' value='1.5' /><label for='star1.5' class='half'></label>
-									<input type='radio' id='star1' name='rating' value='1' /><label for='star1' class='full'></label>
+									<input type='radio' id='star1' name='rating' value='1.0' /><label for='star1.0' class='full'></label>
 									<input type='radio' id='star0.5' name='rating' value='0.5' /><label for='star0.5' class='half'></label>
 								</fieldset>
 							</div>
 							<p id='rating-value'></p>					
 							<script src='/resources//js/star-rating.js'></script>
 							<div class="mb-3">
-								<textarea id="review_content" class="form-control" placeholder="write your review here..." name="content" maxlength="2048" style="height: 180px;"></textarea>
+								<textarea id="review_content" class="form-control" placeholder="write your review here..." name="content" maxlength="2048" style="overflow-x:hidden; overflow-y:auto; height:180px;"></textarea>
 							</div>
 							<div class="form-check">
 								<label class="form-check-label" for="spoiler"><b>this review contains spoilers</b></label>
 								<input class="form-check-input" type="checkbox" name="spoiler" id="spoiler">
 							</div>
 							<div class="d-grid gap-2">
-								<button type="submit" class="btn btn-primary">REGISTER</button>
+								<button type="submit" id="reg_review_btn" class="btn btn-primary g-recaptcha" 
+                                data-sitekey="<fmt:message key='recaptcha-key' bundle='${API_KEY}' />"
+                                data-callback='onSubmit' 
+                                data-action='submit'>REGISTER</button>
 							</div>
 						</form>
 					</div>
@@ -331,7 +452,6 @@
 
 	<%@include file="/resources/html/footer.jsp" %>
 
-	
 </body>
 
 </html>

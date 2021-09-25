@@ -75,19 +75,30 @@ public class FilmServiceImpl
 		resultMap.put("director", director);
 		resultMap.put("cast", cast);
 		
-		//영화 리뷰 정보 가져오기
-		List<FilmReviewVO> reviews = this.mapper.getReviews(filmId);
-		resultMap.put("reviews", reviews);
-		
 		return resultMap;
 	}//showFilmInfo
+	
+	@Override
+	public List<FilmReviewVO> getReviewList(Map<String, Object> params) {
+		log.debug("getReviewList({}) invoked.", params);
+		
+		return this.mapper.getReviews(params);
+	}//getReviewList
+
+	@Override
+	public int getTotal(Map<String, Object> params) {
+		log.debug("getTotal({}) invoked.", params);
+		
+		return this.mapper.getTotalCount(params);
+	}//getTotal
 
 	@Override
 	public int registerReview(FilmReviewDTO dto) {
 		log.debug("registerReview({}) invoked.", dto);
-		
-		return this.mapper.insertReview(dto);
-		
+
+		return this.mapper.insertReview(dto);							
 	}//registerReview
+
+
 	
 }//end class
