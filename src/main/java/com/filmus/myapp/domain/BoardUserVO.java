@@ -2,11 +2,9 @@ package com.filmus.myapp.domain;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class BoardUserVO {
 	//Board
 	private Integer bno;
@@ -25,5 +23,5 @@ public class BoardUserVO {
 	//User
 	private Integer user_id;
 	private String nickname;
-	
-}
+
+}	

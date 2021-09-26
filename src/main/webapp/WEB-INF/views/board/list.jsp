@@ -26,10 +26,9 @@
             $('a.prev,a.next').on('click', function(e){
                 console.debug("on clicked for NEXT or PREV");
                 console.log('\t+this:',this);
-                e.preventDefault(); //Event에 의한 선택된 요소의 기본 동작을 금지
-                //Rvalue선택자에 의해서 선택된 요소. 즉 form태그가 저장됨.
+                e.preventDefault(); 
                 var paginationForm = $('#paginationForm');
-                paginationForm.attr('action', '/board/listPerPage');
+                paginationForm.attr('action', '/board/list');
                 paginationForm.attr('method', 'GET');
                 paginationForm.find('input[name=currPage]').val($(this).attr('href'));
                 paginationForm.find('input[name=amount]').val('${pageMaker.cri.amount}');
@@ -177,11 +176,6 @@
         }
         #searchimg{
             width: 20px;
-        }
-        #menulist{
-            background-image: url("/resources/img/popcorn.png");
-            background-repeat: no-repeat;
-            background-size: cover;
         }
     </style>
 </head>
