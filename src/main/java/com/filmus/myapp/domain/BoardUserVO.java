@@ -25,5 +25,6 @@ public class BoardUserVO {
 	//User
 	private Integer user_id;
 	private String nickname;
+	private String profilePhotoPath;	
 	
 }

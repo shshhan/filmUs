@@ -418,7 +418,7 @@
                 <form action="/mypage/main">
                     <ul id="userinfo">
                         <li>
-                            <a href="/mypage/main?userid=${board.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/" alt="내사진" width="100px" height="100px"></a>
+                            <a href="/mypage/main?userid=${board.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${board.profilePhotoPath}" alt="내사진" width="100px" height="100px"></a>
                         </li>
                         <li><a href="/mypage/main?userid=${board.writer}">${board.nickname}</a></li>
                     </ul>
