@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-    <!--  <link rel="stylesheet" href="/resources/css/footer.css"> -->
 
 	<style>
 	    body,input,textarea,select,button,table{font-family:'ELAND 초이스';}
@@ -30,6 +29,7 @@
         }
 		
 		#footer_logoimg img{
+            margin-top: 20px;
 		    width : 200px;
 		}
 		

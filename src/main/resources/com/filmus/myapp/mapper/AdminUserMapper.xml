@@ -7,8 +7,6 @@
 <mapper namespace="com.filmus.myapp.mapper.AdminUserMapper">
 	
 	<select id="getList" resultType ="com.filmus.myapp.domain.UserVO">
-
-		
 		SELECT user_id, email, nickname, is_admin, join_ts, delete_ts, profile_text, profile_photo_path, sus_from, sus_to, auth_code
 		FROM fm_user     
 		<where>

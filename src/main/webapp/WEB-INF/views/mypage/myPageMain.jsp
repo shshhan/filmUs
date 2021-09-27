@@ -788,6 +788,7 @@
                 <div class="modal-body">
                     <form action="/mypage/newPassword" method="POST">
                         <input type="hidden" name="email" value="${__LOGIN__.email}">
+                        <input type="hidden" name="userid" value="${__LOGIN__.userId}">
                         <div class="mb-3">
                             <label for="current_pw" class="form-label"><b>Current Password</b></label>
                             <input type="password" class="form-control" id="current_pw" placeholder="현재 비밀번호" oninput="javascript:checkCurrentPw()" autocomplete="current-password">
@@ -863,8 +864,9 @@
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-                 <h5>삭제된 계정은 복구가 불가능하며, 회원님이 작성하신 게시물과 영화 리뷰를 제외한 모든 정보는 탈퇴 즉시 삭제됩니다.
-                 <strong>탈퇴 하시겠습니까?</strong></h5>
+                 <h5>삭제된 계정은 복구가 불가능하며, 회원님이 작성하신 게시물과 영화 리뷰를 제외한 모든 정보는 탈퇴 즉시 삭제됩니다.</h5>
+                 <br>
+                 <h3><strong>탈퇴 하시겠습니까?</strong></h3>
                  <p>&nbsp;</p>
 
                  <form action="/main/deleteAccount" id="del_acc_form" method="POST">

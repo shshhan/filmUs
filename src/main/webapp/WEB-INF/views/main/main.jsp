@@ -193,8 +193,7 @@
 			}//switch-case
 	
 			$('#header_search')
-					.on(
-							'propertychange change keyup paste input',
+					.on('propertychange change keyup paste input',
 							function() {
 								var selected = $('#header_select').val();
 								if (selected == 1) {
@@ -202,8 +201,7 @@
 									var filmTitleComplete = {
 										filmTitle : filmTitle
 									};
-									$
-											.ajax({
+									$.ajax({
 												url : '/search/searchFilmAutoComplete',
 												type : 'post',
 												data : filmTitleComplete,
@@ -247,8 +245,7 @@
 									var nicknameComplete = {
 										nickname : nickname
 									};
-									$
-											.ajax({
+									$.ajax({
 												url : '/search/searchUserAutoComplete',
 												type : 'post',
 												data : nicknameComplete,
@@ -335,7 +332,7 @@
 	<style>
 		#mainback {
 			width: 100%;
-			height: 813px;
+			height: 900px;
 			overflow: hidden;
 			margin: 0px auto;
 			position: relative;
@@ -439,6 +436,7 @@
 		}
 		
 		}
+		
 		#header {
 			width: 998px;
 			height: 150px;
@@ -447,6 +445,7 @@
 			font-family: 'ELAND 초이스';
 			position: absolute;
 			left: 20%;
+			z-index: 10;
 		}
 		
 		#header a {
@@ -488,6 +487,10 @@
 		.wrong_info {
 			background-color: #f0adce96;
 		}
+		
+		video#bgvid {           
+            z-index: -100;          
+        }
 	</style>
 	
 	</head>
@@ -508,7 +511,7 @@
 						aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-top: 50px;">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item"><a class="nav-link strangerHeadermenu"
 								data-bs-toggle="modal" data-bs-target="#login"
@@ -552,17 +555,13 @@
 			</nav>
 		</div>
 
-		<iframe width="100%" height="813"
-			src="https://www.youtube.com/embed/Ko2NWhXI9e8?autoplay=1&mute=1"
-			title="YouTube video player" frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-			allowfullscreen></iframe>
+		<video muted autoplay loop id="bgvid" style="width:100%;">
+        	<source src="resources/video/avengers_endgame_trailer.mp4" type="video/mp4">
+    	</video>
 
 	</div>
 
 	<div id="container">
-
-
 
 		<div id="mainText">
 			<p>
@@ -629,7 +628,6 @@
 							</div>
 						</div>
 
-
 						<h6>${reviews.rate}/ 5.0</h6>
 
 						<div class='row' style='margin-top: 5px;'>
@@ -659,8 +657,6 @@
 
 						</div>
 
-
-
 					</div>
 
 				</div>
@@ -670,7 +666,6 @@
 			</c:forEach>
 
 		</div>
-
 
 	</div>
 	<!-- alert Modal -->
