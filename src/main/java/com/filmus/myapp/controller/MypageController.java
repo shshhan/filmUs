@@ -410,6 +410,9 @@ public class MypageController {
 	@PostMapping("newPassword")
 	public String newPassword(UserDTO dto, RedirectAttributes rttrs) throws Exception {
 		log.debug("newPassword({}) invoked.", dto);
+		
+		String userid = dto.getUserid();
+		log.info("userid : " + userid);
 			
 		int result = this.loginService.changePassword(dto);
 		log.info("result : {}", result);
@@ -423,7 +426,7 @@ public class MypageController {
 			case 2:
 				log.info(">>>>> result : 2 >>>>>>");
 				rttrs.addFlashAttribute("message", "pw_changed");
-				return "redirect:/mypage/main";	//마이페이지로 Redirect 후 메세지 띄움
+				return "redirect:/mypage/main?userid="+userid;	//마이페이지로 Redirect 후 메세지 띄움
 				
 			default:
 				log.info(">>>>> result : 3 >>>>>>");

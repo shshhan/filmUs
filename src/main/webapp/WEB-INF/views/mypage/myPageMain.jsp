@@ -788,6 +788,7 @@
                 <div class="modal-body">
                     <form action="/mypage/newPassword" method="POST">
                         <input type="hidden" name="email" value="${__LOGIN__.email}">
+                        <input type="hidden" name="userid" value="${__LOGIN__.userId}">
                         <div class="mb-3">
                             <label for="current_pw" class="form-label"><b>Current Password</b></label>
                             <input type="password" class="form-control" id="current_pw" placeholder="현재 비밀번호" oninput="javascript:checkCurrentPw()" autocomplete="current-password">

@@ -135,76 +135,25 @@ public class BoardController {
 		model.addAttribute("file", fileVO);
 		model.addAttribute("comment", comment);
 		
+		
 	}//get
 	
 	//파일 다운로드
 	@RequestMapping("/downloadFile/{bno}")
-    private String fileDown(
+    private ResponseEntity<byte[]> fileDown(
     		@PathVariable int bno, 
     		HttpServletRequest request, 
     		HttpServletResponse response,
     		@ModelAttribute("cri") Criteria cri
     		) throws Exception{
-    log.debug(" >> fileDown() invoked.");
-        request.setCharacterEncoding("UTF-8");
-        FileVO fileVO = this.service.fileDetail(bno);
-        
-        try{
-            String fileUrl = fileVO.getPath();
-            fileUrl += "/";
-            String savePath = fileUrl;
-            String fileName = fileVO.getUuid();
-            
-            String oriFileName = fileVO.getFname();
-            InputStream in = null;
-            OutputStream os = null;
-            File file = null;
-            boolean skip = false;
-            String client = "";
-            
-            try{
-                file = new File(savePath, fileName);
-                in = new FileInputStream(file);
-            } catch (FileNotFoundException fe) {
-                skip = true;
-            }
-            
-            client = request.getHeader("User-Agent");
-            
-            response.reset();
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Description", "JSP Generated Data");
-            
-            if (!skip) {
-                if (client.indexOf("MSIE") != -1) {
-                    response.setHeader("Content-Disposition", "attachment; filename=\""
-                            + java.net.URLEncoder.encode(oriFileName, "UTF-8").replaceAll("\\+", "\\ ") + "\"");
-                } else if (client.indexOf("Trident") != -1) {
-                    response.setHeader("Content-Disposition", "attachment; filename=\""
-                            + java.net.URLEncoder.encode(oriFileName, "UTF-8").replaceAll("\\+", "\\ ") + "\"");
-                } else {
-                    response.setHeader("Content-Disposition",
-                            "attachment; filename=\"" + new String(oriFileName.getBytes("UTF-8"), "ISO8859_1") + "\"");
-                    response.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
-                }
-                response.setHeader("Content-Length", "" + file.length());
-                os = response.getOutputStream();
-                byte b[] = new byte[(int) file.length()];
-                int leng = 0;
-                while ((leng = in.read(b)) > 0) {
-                    os.write(b, 0, leng);
-                }
-            } else {
-            	log.info(" 다운로드 실패 ");
-                return "redirect:/board/get";
-            }
-            in.close();
-            os.close();
-        } catch (Exception e) {
-            System.out.println("ERROR : " + e.getMessage());
-        }
-        return "board/get";
-    }
+		log.debug(" >> fileDown() invoked.");
+       
+		Objects.requireNonNull(service);
+		
+		ResponseEntity<byte[]> download = this.service.fileDownload(bno);
+		
+		return download;
+    } //fileDown
 
 	
 	//게시글작성화면
@@ -216,48 +165,26 @@ public class BoardController {
 	//게시글작성 & 파일업로드
 	@PostMapping(path = "register", consumes = {"multipart/form-data"})
 	public String register(@ModelAttribute("cri")Criteria cri,  BoardVO board, RedirectAttributes rttrs,
-			@RequestPart MultipartFile files) throws IllegalStateException, IOException {
-		log.debug("register({},{},{}) invoked",board,rttrs,files);
-		Objects.requireNonNull(service); 
-		log.info(">> requireNonNull");
-		FileVO file = new FileVO();
-
-		rttrs.addAttribute("result",board.getBno());
+			@RequestPart MultipartFile file) throws IllegalStateException, IOException {
+		log.debug("register({},{},{}) invoked",board,rttrs,file);
+		Objects.requireNonNull(service);
+		
+		log.info(this.service.register(board));	
+		
+		int bnoPlus = board.getBno() + 1;
+		
+		log.info(bnoPlus);
+						
+		if(file.getSize() != 0) {
+			FileVO fileVO = this.service.fileInsert(file, bnoPlus);
+			
+			rttrs.addAttribute("file", fileVO.getFno());						
+		} //if 
+		
+		rttrs.addAttribute("result",bnoPlus);
 		rttrs.addAttribute("currPage",cri.getCurrPage());
 		rttrs.addAttribute("amount",cri.getAmount());
 		rttrs.addAttribute("pagesPerPage",cri.getPagesPerPage());
-		rttrs.addAttribute("file", file.getFno());
-		
-		String fileName=files.getOriginalFilename();
-		if(fileName=="") {
-			this.service.register(board);
-			log.info(">> done if >> register");
-		} else {
-			this.service.register(board);
-			
-			String fileNameExtension=FilenameUtils.getExtension(fileName).toLowerCase();
-			File destinationFile;
-			String destinationFileName;
-			String fileUrl="C:/Temp/upload/";
-			String mimeType=files.getContentType();
-
-            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + fileNameExtension;
-            destinationFile = new File(fileUrl+ destinationFileName);
-           
-            log.info(" ***** >>> destinationFileName : "+destinationFileName);
-            log.info(" ***** >>> destinationFile : "+destinationFile);
-		
-			destinationFile.getParentFile().mkdirs();
-			files.transferTo(destinationFile);
-			
-			file.setBno(board.getBno()+1);
-			file.setFname(fileName);
-			file.setUuid(destinationFileName);
-			file.setPath(fileUrl);
-			file.setMime(mimeType);
-			
-			this.service.fileInsert(file);
-		}//if-else
 
 		return "redirect:/board/list";
 	}//register
@@ -408,5 +335,7 @@ public class BoardController {
 				new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);		
 	}//reportRegister
 	
-
+	
+	//================================================================//
+	
 }//end class

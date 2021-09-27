@@ -1,6 +1,10 @@
 package com.filmus.myapp.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.filmus.myapp.domain.BoardUserVO;
 import com.filmus.myapp.domain.BoardVO;
@@ -22,9 +26,11 @@ public interface BoardService {
 	public abstract int getTotal(Criteria cri);		//전체 게시물 개수
 	
 	//파일첨부처리
-	public abstract int fileInsert(FileVO file);	//파일업로드
+	public abstract FileVO fileInsert(MultipartFile file, int bnoPlus);	//파일업로드
 	
-	public abstract FileVO fileDetail(Integer bno);	//파일다운로드
-
+	public abstract FileVO fileDetail(Integer bno);
+	
+	public abstract ResponseEntity<byte[]> fileDownload(Integer bno) throws IOException;	//파일다운로드
+	
 
 }//end interface
