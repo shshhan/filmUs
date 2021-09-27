@@ -34,11 +34,18 @@
             AND film_id=#{filmId}
         ]]>
     </update>
-
+    
     <insert id="rcCreate">
         <![CDATA[ 
             INSERT INTO fm_review_comment(rno, writer,content,insert_ts)
             VALUES(#{rno},#{writer},#{content},current_date)
+        ]]>
+    </insert>
+
+    <insert id="rcChildCreate">
+        <![CDATA[ 
+            INSERT INTO fm_review_comment(rno, writer,content,insert_ts,parent_rcno)
+            VALUES(#{rno},#{writer},#{content},current_date,#{parentRcno})
         ]]>
     </insert>
 
@@ -61,7 +68,7 @@
 
     <select id="rcList" resultType="com.filmus.myapp.domain.ReviewCommentVO">
         <![CDATA[ 
-            SELECT rc.*, u.nickname
+            SELECT rc.*, u.nickname, u.profile_photo_path
             FROM fm_review_comment rc INNER JOIN fm_user u
             ON rc.writer=u.user_id
             WHERE rno=#{rno}
@@ -76,5 +83,38 @@
 			WHERE rno=#{rno}
         ]]>
     </update>
+
+    <insert id="reviewLike">
+        <![CDATA[ 
+            INSERT INTO fm_review_liked
+            VALUES(#{rno}, #{userId}, current_date, 1)
+        ]]>
+    </insert>
+
+    <delete id="reviewUnLike">
+        <![CDATA[ 
+            DELETE FROM fm_review_liked
+            WHERE rno=#{rno}
+            AND user_id=#{userId}
+        ]]>
+    </delete>
+    
+    <update id="reviewLikeCnt">
+        <![CDATA[ 
+            UPDATE fm_review
+			SET like_cnt=like_cnt+#{amount}
+			WHERE rno=#{rno}
+        ]]>
+    </update>    
+    
+
+    <select id="reviewLikeCheck" resultType="int">
+        <![CDATA[ 
+            SELECT count(*)
+            FROM fm_review_liked
+            WHERE rno=#{rno}
+            AND user_id=#{userId}
+        ]]>
+    </select>
 
 </mapper>

@@ -16,11 +16,19 @@ public interface ReviewService {
 	public abstract int delReview(Integer rno, Integer filmId);
 
 	public abstract int rcCreate(ReviewCommentDTO dto);
-	
+
+	public abstract int rcChildCreate(ReviewCommentDTO dto);
+
 	public abstract int rcModify(ReviewCommentDTO dto);
 	
 	public abstract int rcDelete(Integer rcno, Integer rno);
 	
 	public abstract List<ReviewCommentVO> rcList(Integer rno);
+	
+	public abstract int reviewLike(Integer rno, Integer userId);
+	
+	public abstract int reviewUnLike(Integer rno, Integer userId);
+	
+	public abstract int reviewLikeCheck(Integer rno, Integer userId);
 
 }//end interface

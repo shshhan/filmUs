@@ -57,6 +57,15 @@ public class ReviewServieImpl implements ReviewService {
 	}//rcCreate
 
 	@Override
+	public int rcChildCreate(ReviewCommentDTO dto) {
+		log.debug("rcChildCreate({}) invoked.", dto);
+		Objects.requireNonNull(this.mapper);
+		this.mapper.commentCnt(dto.getRno(), 1);
+
+		return this.mapper.rcChildCreate(dto);
+	}//rcChildCreate
+
+	@Override
 	public int rcModify(ReviewCommentDTO dto) {
 		log.debug("rcModify({}) invoked.", dto);
 		Objects.requireNonNull(this.mapper);
@@ -83,5 +92,30 @@ public class ReviewServieImpl implements ReviewService {
 		
 		return list;
 	}//rcList
+
+	@Override
+	public int reviewLike(Integer rno, Integer userId) {
+		log.debug("reviewLike({},{}) invoked.", rno, userId);
+		
+		this.mapper.reviewLikeCnt(rno, 1);
+		
+		return this.mapper.reviewLike(rno, userId);
+	}//reviewLike
+
+	@Override
+	public int reviewUnLike(Integer rno, Integer userId) {
+		log.debug("reviewLike({},{}) invoked.", rno, userId);
+		
+		this.mapper.reviewLikeCnt(rno, -1);
+		
+		return this.mapper.reviewUnLike(rno, userId);
+	}//reviewLike
+	
+	@Override
+	public int reviewLikeCheck(Integer rno, Integer userId) {
+		log.debug("reviewLikeCheck({},{}) invoked.",rno,userId);
+		
+		return this.mapper.reviewLikeCheck(rno, userId);
+	}//reviewLikeCheck
 
 }//end class

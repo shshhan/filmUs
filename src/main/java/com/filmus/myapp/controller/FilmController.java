@@ -3,6 +3,9 @@ package com.filmus.myapp.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import com.filmus.myapp.domain.ReviewCommentDTO;
 import com.filmus.myapp.domain.ReviewCommentVO;
 import com.filmus.myapp.domain.ReviewDTO;
 import com.filmus.myapp.domain.ReviewVO;
+import com.filmus.myapp.domain.UserVO;
 import com.filmus.myapp.service.FilmService;
 import com.filmus.myapp.service.ReviewService;
 
@@ -49,7 +53,36 @@ public class FilmController {
 		
 		return "film/filmInfo";
 	}//filmInfo
+
+	@GetMapping({"{filmId}/review/{rno}"})
+	public String getReview(@PathVariable("rno") Integer rno, @PathVariable("filmId") Integer filmId, Model model, HttpServletRequest req) {
+		log.debug("getReview() invoked.");
+
+		HttpSession session = req.getSession();
+		
+		ReviewVO review = this.rSerice.reviewDetail(rno, filmId);
+		List<ReviewCommentVO> list = this.rSerice.rcList(rno);
+		
+		UserVO user = (UserVO) session.getAttribute("__LOGIN__");
+		
+		if(user == null) {
+			model.addAttribute("likeCheck", 2);
+		} else {
+			int like = this.rSerice.reviewLikeCheck(rno, user.getUserId());
+			
+			model.addAttribute("likeCheck", like);
+		} //if-else
+		
+		model.addAttribute("list", list);
+		model.addAttribute("review", review);
+		
+		return "film/review";
+	}//getReview
 	
+	
+	//----------------------//
+	//      Review   		//
+	//----------------------//	
 	@PostMapping("regReview")
 	public String regReview(FilmReviewDTO dto, RedirectAttributes rttrs) {
 		log.debug("regReview({}) invoked.", dto);
@@ -63,18 +96,6 @@ public class FilmController {
 		
 	}//regReview
 
-	@GetMapping({"{filmId}/review/{rno}"})
-	public String getReview(@PathVariable("rno") Integer rno, @PathVariable("filmId") Integer filmId, Model model) {
-		log.debug("getReview() invoked.");
-		
-		ReviewVO review = this.rSerice.reviewDetail(rno, filmId);
-		List<ReviewCommentVO> list = this.rSerice.rcList(rno);
-		model.addAttribute("list", list);
-		model.addAttribute("review", review);
-		
-		return "film/review";
-	}//getReview
-	
 	@PostMapping("modReview")
 	public String modReview(ReviewDTO dto) {
 		log.debug("modReview({})invoked.", dto);
@@ -98,9 +119,15 @@ public class FilmController {
 		}//if-else
 	}//delReview
 	
+	
+	//----------------------//
+	//   review reply		//
+	//----------------------//
 	@PostMapping("newReply")
-	public String newReply(ReviewCommentDTO dto, Integer filmId, Integer rno, RedirectAttributes rttrs) {
-		log.debug("newReply()invoked.");
+	public String newReply(ReviewCommentDTO dto, Integer filmId, Integer rno) {
+		log.debug("newReply({},{},{})invoked.",dto,filmId,rno);
+		
+		log.debug(">>>>>>>>>>>>>>>>>>>>>>>>>" + dto.getContent());
 
 		if(this.rSerice.rcCreate(dto)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
@@ -109,10 +136,21 @@ public class FilmController {
 		}//if-else
 	}//newReply
 	
+	@PostMapping("newChildReply")
+	public String newChildReply(ReviewCommentDTO dto, Integer filmId, Integer rno) {
+		log.debug("newChildReply({},{},{})invoked.",dto,filmId,rno);
+
+		if(this.rSerice.rcChildCreate(dto)==1) {
+			return "redirect:/film/"+filmId+"/review/"+rno;
+		} else {
+			return "/errorPage";
+		}//if-else
+	}//newChildReply
+	
 	
 	@PostMapping("delReply")
-	public String delReply(Integer rcno, Integer filmId, Integer rno, RedirectAttributes rttrs) {
-		log.debug("newReply()invoked.");
+	public String delReply(Integer rcno, Integer filmId, Integer rno) {
+		log.debug("delReply({},{},{})invoked.",rcno,filmId,rno);
 
 		if(this.rSerice.rcDelete(rcno, rno)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
@@ -120,5 +158,42 @@ public class FilmController {
 			return "/errorPage";
 		}//if-else
 	}//newReply
+	
+	@PostMapping("modReply")
+	public String modReply(ReviewCommentDTO dto, Integer filmId, Integer rno) {
+		log.debug("modReply({},{},{})invoked.",dto,filmId,rno);
 
+		if(this.rSerice.rcModify(dto)==1) {
+			return "redirect:/film/"+filmId+"/review/"+rno;
+		} else {
+			return "/errorPage";
+		}//if-else
+	}//newReply
+	
+	
+	//----------------------//
+	//   review like		//
+	//----------------------//
+	@PostMapping("reviewLike")
+	public String reviewLike(Integer rno, Integer userId, Integer filmId) {
+		log.debug("reviewLike({},{},{})invoked.", rno,userId,filmId);
+		
+		if(this.rSerice.reviewLike(rno, userId)==1) {
+			return "redirect:/film/"+filmId+"/review/"+rno;
+		} else {
+			return "/errorPage";
+		}//if-else
+	}//reviewLike
+
+	@PostMapping("reviewUnlike")
+	public String reviewUnLike(Integer rno, Integer userId, Integer filmId) {
+		log.debug("reviewLike({},{},{})invoked.", rno,userId,filmId);
+		
+		if(this.rSerice.reviewUnLike(rno, userId)==1) {
+			return "redirect:/film/"+filmId+"/review/"+rno;
+		} else {
+			return "/errorPage";
+		}//if-else
+	}//reviewUnLike
+	
 } // end class

@@ -16,5 +16,6 @@ public class ReviewCommentVO {
 	private Date deleteTs;
 	private Integer parentRcno;
 	private String nickname;
+	private String profilePhotoPath;
 	
 }//end class

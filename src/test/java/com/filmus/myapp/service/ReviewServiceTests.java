@@ -71,6 +71,7 @@ public class ReviewServiceTests {
 		dto.setContent("TEST COMMENT");
 		dto.setWriter(146);
 		dto.setRno(123);
+		dto.setParentRcno(21);
 		
 		this.service.rcCreate(dto);
 	}//testReviewDetail
@@ -98,6 +99,20 @@ public class ReviewServiceTests {
 		log.debug("testRCC() invoked.");
 		
 		this.service.rcDelete(11,123);
+	}//testReviewDetail	
+	
+	@Test
+	public void testReviewLike() {
+		log.debug("testRCC() invoked.");
+		
+		this.service.reviewLike(123, 101);
+	}//testReviewDetail
+	
+	@Test
+	public void testReviewUnLike() {
+		log.debug("testRCC() invoked.");
+		
+		this.service.reviewUnLike(123, 101);
 	}//testReviewDetail
 	
 	

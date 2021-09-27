@@ -20,8 +20,12 @@ public interface ReviewMapper {
 	//리뷰삭제
 	public abstract int delete(@Param("rno")Integer rno, @Param("filmId")Integer filmId);
 	
+	//rc : review comment
 	//댓글등록
 	public abstract int rcCreate(ReviewCommentDTO dto);
+	
+	//대댓글등록
+	public abstract int rcChildCreate(ReviewCommentDTO dto);	
 	
 	//댓글수정
 	public abstract int rcModify(ReviewCommentDTO dto);
@@ -34,5 +38,17 @@ public interface ReviewMapper {
 	
 	//댓글수 +-
 	public abstract void commentCnt(@Param("rno")Integer rno, @Param("amount")Integer amount);
+	
+	//좋아요추가
+	public abstract int reviewLike(@Param("rno")Integer rno, @Param("userId")Integer userId);
+	
+	//좋아요삭제
+	public abstract int reviewUnLike(@Param("rno")Integer rno, @Param("userId")Integer userId);
+	
+	//좋아요 +-
+	public abstract void reviewLikeCnt(@Param("rno")Integer rno, @Param("amount")Integer amount);
+	
+	//좋아요체크
+	public abstract int reviewLikeCheck(@Param("rno")Integer rno, @Param("userId")Integer userId);
 	
 }//end interface
