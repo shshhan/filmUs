@@ -235,7 +235,7 @@
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-top: 50px;">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
                         <a class="nav-link strangerHeadermenu" data-bs-toggle="modal" data-bs-target="#login" aria-current="page" href="#" style='display: inline-block; font-size: 19px; font-weight: bold;'>Login</a>
@@ -357,12 +357,11 @@
                             <p class='input_message nickname'></p>
                             </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary sign_up_btn" disabled><b>SIGN UP</b></button>
-                            <!-- <button type="submit" 
-                            class="btn btn-primary sign_up_btn g-recaptcha" data-sitekey="6Lde0E4cAAAAALC52i_2yWY1ihnWWwRKIHtrtlln"
-                            data-callback='onSubmit'
-                            data-action='submit' disabled>SIGN UP</button> -->
-
+                            <button type="submit" 
+                            class="btn btn-primary sign_up_btn g-recaptcha" 
+                            data-sitekey="<fmt:message key='recaptcha-key' bundle='${API_KEY}' />"
+                            data-callback='onSubmit' 
+                            data-action='submit' disabled>SIGN UP</button>
                         </div>
                     </form>
                 </div>

@@ -167,7 +167,7 @@ public class MainController {
 	public String joinPost(UserDTO dto, RedirectAttributes rttrs) throws Exception{
 		log.debug("joinPost({}, rttrs, model) invoked.", dto);
 		
-		if( dto.getPassword() != null && dto.getPassword().equals("") ) {	//최초 소셜 로그인시
+		if( dto.getPassword().equals("") ) {	//최초 소셜 로그인시
 			if( this.joinService.joinBySocial(dto) == 1) {
 				rttrs.addFlashAttribute("message", "social_join");
 			} else {
