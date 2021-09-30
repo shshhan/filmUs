@@ -26,14 +26,13 @@
 	</select>
 	
 	<select id="getReviews" resultType="com.filmus.myapp.domain.FilmReviewVO">
-		SELECT	/*+ index_desc(fm_review_pk) */
-				r.rno, r.writer, r.rate, r.rate*20 AS width, r.content, r.is_spoiled, r.insert_ts, r.update_ts, r.like_cnt, r.comment_cnt, u.nickname, u.profile_photo_path
+		SELECT r.rno, r.writer, r.rate, r.rate*20 AS width, r.content, r.is_spoiled, r.insert_ts, r.update_ts, r.like_cnt, r.comment_cnt, u.nickname, u.profile_photo_path
 		FROM fm_review r
 		INNER JOIN fm_user u
 				ON r.writer = u.user_id
 		WHERE film_id=#{filmId}
 		  AND r.delete_ts is null
-		ORDER BY r.like_cnt
+		ORDER BY r.like_cnt DESC, r.insert_ts DESC
 		OFFSET ( #{currPage} - 1) * #{amount} ROWS
         FETCH NEXT #{amount} ROWS ONLY
 	</select>
