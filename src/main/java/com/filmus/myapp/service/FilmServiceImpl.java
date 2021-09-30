@@ -97,6 +97,12 @@ public class FilmServiceImpl
 	public int registerReview(FilmReviewDTO dto) {
 		log.debug("registerReview({}) invoked.", dto);
 
+		if(dto.getIsSpoiled() == null) {
+			dto.setIsSpoiled("F");
+		} else if(dto.getIsSpoiled().equals("on")) {
+			dto.setIsSpoiled("T");
+		}//if-else
+		
 		return this.mapper.insertReview(dto);							
 	}//registerReview
 

@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class AdminUserPageDTO {
+public class PageDTO {
 
 	//아래 두개의 필드는 페이징 처리에 필요한 방정식의 "상수"를 저장
 	private Criteria cri;
@@ -20,7 +20,7 @@ public class AdminUserPageDTO {
 	private boolean prev;
 	private boolean next;
 	
-	public AdminUserPageDTO(Criteria cri, int totalAmount) {
+	public PageDTO(Criteria cri, int totalAmount) {
 		this.cri = cri;
 		
 		this.totalAmount=totalAmount;

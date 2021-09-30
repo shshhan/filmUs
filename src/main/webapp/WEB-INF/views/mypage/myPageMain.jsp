@@ -132,7 +132,7 @@
                         // $(".new_pw_submit_btn").prop("disabled", true);
                     } else if (data == 1) {
                         isCurrentPwChecked = true;
-                        $("#current_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                        $("#current_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                         // $(".new_pw_submit_btn").prop("disabled", false);
                     }//if-elseif-elseif-elseif
                     isChangeBtnValid();
@@ -154,7 +154,7 @@
                 // $("#new_pw_input").css("background-color", "#FFCECE");
             }else{
                 isNewPwValid = true;
-                $("#new_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                $("#new_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                 // $("#new_pw_input").css("background-color", "#C2DBFE");
             }//if-elseif-else
             if(confirmPw.length == 0){
@@ -169,7 +169,7 @@
                 // $("#confirm_pw_input").css("background-color", "#FFCECE");
             } else{
                 isNewPwConfirmed = true;
-                $("#confirm_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                $("#confirm_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                 // $(".new_pw_submit_btn").prop("disabled", false);
                 // $("#confirm_pw_input").css("background-color", "#C2DBFE");
             }//if- elseif -else

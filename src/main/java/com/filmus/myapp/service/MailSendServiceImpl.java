@@ -66,12 +66,13 @@ public class MailSendServiceImpl
 			sendMail.setText(
 					new StringBuffer()
 							.append("<h1>[이메일 인증]</h1>")
-							.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
+							.append("<p>FILMUS에 가입해주셔서 감사합니다.</p>")
+							.append("<p>아래 링크를 클릭하여 이메일 인증을 완료해주시기 바랍니다.</p>")
 				            .append("<a href='http://localhost:8090/main/emailAuthorized?email=")
 				            .append(email)
 				            .append("&authCode=")
 				            .append(authCode)
-				            .append("' target='_blenk'>이메일 인증하기</a>")
+				            .append("' target='_blenk'>이메일 인증</a>")
 				            .toString());
             sendMail.setFrom("shawnshhan@gmail.com", "FILMUS");
             sendMail.setTo(email);

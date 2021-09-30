@@ -421,7 +421,7 @@ public class MypageController {
 			case 1: 
 				log.info(">>>>> result : 1 >>>>>>");				
 				rttrs.addFlashAttribute("message", "temp_pw_sent");
-				return "redirect:/";	//비밀번호 찾기로 Redirect 후 메세지 띄움
+				return "redirect:/main/forgotPw";	//비밀번호 찾기로 Redirect 후 메세지 띄움
 
 			case 2:
 				log.info(">>>>> result : 2 >>>>>>");
@@ -430,7 +430,7 @@ public class MypageController {
 				
 			default:
 				log.info(">>>>> result : 3 >>>>>>");
-				return "redirect:/main/exception";	//다 안되면 Exception 페이지로 이동
+				return "redirect:/main/errorPage";	//다 안되면 Exception 페이지로 이동
 		}//switch-case
 	
 	}//newPassword

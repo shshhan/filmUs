@@ -555,8 +555,6 @@
                 </div>
             </div>
         </div>
-
-
         <div style="clear: both;">
             <%@ include file="/resources/html/footer.jsp" %>
         </div>
