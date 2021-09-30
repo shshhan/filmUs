@@ -281,7 +281,7 @@
 																.append(
 																		"<a href='/mypage/main?userid="
 																				+ listUser[i].userid
-																				+ "' id='searchTitle' style='float: left;'>"
+																				+ "' id='searchTitle' style='float: left; color:black !important;'>"
 																				+ listUser[i].nickname
 																				+ "</a>");
 													} //for
@@ -459,7 +459,7 @@
 		
 		#autocomplete_result_list {
 			position: absolute;
-			top: 90px;
+			top: 110px;
 			right: 100px;
 			width: 300px;
 			list-style: none;
@@ -555,9 +555,15 @@
 			</nav>
 		</div>
 
-		<video muted autoplay loop id="bgvid" style="width:100%;">
+		<video muted autoplay loop id="bgvid" style="width:100%;" >
         	<source src="resources/video/avengers_endgame_trailer.mp4" type="video/mp4">
     	</video>
+    	
+    	<!-- <iframe width="100%" height="813"
+			src="resources/video/avengers_endgame_trailer.mp4"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen muted autoplay></iframe> -->
 
 	</div>
 

@@ -99,6 +99,8 @@ public class FilmController {
 			model.addAttribute("likeCheck", like);
 		} //if-else
 		
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>" + review);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("review", review);
 		

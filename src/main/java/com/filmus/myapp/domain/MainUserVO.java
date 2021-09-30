@@ -10,5 +10,6 @@ public class MainUserVO {
 	private String photo;
 	private String text;
 	private String nickname;
+	private String social;
 
 } //end class

@@ -79,10 +79,16 @@
     </update>
 
     <update id="delete">
-      <![CDATA[ 
-        UPDATE fm_board
-        SET delete_ts=current_date
-        WHERE bno=#{bno}
+      <![CDATA[
+      	{
+	    	CALL
+	        DECLARE
+	        BEGIN
+	            UPDATE fm_board SET delete_ts = current_date WHERE bno = #{bno};
+	            UPDATE fm_board_comment SET delete_ts = current_date WHERE bno = #{bno};
+	            DELETE FROM fm_heart WHERE bno = #{bno};
+	        END
+    	}      
       ]]>
     </update>
 
