@@ -110,8 +110,8 @@
                             console.log('title : ' + listFilm[i].title);
                             $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
                             $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                             
-                            $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"'><img src='https://www.themoviedb.org/t/p/original"+listFilm[i].poster+"' style='width:150px; height:100px; float: left;'></a>");
-                                $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"' id='searchTitle' style='float: left;'>"+listFilm[i].title+"</a>");
+                            $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"'><img src='https://www.themoviedb.org/t/p/original"+listFilm[i].poster+"' style='height:100px; float: left;'></a>");
+                            $('#searchTd'+i).append("<a href='/film/"+listFilm[i].filmid+"' id='searchTitle' style='float: left; font-size:15px;'>"+listFilm[i].title+"</a>");
                             } //for
                             } //success
                         }); //ajax
@@ -135,7 +135,7 @@
                             $('#searchTr').append("<tr class='searchTrTemp' id='searchTr"+i+"'>");
                             $('#searchTr'+i).append("<td class='searchTd' id='searchTd"+i+"' style='width: 300px'>");                             
                             $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"'><img src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+listUser[i].photo+"' style='width:150px; height:100px; float: left;'></a>");
-                                $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
+                            $('#searchTd'+i).append("<a href='/mypage/main?userid="+listUser[i].userid+"' id='searchTitle' style='float: left;'>"+listUser[i].nickname+"</a>");
                             } //for
                         } //success
                     }); //ajax
@@ -195,7 +195,7 @@
          }
             #autocomplete_result_list {
                 position: absolute;
-                top: 90px;
+                top: 110px;
                 right: 100px;
                 
                 width: 300px;

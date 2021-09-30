@@ -27,11 +27,16 @@
     </update>
 
     <update id="delete">
-        <![CDATA[ 
-            UPDATE fm_review
-            SET delete_ts=current_date
-            WHERE rno=#{rno}
-            AND film_id=#{filmId}
+        <![CDATA[        
+			{
+		    	CALL
+		        DECLARE
+		        BEGIN
+		            UPDATE fm_review SET delete_ts = current_date WHERE rno = #{rno} AND film_id = #{filmId};
+		            UPDATE fm_review_comment SET delete_ts = current_date WHERE rno = #{rno};
+		            DELETE FROM fm_review_liked WHERE rno = #{rno};
+		        END
+    		}   
         ]]>
     </update>
     
@@ -58,11 +63,15 @@
     </update>
 
     <update id="rcDelete">
-        <![CDATA[ 
-            UPDATE fm_review_comment
-            SET delete_ts=current_date
-            WHERE rcno=#{rcno}
-            AND rno=#{rno}
+        <![CDATA[        
+        	{
+		    	CALL
+		        DECLARE
+		        BEGIN
+		            UPDATE fm_review_comment SET delete_ts = current_date WHERE rcno = #{rcno} AND rno = #{rno};
+		            UPDATE fm_review_comment SET delete_ts = current_date WHERE parent_rcno = #{rcno};
+		        END
+    		}
         ]]>
     </update>
 
