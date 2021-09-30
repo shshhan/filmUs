@@ -8,7 +8,7 @@
 
 	<select id='getMainUser' resultType='com.filmus.myapp.domain.MainUserVO'>
 		<![CDATA[			
-			SELECT user_id, profile_photo_path, profile_text, nickname
+			SELECT user_id, profile_photo_path, profile_text, nickname, substr(email, 0, 10) social
 			FROM fm_user
 			WHERE user_id = #{userid}
 		]]>
