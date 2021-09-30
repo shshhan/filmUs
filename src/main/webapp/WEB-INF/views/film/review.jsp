@@ -383,7 +383,7 @@
                                 <c:if test="${reply.deleteTs==null && reply.parentRcno==null}">
                                     <div id="parentReplyInfo">
                                         <ul>
-                                            <li><a href="/mypage/main?userid=${childReply.writer}"><img id="replyImg" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${reply.profilePhotoPath}" alt="profile" style="width: 40px; height: 40px; border-radius: 50%;"></a></li>
+                                            <li><a href="/mypage/main?userid=${reply.writer}"><img id="replyImg" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${reply.profilePhotoPath}" alt="profile" style="width: 40px; height: 40px; border-radius: 50%;"></a></li>
                                             <li> ${reply.nickname}</li>
                                             <li style="color: rgba(128, 128, 128, 0.5); font-size: 10px;">작성 <fmt:formatDate pattern='yyyy/MM/dd hh:mm' value="${reply.insertTs}"/></li>
                                             <c:if test="${reply.updateTs!=null}">
