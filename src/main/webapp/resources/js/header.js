@@ -44,10 +44,10 @@ function checkEmail(email){
 		isEmailChecked = false;
 		$("#email_message").text("");
 
-	} else if( !isEmail(email) ){
+	} else if( (email.length > 60) || ( !isEmail(email) ) ){
 		isEmailChecked = false;
 		$("#email_message").text("옳바른 이메일 형식이 아닙니다.");
-
+	
 	} else{
 		$.ajax({
 			async:false,
@@ -70,12 +70,13 @@ function checkEmail(email){
 				}//if-elseIf
 
 				// console.log("isEmailExist header.js:",isEmailExist);
-				isSignUpBtnValid();
 
 			}//success
 		});//ajax
 
 	}//if-elseIf-else
+	
+	isSignUpBtnValid();
 
 }//checkEmail
 
@@ -110,9 +111,9 @@ function checkNickname(nickname){
 	if(nickname.length == 0){
 		isNickChecked = false;	
 		$(".nickname").text("");
-	} else if(nickname.length < 2){
+	} else if( !(nickname.length > 3 && nickname.length < 13) ){
 		isNickChecked = false;
-		$(".nickname").text("닉네임은 두글자 이상이어야 합니다.");
+		$(".nickname").text("닉네임은 두 글자 이상, 열두 글자 이하이어야 합니다.");
 	} else{
 		$.ajax({
 			data : {
@@ -132,12 +133,13 @@ function checkNickname(nickname){
 					$(".nickname").text("이미 등록된 닉네임입니다.");
 
 				}//if-elseif-elseif-elseif
-				isSignUpBtnValid();
-
+				
 			}//success
 		});//ajax
 
 	}//if-elseIf-else
+	
+	isSignUpBtnValid();
 	
 }//checkNickname
 
