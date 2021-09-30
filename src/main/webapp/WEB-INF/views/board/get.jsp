@@ -103,7 +103,7 @@
                     }//if
                     for(var i=0, len=list.length||0; i<len; i++){
                         str+="      <div class='header'>";
-                        str+="          <a href='/mypage/main?userid="+list[i].writer+"'><img class='rounded-circle' src='/resources/img/common.jpg' width='30px' height='30px'></a>";
+                        str+="          <a href='/mypage/main?userid="+list[i].writer+"'><img class='rounded-circle' src='https://younghoon.s3.ap-northeast-2.amazonaws.com/"+list[i].profilePhotoPath+"' width='30px' height='30px'></a>";
                         str+="          <strong class='primary-font'>"+list[i].nickname+"</strong>";
                         // str+="          <button type='button' id='reportBtn'> <img src='/resources/img/siren.jpg' width='20px' height='20px'>신고</button>";
                         str+="          <samll class='pull-right text-muted' id='commentTs'>등록 "+replyService.displayTime(list[i].insert_ts)+" <c:if test='"+list[i].update_ts+"'><br>수정 "+replyService.displayTime(list[i].update_ts)+"</c:if>"+"</small>";
@@ -409,8 +409,8 @@
                 <c:choose>
                     <c:when test="${board.category=='F'}"><a href="/board/list?category=F&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">FREE BOARD</a></c:when>
                     <c:when test="${board.category=='N'}"><a href="/board/list?category=N&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">NEWS BOARD</a></c:when>
-                    <c:when test="${board.category=='B'}"><a href="/board/list?category=B&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">BOASTFULNESS BOARD</a></c:when>
-                    <c:when test="${board.category=='R'}"><a href="/board/list?category=R&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">RECOMMENDATION BOARD</a></c:when>
+                    <c:when test="${board.category=='B'}"><a href="/board/list?category=B&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">MY PICK</a></c:when>
+                    <c:when test="${board.category=='R'}"><a href="/board/list?category=R&currPage=1&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}">ATTEND</a></c:when>
                 </c:choose>
             </div>
 
@@ -462,10 +462,10 @@
             <div>
                 <p id="title">
                     [<c:choose>
-                       <c:when test="${board.category=='F'}">자유</c:when>
-                       <c:when test="${board.category=='N'}">소식</c:when>
-                       <c:when test="${board.category=='B'}">자랑</c:when>
-                       <c:when test="${board.category=='R'}">추천</c:when>
+                       <c:when test="${board.category=='F'}">FREE</c:when>
+                       <c:when test="${board.category=='N'}">NEWS</c:when>
+                       <c:when test="${board.category=='B'}">MY PICK</c:when>
+                       <c:when test="${board.category=='R'}">ATTEND</c:when>
                      </c:choose>] ${board.title}
                 </p>
 
