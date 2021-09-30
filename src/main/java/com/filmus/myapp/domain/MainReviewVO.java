@@ -16,5 +16,6 @@ public class MainReviewVO {
 	private String title;
 	private Integer width;
 	private Timestamp insertTs;
+	
 
 } //end class
