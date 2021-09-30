@@ -659,7 +659,7 @@
 						<div class='mypage_review_content' id='mypage_review_content'>
 
 							<a href='/film/${reviews.filmid}/review/${reviews.rno}'
-								style='font-size: 17px; color: black;'>${reviews.content}</a>
+								style='font-size: 17px; color: black; white-space: pre-wrap;'>${reviews.content}</a>
 
 						</div>
 
