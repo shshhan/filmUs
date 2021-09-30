@@ -8,7 +8,7 @@
 
 	<select id='getMainUser' resultType='com.filmus.myapp.domain.MainUserVO'>
 		<![CDATA[			
-			SELECT user_id, profile_photo_path, profile_text, nickname
+			SELECT user_id, profile_photo_path, profile_text, nickname, substr(email, 0, 10) social
 			FROM fm_user
 			WHERE user_id = #{userid}
 		]]>
@@ -61,10 +61,11 @@
 	<select id='getMainReview' resultType='com.filmus.myapp.domain.MainReviewVO'>
 		<![CDATA[			
 			SELECT B.film_id filmid, A.rno rno, B.poster_path poster, A.content content, A.rate rate, B.original_title title, 
-					A.rate * 20 width, A.insert_ts insert_ts 
+					A.rate * 20 width, A.insert_ts insert_ts
 			FROM fm_review A
 			LEFT OUTER JOIN fm_film B ON A.film_id = B.film_id
 			WHERE A.writer = #{userid}
+			AND A.delete_ts IS NULL
 			ORDER BY A.insert_ts DESC
 			OFFSET 0 ROWS
 			FETCH NEXT 4 ROWS ONLY
@@ -105,16 +106,21 @@
 		]]>
 	</select>
 	
-	<delete id="deleteMainReview">
+	<update id="deleteMainReview">
     	{
 	    	CALL
 	        DECLARE
 	        BEGIN
-	            DELETE FROM fm_review WHERE rno = #{rno};
+	            UPDATE fm_review
+	            SET delete_ts = current_date
+	            WHERE rno = #{rno};
+	            
+	            DELETE FROM fm_review_comment WHERE rno = #{rno};
+	            DELETE FROM fm_review_liked WHERE rno = #{rno};
 	            DELETE FROM fm_activity where rno = #{rno};
 	        END
     	}
-    </delete>
+    </update>
     
     <delete id="deleteMainGuestbook">
     	{
@@ -204,7 +210,8 @@
 			SELECT A.follower follower, B.user_id userid, B.nickname nickname, A.followee followee, B.profile_photo_path photo, A.insert_ts
 			FROM fm_follow A
 			LEFT OUTER JOIN fm_user B ON A.follower = B.user_id
-			WHERE followee = #{userid}		
+			WHERE followee = #{userid}
+			AND B.delete_ts IS NULL		
 			ORDER BY A.insert_ts DESC
 			OFFSET (#{currPage} - 1) * #{amount} ROWS
 			FETCH NEXT #{amount} ROWS ONLY
@@ -232,7 +239,8 @@
 			SELECT B.user_id userid, B.nickname nickname, A.follower follower, B.profile_photo_path photo, A.insert_ts
 			FROM fm_follow A
 			LEFT OUTER JOIN fm_user B ON A.followee = B.user_id
-			WHERE follower = #{userid}		
+			WHERE follower = #{userid}
+			AND B.delete_ts IS NULL		
 			ORDER BY A.insert_ts DESC
 			OFFSET (#{currPage} - 1) * #{amount} ROWS
 			FETCH NEXT #{amount} ROWS ONLY
@@ -267,7 +275,8 @@
 			SELECT B.film_id filmid, A.rno rno, B.poster_path poster, B.original_title title, A.rate rate, A.writer userid, A.content content, A.rate * 20 width, A.insert_ts
 			FROM fm_review A
 			LEFT OUTER JOIN fm_film B ON A.film_id = B.film_id
-			WHERE writer = #{userid}		
+			WHERE writer = #{userid}
+			AND A.delete_ts IS NULL		
 			ORDER BY A.insert_ts DESC
 			OFFSET (#{currPage} - 1) * #{amount} ROWS
 			FETCH NEXT #{amount} ROWS ONLY
@@ -280,8 +289,9 @@
 	        DECLARE
 	        BEGIN
 	        	DELETE FROM fm_review_liked WHERE rno = #{rno};
-	            DELETE FROM fm_review WHERE rno = #{rno};
-	            DELETE FROM fm_activity where rno = #{rno};
+	            UPDATE fm_review SET delete_ts = current_date WHERE rno = #{rno};
+	            DELETE FROM fm_activity WHERE rno = #{rno};
+	            DELETE FROM fm_review_comment WHERE rno = #{rno};
 	        END
     	}
     </delete>
@@ -293,6 +303,7 @@
 			LEFT OUTER JOIN fm_review B ON A.rno = B.rno
 			LEFT OUTER JOIN fm_film C ON B.film_id = C.film_id
 			WHERE A.user_id = #{userid}
+			AND B.delete_ts IS NULL
 			ORDER BY A.insert_ts DESC
 			OFFSET (#{currPage} - 1) * #{amount} ROWS
 			FETCH NEXT #{amount} ROWS ONLY

@@ -108,7 +108,7 @@
             content: '<';
             position: absolute;
             top: 0;
-            left: 0;
+            right: 30px;
             width: 100%;
             height: 100%;
             line-height: 25px;

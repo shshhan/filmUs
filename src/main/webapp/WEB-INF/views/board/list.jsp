@@ -21,15 +21,15 @@
             console.log("jq started");
             $('#regBtn').click(function(){
                 console.log("regBtn clicked !!");
+               
                 location.href="/board/register?currPage=${cri.currPage}&amount=${cri.amount}&pagesPerPage=${cri.pagesPerPage}";//cri를 사용하기위해 controller에서 ModelAttribute하였음
             })//.click
             $('a.prev,a.next').on('click', function(e){
                 console.debug("on clicked for NEXT or PREV");
                 console.log('\t+this:',this);
-                e.preventDefault(); //Event에 의한 선택된 요소의 기본 동작을 금지
-                //Rvalue선택자에 의해서 선택된 요소. 즉 form태그가 저장됨.
+                e.preventDefault(); 
                 var paginationForm = $('#paginationForm');
-                paginationForm.attr('action', '/board/listPerPage');
+                paginationForm.attr('action', '/board/list');
                 paginationForm.attr('method', 'GET');
                 paginationForm.find('input[name=currPage]').val($(this).attr('href'));
                 paginationForm.find('input[name=amount]').val('${pageMaker.cri.amount}');
@@ -178,11 +178,6 @@
         #searchimg{
             width: 20px;
         }
-        #menulist{
-            background-image: url("/resources/img/popcorn.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
     </style>
 </head>
 <body>
@@ -282,10 +277,10 @@
         </table>
 
         <p>&nbsp;</p>
-        <div>
+        <div>        	
             <c:if test="${__LOGIN__!=null}">
                 <button id="regBtn" class="btn btn-outline-dark" type="button">글쓰기</button>
-            </c:if>
+            </c:if>            
         </div>
 
         <div id="pagination">

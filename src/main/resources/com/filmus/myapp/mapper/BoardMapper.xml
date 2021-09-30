@@ -10,7 +10,7 @@
 
     <select id="getList" resultType="com.filmus.myapp.domain.BoardUserVO">
 
-        SELECT b.*, u.user_id, u.nickname
+        SELECT b.*, u.user_id, u.nickname, u.profile_photo_path profilePhotoPath
 		FROM fm_board b 
 		INNER JOIN fm_user u ON( b.writer=u.user_id)
         <where>
@@ -53,7 +53,7 @@
 
     <select id="select" resultType="com.filmus.myapp.domain.BoardUserVO">
       <![CDATA[ 
-        SELECT b.*, u.user_id, u.nickname
+        SELECT b.*, u.user_id, u.nickname, u.profile_photo_path profilePhotoPath
         FROM fm_board b, fm_user u 
         WHERE b.writer=u.user_id
         AND bno=#{bno}
@@ -79,10 +79,16 @@
     </update>
 
     <update id="delete">
-      <![CDATA[ 
-        UPDATE fm_board
-        SET delete_ts=current_date
-        WHERE bno=#{bno}
+      <![CDATA[
+      	{
+	    	CALL
+	        DECLARE
+	        BEGIN
+	            UPDATE fm_board SET delete_ts = current_date WHERE bno = #{bno};
+	            UPDATE fm_board_comment SET delete_ts = current_date WHERE bno = #{bno};
+	            DELETE FROM fm_heart WHERE bno = #{bno};
+	        END
+    	}      
       ]]>
     </update>
 

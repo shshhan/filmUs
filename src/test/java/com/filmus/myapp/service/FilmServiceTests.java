@@ -42,6 +42,20 @@ public class FilmServiceTests {
 		this.service.showFilmInfo("299534");
 	}
 	
+	@Test
+	public void testGetFilmReactionOfUser() {
+		log.debug("testGetFilmReactionOfUser() invoked.");
+		
+		this.service.getFilmReactionOfUser("146", "299534");
+	}
+	
+	@Test
+	public void testGetFilmReactionOfThis() {
+		log.debug("testGetFilmReactionOfThis() invoked.");
+		
+		this.service.getFilmReactionOfThis("299534");
+	}
+	
 	@After
 	public void tearDown() {
 		log.debug("tearDown() invoked.");

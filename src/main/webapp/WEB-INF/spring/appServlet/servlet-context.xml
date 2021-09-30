@@ -75,6 +75,28 @@
          <!--  로그인이 돼있어야만 접근할 수 있는 페이지는 여기에 넣어주세요. -->
          <mapping path="/board/register" />
          <mapping path="/board/modify" />
+         <mapping path="/board/remove" />
+         
+         <mapping path="/film/regReview" />
+         <mapping path="/film/modReview" />
+         <mapping path="/film/delReview" />
+         <mapping path="/film/newReply" />
+         <mapping path="/film/newChildReply" />
+         <mapping path="/film/modReply" />
+         <mapping path="/film/delReply" />   
+         
+         <mapping path="/mypage/deleteMainReview" />
+         <mapping path="/mypage/deleteMainGuestbook" />
+         <mapping path="/mypage/insertGuestbook" />
+         <mapping path="/mypage/insertFollow" />
+         <mapping path="/mypage/deleteFollow" />
+         <mapping path="/mypage/deleteFilmReaction" />
+         <mapping path="/mypage/cancelFollower" />
+         <mapping path="/mypage/deleteGuestbook" />
+         <mapping path="/mypage/deleteMyReview" />
+         <mapping path="/mypage/cancelLikedReview" />
+         <mapping path="/mypage/registerUserProfile" />
+         
          
          <beans:ref bean="authInterceptor" />
       </interceptor>
@@ -84,19 +106,40 @@
          <mapping path="/*/*" />
          
          <!-- 제외 경로 : 로그인, 회원가입 등 계정 관련 -->
-         <exclude-mapping path="/main/logout" />   
-         <exclude-mapping path="/main/loginPost" />   
-         <exclude-mapping path="/main/loginRequired" />
-         <exclude-mapping path="/main/checkEmail" />   
-         <exclude-mapping path="/main/checkNickname" />   
-         <exclude-mapping path="/main/joinPost" />   
-         <exclude-mapping path="/main/emailAuthorized" />   
-         <exclude-mapping path="/main/forgotPw" />
+         <exclude-mapping path="/logout" />   
+         <exclude-mapping path="/loginPost" />   
+         <exclude-mapping path="/loginRequired" />
+         <exclude-mapping path="/checkEmail" />   
+         <exclude-mapping path="/checkNickname" />   
+         <exclude-mapping path="/joinPost" />   
+         <exclude-mapping path="/emailAuthorized" />   
+         <exclude-mapping path="/forgotPw" />
          
          <!-- 제외경로 : AuthInterceptor Path -->
          <exclude-mapping path="/board/register" />
          <exclude-mapping path="/board/modify" />
-                   
+         <exclude-mapping path="/board/remove" />
+         
+         <exclude-mapping path="/film/regReview" />
+         <exclude-mapping path="/film/modReview" />
+         <exclude-mapping path="/film/delReview" />
+         <exclude-mapping path="/film/newReply" />
+         <exclude-mapping path="/film/newChildReply" />
+         <exclude-mapping path="/film/modReply" />
+         <exclude-mapping path="/film/delReply" />   
+         
+         <exclude-mapping path="/mypage/deleteMainReview" />
+         <exclude-mapping path="/mypage/deleteMainGuestbook" />
+         <exclude-mapping path="/mypage/insertGuestbook" />
+         <exclude-mapping path="/mypage/insertFollow" />
+         <exclude-mapping path="/mypage/deleteFollow" />
+         <exclude-mapping path="/mypage/deleteFilmReaction" />
+         <exclude-mapping path="/mypage/cancelFollower" />
+         <exclude-mapping path="/mypage/deleteGuestbook" />
+         <exclude-mapping path="/mypage/deleteMyReview" />
+         <exclude-mapping path="/mypage/cancelLikedReview" />
+         <exclude-mapping path="/mypage/registerUserProfile" />            
+                      
          <beans:ref bean="autoLoginInterceptor" />
       </interceptor>
       

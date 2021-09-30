@@ -80,6 +80,17 @@
         	        	
         	color: blue;
         	font-weight: bold;        	
+        }
+        
+        #activity_review_content_b {
+        	display: inline-block;
+        	white-space: nowrap;
+        	overflow: hidden;
+        	text-overflow: ellipsis;
+        	width: 150px;
+        	        	
+        	color: blue;
+        	font-weight: bold;        	
         }        
     
     </style>
@@ -176,7 +187,7 @@
                                <c:when test="${type eq 'RL'}">
                                    <td>
                                       <a class='activity_a' href='/mypage/main?userid=${activity.userid}'>${activity.nickname}</a>님이                                      
-                                      <a class='activity_a' href='/film/${activity.reviewFilmId}/review/${activity.rno}' id='activity_review_content'>${activity.content}</a> 리뷰를 좋아합니다.                                      
+                                      <a class='activity_a' href='/film/${activity.reviewFilmId}/review/${activity.rno}' id='activity_review_content_b'>${activity.content}</a> 리뷰를 좋아합니다.                                      
                                    </td>
                                    <td>${activity.insertTs}</td>
                                </c:when>

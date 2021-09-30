@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.filmus.myapp.domain.FilmDetailVO;
+import com.filmus.myapp.domain.FilmInfoReactionVO;
 import com.filmus.myapp.domain.FilmPeopleVO;
 import com.filmus.myapp.domain.FilmReviewDTO;
 import com.filmus.myapp.domain.FilmReviewVO;
@@ -75,19 +76,62 @@ public class FilmServiceImpl
 		resultMap.put("director", director);
 		resultMap.put("cast", cast);
 		
-		//영화 리뷰 정보 가져오기
-		List<FilmReviewVO> reviews = this.mapper.getReviews(filmId);
-		resultMap.put("reviews", reviews);
-		
 		return resultMap;
 	}//showFilmInfo
+	
+	@Override
+	public List<FilmReviewVO> getReviewList(Map<String, Object> params) {
+		log.debug("getReviewList({}) invoked.", params);
+		
+		return this.mapper.getReviews(params);
+	}//getReviewList
+
+	@Override
+	public int getTotal(Map<String, Object> params) {
+		log.debug("getTotal({}) invoked.", params);
+		
+		return this.mapper.getTotalCount(params);
+	}//getTotal
 
 	@Override
 	public int registerReview(FilmReviewDTO dto) {
 		log.debug("registerReview({}) invoked.", dto);
+
+		if(dto.getIsSpoiled() == null) {
+			dto.setIsSpoiled("F");
+		} else if(dto.getIsSpoiled().equals("on")) {
+			dto.setIsSpoiled("T");
+		}//if-else
 		
-		return this.mapper.insertReview(dto);
-		
+		return this.mapper.insertReview(dto);							
 	}//registerReview
+
+	@Override
+	public List<Integer> getFilmReactionOfUser(String userId, String filmId) {
+		log.debug("getFilmReactionOfUser({}, {}) invoked.", userId, filmId);
+		
+		return this.mapper.getFilmReactionOfUser(userId, filmId);
+	}//getFilmReactionOfUser
+
+	@Override
+	public FilmInfoReactionVO getFilmReactionOfThis(String filmId) {
+		log.debug("getFilmReactionOfThis ({}) invoked.", filmId);
+		
+		return this.mapper.getFilmReactionOfThis(filmId);
+	}//getFilmReactionOfThis
+
+	@Override
+	public int addFilmReactionOfUser(String userId, String filmId, Integer code) {
+		log.debug("addFilmReactionOfUser ({}, {}, {}) invoked.", userId, filmId, code);
+		
+		return this.mapper.InsertFilmReactionOfUser(userId, filmId, code);
+	}//addFilmReactionOfUser
+
+	@Override
+	public int removeFilmReactionOfUser(String userId, String filmId, Integer code) {
+		log.debug("removeFilmReactionOfUser ({}, {}, {}) invoked.", userId, filmId, code);
+
+		return this.mapper.DeleteFilmReactionOfUser(userId, filmId, code);
+	}//removeFilmReactionOfUser
 	
 }//end class

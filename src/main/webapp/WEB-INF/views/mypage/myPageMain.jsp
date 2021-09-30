@@ -132,7 +132,7 @@
                         // $(".new_pw_submit_btn").prop("disabled", true);
                     } else if (data == 1) {
                         isCurrentPwChecked = true;
-                        $("#current_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                        $("#current_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                         // $(".new_pw_submit_btn").prop("disabled", false);
                     }//if-elseif-elseif-elseif
                     isChangeBtnValid();
@@ -154,7 +154,7 @@
                 // $("#new_pw_input").css("background-color", "#FFCECE");
             }else{
                 isNewPwValid = true;
-                $("#new_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                $("#new_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                 // $("#new_pw_input").css("background-color", "#C2DBFE");
             }//if-elseif-else
             if(confirmPw.length == 0){
@@ -169,7 +169,7 @@
                 // $("#confirm_pw_input").css("background-color", "#FFCECE");
             } else{
                 isNewPwConfirmed = true;
-                $("#confirm_pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+                $("#confirm_pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
                 // $(".new_pw_submit_btn").prop("disabled", false);
                 // $("#confirm_pw_input").css("background-color", "#C2DBFE");
             }//if- elseif -else
@@ -257,6 +257,7 @@
 		
 		#userProfileRegBtn {
 			margin-top: 15px;
+			margin-left: 53px;
 		}
 		
 		#mypage_usable-statistics {
@@ -387,9 +388,20 @@
 		.activity_a {
 			color: blue !important;
 			font-weight: bold;
+			
 		}
 		
 		#activity_review_content_a {
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 150px;
+			color: blue;
+			font-weight: bold;
+		}
+		
+		#activity_review_content_b {
 			display: inline-block;
 			white-space: nowrap;
 			overflow: hidden;
@@ -411,6 +423,8 @@
 			margin-left: 500px;
 			margin-top: 20px;
 		}
+		
+		
 	</style>
 	
 </head>
@@ -438,9 +452,17 @@
 
             <c:set var='userid' value='${cri.userid}' />
             <c:set var='sessionUserid' value='${__LOGIN__.userId}' />
-            <c:set var='isFollowed' value='#{isFollowed}' />
-                <button type="button" id='userRegBtn' class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#new_pw" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Register</button>
-                <button type="button" id='userProfileRegBtn' class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerProfile" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">RegisterProfile</button>
+            <c:set var='social' value='${userVO.social}' />
+            <c:set var='isFollowed' value='${isFollowed}' />
+            <c:choose>
+            	<c:when test="${social eq 'SOC.KAKAO_'}">
+            		<button type="button" id='userRegBtn' class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#new_pw" style='display:none'>Password</button>               
+            	</c:when>
+            	<c:otherwise>
+            		<button type="button" id='userRegBtn' class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#new_pw" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Password</button>               
+            	</c:otherwise>
+            </c:choose>
+                <button type="button" id='userProfileRegBtn' class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerProfile" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Profile</button>
                 
               <c:choose>
                  <c:when test="${isFollowed eq '0'}">
@@ -482,15 +504,15 @@
    
                 <div id='follower_count'>
                     <ul>
-                        <li><a href='/mypage/follower?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>Follower</a></li>
-                        <li><a href='/mypage/follower?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>${followees}</a></li>
+                        <li><a href='/mypage/followee?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>Follower</a></li>
+                        <li><a href='/mypage/followee?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>${followees}</a></li>
                     </ul>
                 </div>
 
                 <div id='following_count'>
                     <ul>
-                        <li><a href='/mypage/followee?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>Following</a></li>
-                        <li><a href='/mypage/followee?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>${followers}</a></li>
+                        <li><a href='/mypage/follower?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>Following</a></li>
+                        <li><a href='/mypage/follower?userid=${cri.userid}&currPage=1&amount=10&pagesPerPage=5' style='color: black;'>${followers}</a></li>
                     </ul>
                 </div>
 
@@ -684,7 +706,7 @@
                        
                        <hr>
    
-                  <table class="table table-striped table-hover">               
+                  <table class="table table-striped table-hover" id='mypage_main_activity_table'>               
                      <thead>
                         <tr>
                            <th>Content</th>
@@ -718,7 +740,7 @@
                                   <c:when test="${type eq 'RL'}">
                                       <td>
                                          <a class='activity_a' href='/mypage/main?userid=${activityVO.userid}'>${activityVO.nickname}</a>님이                                      
-                                         <a class='activity_a' href='/film/${activityVO.reviewFilmId}/review/${activityVO.rno}' id='activity_review_content'>${activityVO.content}</a> 리뷰를 좋아합니다.                                      
+                                         <a class='activity_a' href='/film/${activityVO.reviewFilmId}/review/${activityVO.rno}' id='activity_review_content_b'>${activityVO.content}</a> 리뷰를 좋아합니다.                                      
                                       </td>
                                       <td>${activityVO.insertTs}</td>
                                   </c:when>
@@ -788,6 +810,7 @@
                 <div class="modal-body">
                     <form action="/mypage/newPassword" method="POST">
                         <input type="hidden" name="email" value="${__LOGIN__.email}">
+                        <input type="hidden" name="userid" value="${__LOGIN__.userId}">
                         <div class="mb-3">
                             <label for="current_pw" class="form-label"><b>Current Password</b></label>
                             <input type="password" class="form-control" id="current_pw" placeholder="현재 비밀번호" oninput="javascript:checkCurrentPw()" autocomplete="current-password">
@@ -863,8 +886,9 @@
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-                 <h5>삭제된 계정은 복구가 불가능하며, 회원님이 작성하신 게시물과 영화 리뷰를 제외한 모든 정보는 탈퇴 즉시 삭제됩니다.
-                 <strong>탈퇴 하시겠습니까?</strong></h5>
+                 <h5>삭제된 계정은 복구가 불가능하며, 회원님이 작성하신 게시물과 영화 리뷰를 제외한 모든 정보는 탈퇴 즉시 삭제됩니다.</h5>
+                 <br>
+                 <h3><strong>탈퇴 하시겠습니까?</strong></h3>
                  <p>&nbsp;</p>
 
                  <form action="/main/deleteAccount" id="del_acc_form" method="POST">

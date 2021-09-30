@@ -8,4 +8,5 @@ public class FilmReviewDTO {
 	private Integer writer;
 	private Double rating;
 	private String content;
+	private String isSpoiled;
 }

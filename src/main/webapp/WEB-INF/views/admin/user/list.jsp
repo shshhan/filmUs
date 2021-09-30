@@ -180,18 +180,6 @@
         #pageNumber>li:hover{
             background-color: rgb(224, 224, 224);
         }
-        /* #detailbtn{
-            border-radius: 5px; 
-            margin-right:-4px;
-            border: 1px solid skyblue; 
-            background-color: rgba(0,0,0,0); 
-            color: skyblue; 
-            padding: 5px;
-        }
-        #detailbtn:hover{ 
-            color:rgb(221, 250, 255);
-            background-color: rgb(0, 0, 0); 
-        } */
 		.prev, .next{
 			font-size: 20px;
 		}

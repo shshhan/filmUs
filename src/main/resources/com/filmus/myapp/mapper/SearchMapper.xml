@@ -68,6 +68,7 @@
 				</when>
 			</choose>
 			AND is_admin = 'F'
+			AND delete_ts IS NULL
 		</where>
 		<![CDATA[			
 			OFFSET 0 ROWS
@@ -203,6 +204,7 @@
 				</when>				
 			</choose>
 			AND is_admin = 'F'
+			AND delete_ts IS NULL
 		</where>
 		<![CDATA[			
 			OFFSET (#{currPage} - 1) * #{amount} ROWS
@@ -230,6 +232,7 @@
 				</when>
 			</choose>
 			AND is_admin = 'F'
+			AND delete_ts IS NULL
 		</where>		
 
 	</select>
