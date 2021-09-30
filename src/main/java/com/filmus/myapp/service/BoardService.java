@@ -21,7 +21,7 @@ public interface BoardService {
 	
 	public abstract boolean modify(BoardVO board);	//수정
 	
-	public abstract boolean remove(Integer bno);	//삭제
+	public abstract int remove(Integer bno);	//삭제
 	
 	public abstract int getTotal(Criteria cri);		//전체 게시물 개수
 	

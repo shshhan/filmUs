@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 @NoArgsConstructor
 
 @Service
-public class ReviewServieImpl implements ReviewService {
+public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired private ReviewMapper mapper;
 	
@@ -79,6 +79,8 @@ public class ReviewServieImpl implements ReviewService {
 		Objects.requireNonNull(this.mapper);
 		
 		this.mapper.commentCnt(rno, -1);
+		
+		log.info(">>>>>>>>>>>>>>>>>>>>>>" + this.mapper.rcDelete(rcno, rno));
 		
 		return this.mapper.rcDelete(rcno, rno);
 	}//rcDelete

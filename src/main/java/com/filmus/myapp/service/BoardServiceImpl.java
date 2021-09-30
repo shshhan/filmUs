@@ -86,11 +86,11 @@ public class BoardServiceImpl
 	}//modify
 
 	@Override
-	public boolean remove(Integer bno) {
+	public int remove(Integer bno) {
 		log.debug("remove({}) invoked.",bno);
 		Objects.requireNonNull(this.mapper);
 
-		return (this.mapper.delete(bno)==1);
+		return (this.mapper.delete(bno));
 	}//remove
  
 	@Override
