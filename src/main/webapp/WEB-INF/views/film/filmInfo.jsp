@@ -410,7 +410,7 @@
 							<div class="col-10">
 								<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>			
 								<img src='/resources/img/fullheart.png' style='height:25px;'>${review.likeCnt}</a>    
-								<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>								  
+								<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>															
 								<div class='RatingStar'>
 									<div class='RatingScore'>
 										<div class='outer-star'>
@@ -419,7 +419,7 @@
 										${review.rate} / 5.0                           
 									</div>
 								</div>
-								<div class="long_text five_lines_allowed"><a href='/film/${filmDetail.filmId}/review/${review.rno}'>${review.content}</a></div>
+								<div class="long_text five_lines_allowed"><a href='/film/${filmDetail.filmId}/review/${review.rno}'><c:if test="${review.isSpoiled=='T'}">-----스포일러가 포함된 리뷰입니다.-----</c:if><c:if test="${review.isSpoiled=='F'}">${review.content}</c:if></a>	</div>
 								<hr>
 							</div>
 						</div>
@@ -525,7 +525,7 @@
 							</div>
 							<div class="form-check">
 								<label class="form-check-label" for="spoiler"><b>this review contains spoilers</b></label>
-								<input class="form-check-input" type="checkbox" name="spoiler" id="spoiler">
+								<input class="form-check-input" type="checkbox" name="isSpoiled" id="spoiler">
 							</div>
 							<div class="d-grid gap-2">
 								<!-- <button type="submit" id="reg_review_btn" class="btn btn-primary">REGISTER</button> -->

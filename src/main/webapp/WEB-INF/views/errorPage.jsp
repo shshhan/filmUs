@@ -15,21 +15,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FILMUS</title>
 	<link rel="icon" href="/resources/img/favicon_noback.ico" type="image/x-icon">
+
+    <script>
+        function goBack(){
+        	console.log("goBack clicked.");
+  			history.go(-1);
+        }//goBack
+    </script>
 </head>
 <body>
-    <h1>예외뜸 ㅋㅋ</h1>
+    <h1>예상치 못한 오류가 발생했습니다.</h1>
+    <h1>불편을 드려 죄송합니다.</h1>
+    <button onclick="javascript:goBack()">돌아가기</button>
 
-    <h1>/WEB-INF/views/errorPage.jsp</h1>
-
-    <p>${exception}</p>
-    <!-- EL 표현식 -->
-
-    <hr>
-
-    <ul>
-        <c:forEach items="${exception.getStackTrace()}" var="stack">
-            <li><c:out value="${stack}"/></li>
-        </c:forEach>
-    </ul>
 </body>
 </html>

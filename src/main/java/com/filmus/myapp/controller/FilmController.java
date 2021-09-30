@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.filmus.myapp.domain.AdminUserPageDTO;
+import com.filmus.myapp.domain.PageDTO;
 import com.filmus.myapp.domain.Criteria;
 import com.filmus.myapp.domain.FilmInfoReactionVO;
 import com.filmus.myapp.domain.FilmReviewDTO;
@@ -60,6 +60,10 @@ public class FilmController {
 		
 		Map<String, Object> filmInfo = this.service.showFilmInfo(filmId);
 		
+		if (filmInfo.get("filmDetail") == null ) {
+			return "/forbidden";
+		}
+		
 		Map<String, Object> params = new HashMap<>();
 		params.put("filmId", filmId);
 		params.put("currPage", cri.getCurrPage());
@@ -68,7 +72,7 @@ public class FilmController {
 			
 		List<FilmReviewVO> reviews  = this.service.getReviewList(params);
 
-		AdminUserPageDTO pageDTO = new AdminUserPageDTO(cri,this.service.getTotal(params));
+		PageDTO pageDTO = new PageDTO(cri,this.service.getTotal(params));
 		
 		model.addAttribute("filmDetail", filmInfo.get("filmDetail"));
 		model.addAttribute("director", filmInfo.get("director"));

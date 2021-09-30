@@ -583,7 +583,7 @@
             </div>
         </div>
     </div>
-    <div style="clear: both;">
+    <div style="clear: both; width: 100%;">
         <%@ include file="/resources/html/footer.jsp" %>
     </div>
 </body>

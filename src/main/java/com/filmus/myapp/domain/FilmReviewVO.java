@@ -13,6 +13,7 @@ public class FilmReviewVO {
 	private Double rate;
 	private Integer width;
 	private String content;
+	private String isSpoiled;
 	private Timestamp insertTs;
 	private Timestamp updateTs;
 	private Integer likeCnt;

@@ -42,9 +42,10 @@
 
 </head>
 
-<body>
+<body>	
 	<%@include file="/resources/html/header.jsp" %>
-
+	<div style="height: 600px;"></div>
+	<%@include file="/resources/html/footer.jsp" %>
 </body>
 
 </html>

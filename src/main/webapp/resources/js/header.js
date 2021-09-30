@@ -61,7 +61,7 @@ function checkEmail(email){
 				// console.log("data :", data);
 				if (data == '0') {
 					isEmailChecked = true;                
-					$("#email_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+					$("#email_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
 
 				} else if (data == '1') {
 					isEmailChecked = false;  
@@ -95,7 +95,7 @@ function checkPw(){
 
 	}else{     
 		isPwValid = true;
-		$("#pw_message").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
+		$("#pw_message").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");
 
 	}//if-elseif-else
 	isSignUpBtnValid();
@@ -125,7 +125,7 @@ function checkNickname(nickname){
 				// console.log("data :", data);
 				if (data == '0') {
 					isNickChecked = true;
-					$(".nickname").text("✅☑✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");  
+					$(".nickname").text("✅✔👌🙆🏻‍♂🙆🏻‍♀🙆‍♀");  
 
 				} else if (data == '1') {
 					isNickChecked = false;

@@ -43,7 +43,7 @@
 	<style>
 		#container{
 			width: 400px;
-			height: 600px;
+			height: 400px;
 			margin : 0 auto;
 		}
 		

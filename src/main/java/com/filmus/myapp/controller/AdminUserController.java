@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.filmus.myapp.domain.AdminUserPageDTO;
+import com.filmus.myapp.domain.PageDTO;
 import com.filmus.myapp.domain.Criteria;
 import com.filmus.myapp.domain.UserCountsVO;
 import com.filmus.myapp.domain.UserVO;
@@ -49,7 +49,7 @@ public class AdminUserController implements InitializingBean {
 		
 		Objects.requireNonNull(users);
 		
-		AdminUserPageDTO pageDTO = new AdminUserPageDTO(cri,this.service.getTotal(cri));
+		PageDTO pageDTO = new PageDTO(cri,this.service.getTotal(cri));
 		
 		UserCountsVO vo = this.service.getUsersStatus();
 		
