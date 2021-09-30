@@ -197,7 +197,7 @@ public class BoardController {
 			RedirectAttributes rttrs) {
 		log.debug("remove({},{},{}) invoked.",cri,bno,rttrs);
 		
-		if(this.service.remove(bno)) {
+		if(this.service.remove(bno) == -1) {
 			rttrs.addAttribute("result","removed");
 		}//if
 		rttrs.addAttribute("currPage",cri.getCurrPage());

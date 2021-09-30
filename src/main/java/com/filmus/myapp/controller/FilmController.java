@@ -48,7 +48,7 @@ public class FilmController {
 	@Setter(onMethod_= @Autowired)
 	private FilmService service;
 	@Setter(onMethod_= @Autowired)
-	private ReviewService rSerice;
+	private ReviewService rService;
 	
 	@GetMapping("{filmId}")
 	public String filmInfo(@PathVariable("filmId") String filmId,
@@ -90,15 +90,15 @@ public class FilmController {
 
 		HttpSession session = req.getSession();
 		
-		ReviewVO review = this.rSerice.reviewDetail(rno, filmId);
-		List<ReviewCommentVO> list = this.rSerice.rcList(rno);
+		ReviewVO review = this.rService.reviewDetail(rno, filmId);
+		List<ReviewCommentVO> list = this.rService.rcList(rno);
 		
 		UserVO user = (UserVO) session.getAttribute("__LOGIN__");
 		
 		if(user == null) {
 			model.addAttribute("likeCheck", 2);
 		} else {
-			int like = this.rSerice.reviewLikeCheck(rno, user.getUserId());
+			int like = this.rService.reviewLikeCheck(rno, user.getUserId());
 			
 			model.addAttribute("likeCheck", like);
 		} //if-else
@@ -132,7 +132,7 @@ public class FilmController {
 	public String modReview(ReviewDTO dto) {
 		log.debug("modReview({})invoked.", dto);
 		
-		if(this.rSerice.modReview(dto)==1) {
+		if(this.rService.modReview(dto)==1) {
 			return "redirect:/film/"+dto.getFilmId()+"/review/"+dto.getRno();			
 		} else {
 			return "/errorPage";
@@ -143,7 +143,7 @@ public class FilmController {
 	public String delReview(Integer rno, Integer filmId, RedirectAttributes rttrs) {
 		log.debug("delReview({},{})invoked.", rno, filmId);
 		
-		if(this.rSerice.delReview(rno,filmId)==1) {
+		if(this.rService.delReview(rno,filmId) == -1) {
 			rttrs.addFlashAttribute("message","review deleted");
 			return "redirect:/film/"+filmId;			
 		} else {
@@ -161,7 +161,7 @@ public class FilmController {
 		
 		log.debug(">>>>>>>>>>>>>>>>>>>>>>>>>" + dto.getContent());
 
-		if(this.rSerice.rcCreate(dto)==1) {
+		if(this.rService.rcCreate(dto)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
 		} else {
 			return "/errorPage";
@@ -172,7 +172,7 @@ public class FilmController {
 	public String newChildReply(ReviewCommentDTO dto, Integer filmId, Integer rno) {
 		log.debug("newChildReply({},{},{})invoked.",dto,filmId,rno);
 
-		if(this.rSerice.rcChildCreate(dto)==1) {
+		if(this.rService.rcChildCreate(dto)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
 		} else {
 			return "/errorPage";
@@ -183,19 +183,21 @@ public class FilmController {
 	@PostMapping("delReply")
 	public String delReply(Integer rcno, Integer filmId, Integer rno) {
 		log.debug("delReply({},{},{})invoked.",rcno,filmId,rno);
-
-		if(this.rSerice.rcDelete(rcno, rno)==1) {
-			return "redirect:/film/"+filmId+"/review/"+rno;
-		} else {
-			return "/errorPage";
-		}//if-else
-	}//newReply
+		
+		log.info(">>>>>>>>>>>>>>>>>" + this.rService.rcDelete(rcno,  rno));
+		
+		if(this.rService.rcDelete(rcno, rno) == -1) {
+			return "redirect:/film/"+filmId+"/review/"+rno;			
+	 	} else { 
+	 		return "/errorPage"; 
+ 		}//if-else
+ 	}//newReply
 	
 	@PostMapping("modReply")
 	public String modReply(ReviewCommentDTO dto, Integer filmId, Integer rno) {
 		log.debug("modReply({},{},{})invoked.",dto,filmId,rno);
 
-		if(this.rSerice.rcModify(dto)==1) {
+		if(this.rService.rcModify(dto)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
 		} else {
 			return "/errorPage";
@@ -210,7 +212,7 @@ public class FilmController {
 	public String reviewLike(Integer rno, Integer userId, Integer filmId) {
 		log.debug("reviewLike({},{},{})invoked.", rno,userId,filmId);
 		
-		if(this.rSerice.reviewLike(rno, userId)==1) {
+		if(this.rService.reviewLike(rno, userId)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
 		} else {
 			return "/errorPage";
@@ -221,7 +223,7 @@ public class FilmController {
 	public String reviewUnLike(Integer rno, Integer userId, Integer filmId) {
 		log.debug("reviewLike({},{},{})invoked.", rno,userId,filmId);
 		
-		if(this.rSerice.reviewUnLike(rno, userId)==1) {
+		if(this.rService.reviewUnLike(rno, userId)==1) {
 			return "redirect:/film/"+filmId+"/review/"+rno;
 		} else {
 			return "/errorPage";
