@@ -37,7 +37,6 @@
                     <li><a href="/admin/main">전체</a></li>
                     <li><a href="/admin/user">회원현황</a></li>
                     <li><a href="/admin/report/list">신고현황</a></li>
-                    <li><a href="/complaint/listPerPage?currPage=1&amount=10&pagesPerPage=10">요청현황</a></li>
                 </ul>
             </div>
         </div>

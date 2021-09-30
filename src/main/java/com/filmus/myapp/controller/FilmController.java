@@ -245,7 +245,7 @@ public class FilmController {
 	@ResponseBody
 	@PostMapping("addReaction")
 	public Integer addReaction(String userId, String filmId, Integer code) {
-		log.debug("addReaction({}, {}, {}) invoked.", userId, filmId, code);
+		log.debug("addReaction({}, {}, {}) invoked.", userId, filmId, code);	
 		
 		int aLine = this.service.addFilmReactionOfUser(userId, filmId, code);
 		log.info("result : ", aLine);

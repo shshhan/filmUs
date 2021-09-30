@@ -108,7 +108,6 @@ var replyService = (
         return{
             add: add,
             getList: getList,
-            getList2:getList2,
             remove: remove,
             update: update,
             get: get,

@@ -8,13 +8,13 @@
 
     <select id="reviewDetail" resultType="com.filmus.myapp.domain.ReviewVO">
         <![CDATA[ 
-            SELECT r.*, f.title, f.poster_path, u.nickname, u.profile_Photo_path
-            FROM fm_review R INNER JOIN fm_film F
-            ON (R.film_id=F.film_id)
+            SELECT r.*, f.title title, f.poster_path posterPath, u.nickname nickname, u.profile_Photo_path profilePhotoPath
+            FROM fm_review r INNER JOIN fm_film f
+            ON (f.film_id=f.film_id)
             INNER JOIN fm_user u
-            ON (R.writer=u.user_id)
+            ON (r.writer=u.user_id)
             WHERE r.rno=#{rno}
-            AND r.film_id=#{filmId}
+            AND f.film_id=#{filmId}
         ]]>
     </select>
 

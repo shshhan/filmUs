@@ -23,5 +23,6 @@ public class BoardCommentUserVO {
 	//user
 	private Integer user_id;
 	private String nickname;
+	private String profilePhotoPath;	
 
 }//end class
