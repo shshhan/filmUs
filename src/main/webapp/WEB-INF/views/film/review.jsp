@@ -110,16 +110,16 @@
             })//regReply
 
             //대댓글등록
-            $("#regReplyBtn").on('click',function(){
-                console.log("regReply clicked.");
+            // $("#regReplyBtn").on('click',function(){
+            //     console.log("regReply clicked.");
 
-                let formObj = $('#childReplyForm');
+            //     let formObj = $('#childReplyForm');
                 
-                formObj.attr("action", "/film/newChildReply");
-                formObj.attr("method", "POST");					
+            //     formObj.attr("action", "/film/newChildReply");
+            //     formObj.attr("method", "POST");					
             
-                formObj.submit();
-            })//regChildReply
+            //     formObj.submit();
+            // })//regChildReply
 
             //댓글삭제
             $("#replyDelBtn,#childReplyDelBtn").on('click',function(){
@@ -239,6 +239,7 @@
             margin-top: 30px;
             margin-left: 395px;
             text-align: center;
+            width: 300px;
         }
         #regReply ul li{
             display: inline-block;
@@ -363,99 +364,40 @@
                         <div id="content">${review.content}</div>
                     </div>
                     <div id="reviewReply">
-                        <!-- ////////// -->
+                        
                         <div>
-                            댓글
+                            <hr>
+                            <form action="/film/newReply" method="POST">
+                                <input type="hidden" name="rno" value="${review.rno}">
+                                <input type="hidden" name="filmId" value="${review.filmId}">
+                                <input type="hidden" name="writer" value="${__LOGIN__.userId}">
+                                <div id="regReply">
+                                    <c:set var="userId" value="${__LOGIN__.userId}"/>
+                                    <c:choose>
+                                        <c:when test="${userId ne null}">
+                                            <ul>
+                                                <li><input type="text" class="form-control" name="content" placeholder="댓글을 남겨보세요."></li>
+                                                <li><button type="submit" class="btn btn-outline-dark" id="regReplyBtn">댓글남기기</button></li>
+                                            </ul>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ul>
+                                                <li><input type="text" class="form-control" name="content" placeholder="로그인 후 댓글을 남겨보세요." readonly></li>
+                                                <li><button type="submit" class="btn btn-outline-dark" id="regReplyBtn" disabled>댓글남기기</button></li>
+                                            </ul>                                        
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </form>
                         </div>
-                        <hr>
-                        <form action="/film/newReply" method="POST" id="regReplyForm">
-                            <input type="hidden" name="rno" value="${review.rno}">
-                            <input type="hidden" name="filmId" value="${review.filmId}">
-                            <input type="hidden" name="writer" value="${__LOGIN__.userId}">
-                            <div id="regReply">
-                                <ul>
-                                    <li><input type="text" class="form-control" name="content" placeholder="댓글을 남겨보세요."></li>
-                                    <li><button type="submit" class="btn btn-outline-dark" id="regReplyBtn">댓글남기기</button></li>
-                                </ul>                                
-                            </div>
-    
-                            <div id="replyList" style="margin-left: 14px;">
-                                <c:forEach items="${list}" var="reply">
-                                    <input type="hidden" name="rcno" value="${reply.rcno}">    
-                                    <c:if test="${reply.deleteTs==null}">
-                                        <c:if test="${reply.parentRcno==null}">
-                                            <div id="parentReply">
-                                                <div id="parentReplyInfo">
-                                                    <ul>
-                                                        <li><img id="replyImg" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${reply.profilePhotoPath}" class="img-thumbnail" alt="..." style="width: 40px; height: 40px; border-radius: 50%;"></li>
-                                                        <li> ${reply.nickname}</li>
-                                                        <li style="color: rgba(128, 128, 128, 0.5); font-size: 10px;">작성 <fmt:formatDate pattern='yyyy/MM/dd hh:mm' value="${reply.insertTs}"/></li>
-                                                        <c:if test="${reply.updateTs!=null}">
-                                                            <li style="color: rgba(128, 128, 128, 0.5); font-size: 10px;">수정 <fmt:formatDate pattern='yyyy/MM/dd hh:mm' value="${reply.updateTs}"/></li>
-                                                        </c:if>
-                                                    </ul>
-                                                </div>
-                                                <div style="padding: 15px 0 15px 30px;">
-                                                    ${reply.content}
-                                                </div>
-                                                <div style="padding-left: 33px;">
-                                                    <button type="button" style="background-color: black; color: white;" id="childReply" class="flip">답글</button>
-                                                    <c:if test="${reply.writer==__LOGIN__.userId}">
-                                                        <button type="button" class="flip2" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">수정</button>
-                                                        <button type="button" id="replyDelBtn" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">삭제</button>
-                                                    </c:if>
-                                                    <div class="panel" id="childReplyArea">
-                                                        <ul>
-                                                            <li><input type="text" class="form-control" name="content" placeholder="답글을 남겨보세요." style="width:540px;"></li>
-                                                            <li><button type="button" class="btn btn-outline-dark" id="RegChildReplyBtn">답글남기기</button></li>
-                                                        </ul>                                
-                                                    </div>
-                                                    <div class="panel2">
-                                                        <ul>
-                                                            <li><input type="text" class="form-control" name="content" style="width:565px;"></li>
-                                                            <li><button type="button" class="btn btn-outline-dark" id="modReplyBtn">수정</button></li>
-                                                        </ul>                                
-                                                    </div>
-                                                </div>   
-                                            </div>
-                                            <c:forEach items="${list}" var="childReply">
-                                                <c:if test="${childReply.parentRcno==reply.rcno}">
-                                                    <c:if test="${childReply.deleteTs!=null}">
-                                                        <div style="padding: 15px 0 15px 30px;" id="childReplyInfo">
-                                                            <ul>
-                                                                <li><img id="replyImg" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${childReply.profilePhotoPath}" class="img-thumbnail" alt="..." style="width: 40px; height: 40px; border-radius: 50%;"></li>
-                                                                <li> ${childReply.nickname}</li>
-                                                                <li style="color: rgba(128, 128, 128, 0.5); font-size: 10px;">작성 <fmt:formatDate pattern='yyyy/MM/dd hh:mm' value="${childReply.insertTs}"/></li>
-                                                                <c:if test="${childReply.updateTs!=null}">
-                                                                    <li style="color: rgba(128, 128, 128, 0.5); font-size: 10px;">수정 <fmt:formatDate pattern='yyyy/MM/dd hh:mm' value="${childReply.updateTs}"/></li>
-                                                                </c:if>
-                                                            </ul>
-                                                        </div>
-                                                        <div style="padding: 0 0 10px 60px;">
-                                                            ${childReply.content}
-                                                        </div>
-                                                        <div style="padding-left: 63px;">
-                                                            <c:if test="${childReply.writer==__LOGIN__.userId}">
-                                                                <button type="button" class="flip3" style="color: rgb(241, 251, 255); background-color: rgb(156, 156, 156);">수정</button>
-                                                                <button type="button" id="childReplyDelBtn" style="color: rgb(241, 251, 255); background-color: rgb(156, 156, 156);">삭제</button>
-                                                                <div class="panel3">
-                                                                    <ul>
-                                                                        <li><input type="text" class="form-control" name="content" style="width:565px;"></li>
-                                                                        <li><button type="button" class="btn btn-outline-dark" id="childModReplyBtn">수정</button></li>
-                                                                    </ul>                                
-                                                                </div>
-                                                            </c:if>
-                                                        </div>  
-                                                    </c:if>
-                                                </c:if>
-                                            </c:forEach>
-                                            <hr>
-                                        </c:if>
-                                    </c:if>
-                                </c:forEach>                                
-                            </div>
-                        </form>
-                    </div> <!-- reviewReply end -->
+
+                        <div>
+                            
+                        </div>
+
+
+
+                    </div> <!-- review reply end -->
                 </div> <!-- reviewInfo end -->
             </c:if>
         </div> <!-- review_wrap end -->
