@@ -351,6 +351,7 @@
                         <div id="content">${review.content}</div>
                     </div>
                     <div id="reviewReply">
+                        <c:set var="userId" value="${__LOGIN__.userId}"/>
                         <!-- 댓글작성 -->
                         <div id="replyRegist">
                             <hr>
@@ -359,7 +360,6 @@
                                 <input type="hidden" name="filmId" value="${review.filmId}">
                                 <input type="hidden" name="writer" value="${__LOGIN__.userId}">
                                 <div id="regReply">
-                                    <c:set var="userId" value="${__LOGIN__.userId}"/>
                                     <c:choose>
                                         <c:when test="${userId ne null}">
                                             <ul>
@@ -422,18 +422,34 @@
                                             <input type="hidden" name="filmId" value="${review.filmId}">
                                             <input type="hidden" name="writer" value="${__LOGIN__.userId}">
                                             <input type="hidden" name="parentRcno" value="${reply.rcno}">
+                                            
                                             <div>
-                                                <ul id="childReplyArea">
-                                                    <li><input type="text" class="form-control" name="content"
-                                                            placeholder="답글을 남겨보세요." style="width:540px;"></li>
-                                                    <li><button type="submit" class="btn btn-outline-dark"
-                                                            id="RegChildReplyBtn">답글남기기</button></li>
-                                                </ul>
+                                                <c:choose>
+                                                    <c:when test="${userId ne null}">
+                                                        <ul>
+                                                            <ul id="childReplyArea">
+                                                                <li><input type="text" class="form-control" name="content"
+                                                                        placeholder="답글을 남겨보세요." style="width:540px;"></li>
+                                                                <li><button type="submit" class="btn btn-outline-dark"
+                                                                        id="RegChildReplyBtn">답글남기기</button></li>
+                                                            </ul>
+                                                        </ul>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <ul id="childReplyArea">
+                                                            <li><input type="text" class="form-control" name="content"
+                                                                    placeholder="로그인 후 답글을 남겨보세요." style="width:540px;" readonly></li>
+                                                            <li><button type="submit" class="btn btn-outline-dark"
+                                                                    id="RegChildReplyBtn" disabled>답글남기기</button></li>
+                                                        </ul>                                    
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                
                                             </div>
                                         </form>
                                         
                                     </div>
-                                    <div id="childReplyList" style="padding: 15px 0 15px 30px;">
+                                    <div id="childReplyList" style="padding: 15px 0 0 30px;">
                                         <c:forEach items="${list}" var="childReply">
                                             <c:if test="${reply.rcno==childReply.parentRcno && childReply.deleteTs==null}">
                                                 <div style="margin-top: 10px;">
@@ -452,22 +468,24 @@
                                                     <div style="padding: 15px 0 15px 30px;">
                                                         ${childReply.content}
                                                     </div>
-                                                    <div  style="padding-left: 30px;">
-                                                        <form action="/film/modReply" method="POST" id="modChildReplyForm" style="display: inline-block;">
-                                                            <input type="hidden" name="rno" value="${review.rno}">
-                                                            <input type="hidden" name="filmId" value="${review.filmId}">
-                                                            <input type="hidden" name="writer" value="${__LOGIN__.userId}">
-                                                            <input type="hidden" name="rcno" value="${childReply.rcno}">
-                                                            <button type="button" class="flip2" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">수정</button>
-                                                            <button type="button" id="childReplyDelBtn" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">삭제</button>
-                                                            <div class="panel2" id="childReplyArea">
-                                                                <ul>
-                                                                    <li><input type="text" class="form-control" name="content" style="width:540px;"></li>
-                                                                    <li><button type="submit" class="btn btn-outline-dark">등록</button></li>
-                                                                </ul>
-                                                            </div>
-                                                        </form> 
-                                                    </div>
+                                                    <c:if test="${childReply.writer==userId}">
+                                                        <div  style="padding-left: 30px;">
+                                                            <form action="/film/modReply" method="POST" id="modChildReplyForm" style="display: inline-block;">
+                                                                <input type="hidden" name="rno" value="${review.rno}">
+                                                                <input type="hidden" name="filmId" value="${review.filmId}">
+                                                                <input type="hidden" name="writer" value="${__LOGIN__.userId}">
+                                                                <input type="hidden" name="rcno" value="${childReply.rcno}">
+                                                                <button type="button" class="flip2" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">수정</button>
+                                                                <button type="button" id="childReplyDelBtn" style="color: rgb(241, 251, 255); background-color: rgb(181, 192, 216);">삭제</button>
+                                                                <div class="panel2" id="childReplyArea">
+                                                                    <ul>
+                                                                        <li><input type="text" class="form-control" name="content" style="width:540px;"></li>
+                                                                        <li><button type="submit" class="btn btn-outline-dark">등록</button></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </form> 
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </c:if>
                                         </c:forEach>

@@ -225,7 +225,7 @@
         .box_stat .stat {
             position: relative;
             display: inline-block;
-            width: 19%;
+            width: 24%;
             height: 88px;
             padding: 10px;  
             vertical-align: top;
@@ -310,12 +310,6 @@
                     <span class="stat_title">신고<br><br></span>
                     <br>
                     <span class="value_increase" id="newMember_span">${total.countrptno} 건</span>
-                </div>
-
-                <div class="stat">
-                    <span class="stat_title">요청사항<br><br></span>
-                    <br>
-                    <span class="value_increase" id="saleBoard_span">${total.compno} 건</span>
                 </div>
             </div>
         </form>
