@@ -405,10 +405,10 @@
 					<c:forEach items="${reviews}" var="review">
 						<div class="row">
 							<div class="col-2" id="profile_photo">
-								<a href="http://localhost:8090/mypage/main?userid=${review.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px"></a>
+								<a href="/mypage/main?userid=${review.writer}"><img class="rounded-circle" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${review.profilePhotoPath}" alt="profile_photo" width="50px" height="50px"></a>
 							</div>
 							<div class="col-10">
-								<p>reviewd by <strong><a href="http://localhost:8090/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>			
+								<p>reviewd by <strong><a href="/mypage/main?userid=${review.writer}">${review.nickname}</a></strong>	
 								<img src='/resources/img/fullheart.png' style='height:25px;'>${review.likeCnt}</a>    
 								<a href='/film/${filmDetail.filmId}/review/${review.rno}'><img src='/resources/img/reply.png' style='height:25px;'>${review.commentCnt}</a></p>															
 								<div class='RatingStar'>
@@ -500,10 +500,6 @@
 						<form action="/film/regReview" method="POST" id="reg_review_form">
 							<input type="hidden" name="filmId" value="${filmDetail.filmId}">
 							<input type="hidden" name="writer" value="${__LOGIN__.userId}">
-							<!-- <input type="hidden" name="currPage" value="${cri.currPage}">
-							<input type="hidden" name="amount" value="${cri.amount}">
-							<input type="hidden" name="pagesPerPage" value="${cri.pagesPerPage}"> -->
-
 							<div class='rating-wrap'>
 								<fieldset class='rating'>
 									<input type='radio' id='star5' name='rating' value='5.0' /><label for='star5' class='full'></label>
@@ -528,7 +524,6 @@
 								<input class="form-check-input" type="checkbox" name="isSpoiled" id="spoiler">
 							</div>
 							<div class="d-grid gap-2">
-								<!-- <button type="submit" id="reg_review_btn" class="btn btn-primary">REGISTER</button> -->
 								<button type="submit" id="reg_review_btn" class="btn btn-primary g-recaptcha" 
                                 data-sitekey="<fmt:message key='recaptcha-key' bundle='${API_KEY}' />"
                                 data-callback='onSubmit' 
