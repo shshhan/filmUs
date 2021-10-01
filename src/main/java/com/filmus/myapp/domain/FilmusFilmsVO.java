@@ -10,6 +10,7 @@ public class FilmusFilmsVO {
 	private String title;	
 	private Double popularity;
 	private String poster;
+	private Integer likeCount;
 	
 	//private Integer likeCnt;
 	//private Integer viewCnt;

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.filmus.myapp.domain.FilmusFilmsGenreVO;
 import com.filmus.myapp.domain.FilmusFilmsVO;
 import com.filmus.myapp.domain.FilmusReviewsVO;
 import com.filmus.myapp.mapper.MainMapper;
@@ -45,5 +46,20 @@ public class MainServiceImpl implements MainService, InitializingBean {
 		
 		return this.mapper.getMainReviews();
 	} //getMainReviews
+	
+	@Override
+	public List<FilmusFilmsGenreVO> getFilmsByGenre(String genre) {
+		log.debug("getFilmsByGenre({}) invoked.", genre);
+		
+		return this.mapper.getFilmsByGenre(genre);
+	} //getFilmsByGenre
+	
+	@Override
+	public List<FilmusFilmsGenreVO> getAllFilms() {
+		log.debug("getAllFilms() invoked.");
+		
+		return this.mapper.getAllFilms();		
+	} //getAllFilms
+
 
 } //end class
