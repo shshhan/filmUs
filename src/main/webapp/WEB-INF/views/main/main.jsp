@@ -659,19 +659,19 @@
 
 						<div class='row' style='margin-top: 5px;'>
 
-							<div class='col-1'>
+							<div class='col-2'>
 
 								<h6>
-									<a href='/film/${reviews.filmid}/review/${reviews.rno}'><img
-										src='/resources/img/fullheart.png' style='height: 25px;'>${reviews.likeCnt}</a>
+									<a href='/film/${reviews.filmid}/review/${reviews.rno}' style='font-size: 16px;'>
+									<img src='/resources/img/fullheart.png' style='height: 25px;'> ${reviews.likeCnt}</a>
 								</h6>
 
 							</div>
 
-							<div class='col-1'>
+							<div class='col-2'>
 								<h6>
-									<a href='/film/${reviews.filmid}/review/${reviews.rno}'><img
-										src='/resources/img/reply.png' style='height: 25px;'>${reviews.commentCnt}</a>
+									<a href='/film/${reviews.filmid}/review/${reviews.rno}' style="font-size: 16px">
+									<img src='/resources/img/reply.png' style='height: 25px;'>  ${reviews.commentCnt}</a>
 								</h6>
 							</div>
 						</div>
