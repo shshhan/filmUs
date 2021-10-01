@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.filmus.myapp.domain.FilmusFilmsGenreVO;
 import com.filmus.myapp.domain.FilmusFilmsVO;
 import com.filmus.myapp.domain.FilmusReviewsVO;
 import com.filmus.myapp.domain.UserDTO;
@@ -59,12 +60,31 @@ public class MainController {
 		
 		List<FilmusFilmsVO> films = this.mainService.getMainFilms();
 		List<FilmusReviewsVO> reviews = this.mainService.getMainReviews();
-		
+		List<FilmusFilmsGenreVO> allFilms = this.mainService.getAllFilms();
+				
 		model.addAttribute("films", films);
-		model.addAttribute("reviews", reviews);		
-		
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("allFilms", allFilms);
+				
 		return "main/main";
 	} //main
+	
+	@PostMapping("/filmsByGenre")
+	@ResponseBody
+	public List<FilmusFilmsGenreVO> getFilmsByGenre(String genre) {
+		log.debug("getFilmsByGenre({}) invoked.", genre);
+		
+		if(genre.equals("ALL")) {
+			List<FilmusFilmsGenreVO> filmsByGenre = this.mainService.getAllFilms();
+			
+			return filmsByGenre;
+		} else {
+			List<FilmusFilmsGenreVO> filmsByGenre = this.mainService.getFilmsByGenre(genre);			
+			
+			return filmsByGenre;
+		} //if-else		
+		
+	} //getFilmsByGenre
 	
 	//====== 로그인 관련 ======
 	
