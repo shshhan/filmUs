@@ -161,6 +161,8 @@
             
              <hr> 
          
+         <c:set var='userid' value='${criF.userid}' />
+         <c:set var='sessionUserid' value='${__LOGIN__.userId}' />
          <c:forEach items="${followers}" var="followers">
             <form action="/mypage/cancelFollower" method="POST" id='form_${followers.follower}_${followers.followee}'>
             <input type='hidden' name='follower' value='${followers.follower}'>
@@ -179,7 +181,7 @@
                          <a href='/mypage/main?userid=${followers.follower}' style='font-size: 17px'>${followers.nickname}</a>
                      </div>
                            
-                     <button id='cancelBtn' onclick="cancelFollower('${followers.follower}', '${followers.followee}')" type="button" class="btn btn-outline-danger btn-sm">Cancel</button>                 
+                     <button id='cancelBtn' onclick="cancelFollower('${followers.follower}', '${followers.followee}')" type="button" class="btn btn-outline-danger btn-sm" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Cancel</button>                 
                    
                       <hr>
       

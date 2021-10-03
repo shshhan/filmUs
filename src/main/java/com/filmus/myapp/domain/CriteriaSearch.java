@@ -13,7 +13,7 @@ public class CriteriaSearch {
 	private String searchWord;
 	
 	private int currPage = 1;
-	private int amount = 10;
+	private int amount = 5;
 	private int pagesPerPage = 5;	
 	
 	public String getPagingUri() {
