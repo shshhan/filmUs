@@ -209,6 +209,8 @@
 
                 <hr>
                 
+                <c:set var='userid' value='${criR.userid}' />
+				<c:set var='sessionUserid' value='${__LOGIN__.userId}' />
                 <c:forEach items="${likedReviews}" var="likedReviews">
             <form action="/mypage/deleteMyReview" method="POST" id='form_${likedReviews.rno}_${likedReviews.userid}'>
                <input type='hidden' name='rno' value='${likedReviews.rno}'>
@@ -244,7 +246,7 @@
    
                            </div>
                            
-                           <button id='delBtn' onclick="cancelLikedReview('${likedReviews.rno}', '${likedReviews.userid}')" type="button" class="btn btn-outline-danger btn-sm">Cancel</button>
+                           <button id='delBtn' onclick="cancelLikedReview('${likedReviews.rno}', '${likedReviews.userid}')" type="button" class="btn btn-outline-danger btn-sm" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Cancel</button>
                            
                        </div>
    

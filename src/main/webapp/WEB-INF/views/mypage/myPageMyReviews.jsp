@@ -209,7 +209,8 @@
             <div id='mypage_reviews' class='container-sm'>
 
                 <hr>
-                
+                <c:set var='userid' value='${criR.userid}' />
+				<c:set var='sessionUserid' value='${__LOGIN__.userId}' />
                 <c:forEach items="${myReviews}" var="myReviews">
                 <form action="/mypage/deleteMyReview" method="POST" id='form_${myReviews.rno}'>
                <input type='hidden' name='rno' value='${myReviews.rno}'>
@@ -245,7 +246,7 @@
    
                            </div>
                            
-                           <button id='delBtn' onclick="deleteMyReview('${myReviews.rno}')" type="button" class="btn btn-outline-danger btn-sm">del</button>
+                           <button id='delBtn' onclick="deleteMyReview('${myReviews.rno}')" type="button" class="btn btn-outline-danger btn-sm" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">del</button>
                            
                        </div>
    

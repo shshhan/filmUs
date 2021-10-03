@@ -52,7 +52,7 @@
 	<!---------- Social Login ---------->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<!---------- Google Recpatch ---------->
+	<!---------- Google Recpatcha ---------->
 	<script src="https://www.google.com/recaptcha/api.js"></script>
 	
 	<!---------- External JS ---------->
