@@ -11,6 +11,7 @@
 		FROM fm_film f
 		LEFT OUTER JOIN (SELECT film_id, ROUND( AVG(rate), 2 ) AS avgRate, ROUND( AVG(rate), 2 )*20 AS width
 		                 FROM fm_review	
+		                 WHERE delete_ts is null
 		                 GROUP BY film_id) r
 		             ON f.film_id=r.film_id
 		WHERE f.film_id=#{filmId}
@@ -35,6 +36,7 @@
 		ORDER BY r.like_cnt DESC, r.insert_ts DESC
 		OFFSET ( #{currPage} - 1) * #{amount} ROWS
         FETCH NEXT #{amount} ROWS ONLY
+	
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
@@ -45,23 +47,7 @@
 				ON r.film_id=f.film_id
 		WHERE r.film_id=#{filmId}
 		  AND rno > 0
-		]]>
-		<!-- <choose>
-			<when test="category eq 'T' .toString()">
-			</when>
-			<when test="category eq 'A' .toString()">
-					AND delete_ts IS NULL
-					<![CDATA[AND (sus_to IS NULL OR sus_to < current_date)]]>
-				</when>
-				<when test="category eq 'D' .toString()">
-					AND delete_ts IS NOT NULL					
-				</when>
-				<when test="category eq 'S' .toString()">
-					AND delete_ts IS NULL
-					<![CDATA[AND sus_to >= current_date]]>
-				</when>
-		</choose> -->
-	
+		]]>	
 	</select>
 	
 	

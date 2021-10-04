@@ -88,7 +88,7 @@
 		}//reaction
 
 		function addOrRemoveFilmReaction(code, url){
-			console.log("RemoveFilmReaction() invoked.", code, url);
+			console.log("addOrRemoveFilmReaction() invoked.", code, url);
 
 			if("${__LOGIN__}".length > 0){ 		
 				$.ajax({
