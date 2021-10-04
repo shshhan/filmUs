@@ -217,8 +217,8 @@
 						
 					              </div>
 					              <div class="button">
-					                  <div class="back"><a href="#" style='background: url(../resources/img/back-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
-					                  <div class="next"><a href="#" style='background: url(../resources/img/next-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
+					                  <div class="back"><a href="#" style='background: url(../resources/img/back-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px; display: none;'><span class="hidden"></span></a></div>
+					                  <div class="next"><a href="#" style='background: url(../resources/img/next-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px; display: none;'><span class="hidden"></span></a></div>
 					              </div>
 					              
 					          </div>					          
