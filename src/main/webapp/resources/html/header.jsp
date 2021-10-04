@@ -180,7 +180,13 @@
             }); //.jq        
         </script>
        
-       <style>          
+       <style>
+       
+       	header a {
+    			color: black !important;
+			    font-weight: bold !important;
+   		}
+                 
          #header {
              width: 998px;
              height: 150px;
