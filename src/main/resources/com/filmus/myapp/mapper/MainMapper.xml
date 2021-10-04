@@ -8,18 +8,26 @@
 
 	<select id='getMainFilms' resultType='com.filmus.myapp.domain.FilmusFilmsVO'>
 		<![CDATA[			
-			SELECT film_id filmid, original_title title, popularity, poster_path poster
-			FROM fm_film
-			ORDER BY popularity DESC
-			OFFSET 0 ROWS
-			FETCH NEXT 5 ROWS ONLY
+			SELECT B.film_id filmid, A.original_title title, A.popularity, A.poster_path poster, B.likeCount likeCount
+			FROM fm_film A
+			INNER JOIN (
+			    SELECT film_id, count(code) AS likeCount
+			    FROM fm_film_reaction
+			    WHERE code = 1
+			    AND insert_ts BETWEEN current_date - 7 AND current_date
+			    GROUP BY film_id
+			    ORDER BY count(code) DESC
+			    ) B ON A.film_id = B.film_id
+			WHERE rownum <= 5
 		]]>
 	</select>
+	
 	
 	<select id='getMainReviews' resultType='com.filmus.myapp.domain.FilmusReviewsVO'>
 		<![CDATA[			
 			SELECT A.rno rno, B.film_id filmid, C.nickname nickname, A.rate rate, A.content content, A.insert_ts insertTs, A.like_cnt likeCnt, 
-					A.comment_cnt commentCnt, to_char(B.release_date, 'YYYY') year, B.original_title title, B.poster_path poster, A.rate * 20 width
+					A.comment_cnt commentCnt, to_char(B.release_date, 'YYYY') year, B.original_title title, B.poster_path poster, A.rate * 20 width, C.user_id userid,
+					C.profile_photo_path profilePhoto
 			FROM fm_review A
 			LEFT OUTER JOIN fm_film B ON A.film_id = B.film_id
 			LEFT OUTER JOIN fm_user C ON A.writer = C.user_id
@@ -27,7 +35,25 @@
 			AND A.delete_ts IS NULL		
 			ORDER BY A.like_cnt DESC, A.comment_cnt DESC, A.rate DESC
 			OFFSET 0 ROWS
-			FETCH NEXT 5 ROWS ONLY
+			FETCH NEXT 4 ROWS ONLY
+		]]>
+	</select>
+	
+	<select id='getFilmsByGenre' resultType='com.filmus.myapp.domain.FilmusFilmsGenreVO'>
+		<![CDATA[			
+			SELECT A.film_id filmid, A.original_title title, to_char(A.release_date, 'YYYY') year, A.poster_path poster
+			FROM fm_film A
+			INNER JOIN fm_genre B ON A.film_id = B.film_id
+			WHERE B.genre = #{genre}
+			ORDER BY year DESC
+		]]>
+	</select>
+	
+	<select id='getAllFilms' resultType='com.filmus.myapp.domain.FilmusFilmsGenreVO'>
+		<![CDATA[			
+			SELECT A.film_id filmid, A.original_title title, to_char(A.release_date, 'YYYY') year, A.poster_path poster
+			FROM fm_film A			
+			ORDER BY year DESC
 		]]>
 	</select>
 

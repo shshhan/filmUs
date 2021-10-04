@@ -52,7 +52,7 @@
 	<!---------- Social Login ---------->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<!---------- Google Recpatch ---------->
+	<!---------- Google Recpatcha ---------->
 	<script src="https://www.google.com/recaptcha/api.js"></script>
 	
 	<!---------- External JS ---------->
@@ -62,39 +62,22 @@
 	<fmt:setBundle basename="KEY" var="API_KEY" />
 	
 	<script>
-		window.onload = function() {
-			var swiper = new Swiper('.swiper-container', {
-				pagination : '.swiper-pagination',
-				paginationType : 'progress',
-				slidesPerView : 'auto',
-				paginationClickable : true,
-				spaceBetween : 0,
-				freeMode : true,
-				nextButton : '.next',
-				prevButton : '.back'
-			});
-	
-		};
+		window.onload = function(){
+	        swiper = new Swiper('.swiper-container', {
+	                     pagination: '.swiper-pagination',
+	                     paginationType: 'progress',
+	                     slidesPerView: 'auto',
+	                     paginationClickable: true,
+	                     spaceBetween: 0,
+	                     freeMode: true,
+	                     nextButton: '.next',
+	                     prevButton: '.back'                  
+	         });
+	    };
+	   
 	
 		$(document).ready(function() {
 	
-			/*for(var vs = 0; vs < 5; vs++) {
-				 console.log(vs);
-				
-				console.log('#filmPoster'+vs);
-				console.log('#posterHover'+vs);
-
-			  $('#filmPoster'+vs).hover(function(){
-				 	console.log('#filmPoster'+vs);
-					console.log('#posterHover'+vs);
-			       $('#filmPoster'+vs).css('border','5px solid #00e054');
-			       $('#posterHover'+vs).css("display", 'inline');
-			   }, function() {
-			   	$('#filmPoster'+vs).css('border','none');
-			   	$('#posterHover'+vs).css("display", 'none');
-			   });
-			   
-			}  */
 	
 			$('#filmPoster0').hover(function() {
 				$(this).css('border', '5px solid #00e054');
@@ -326,7 +309,44 @@
 				} //if
 	
 			}); //click
+		
+		
+			$("#filmsByGenre").on('change', function(){
+				
+				
+
+				var genre = $(this).val();
+				var selectedGenre = {genre : genre};
+								
+				$.ajax({
+					url : '/filmsByGenre',
+					type : 'post',
+					data : selectedGenre,
+					success : function(filmsByGenre) {
+						
+						$('.swiper-slide').remove();
+						
+						for(var i = 0; i < filmsByGenre.length; i++) {							
+							var str = '';
+							str += "<li class='swiper-slide'><a href='/film/"+filmsByGenre[i].filmid+"' style='background: url(https://www.themoviedb.org/t/p/original"+filmsByGenre[i].poster+") center center no-repeat; background-size: cover;'><span>"+filmsByGenre[i].title+"<br>"+filmsByGenre[i].year+"</span></a></li>"
+							console.log(str);
+							$('#swiperUl').append(str);
+						} //for
+					
+						swiper.update();
+						swiper.slideTo(0);
+					
+					} //success
+					
+				}); //ajax
+				
+				
+			}); //filmsByGenre
+		
 		}); //.jq
+		
+		
+		
 	</script>
 	
 	<style>
@@ -583,23 +603,24 @@
 		<hr>
 
 		<div id='mainFilm' style='height: 300px;'>
-			<c:forEach items="${films}" var="films" varStatus="vs">
+			<c:forEach items="${films}" var="films" varStatus="vs">			
 				<ul id='mainPosterUl'>
 					<li class="filmPosterList"
 						style='margin-left: 8px; position: relative;'><a
 						href='/film/${films.filmid}'> <img id='filmPoster${vs.index}'
 							class='filmPoster'
 							src='https://www.themoviedb.org/t/p/original${films.poster}'
-							style='width: 190px;'>
+							style='width: 190px; height: 285px;'>
 							<div id='posterHover${vs.index}' class='hoverTest'
 								style='display: none;'>
 								<img src='/resources/img/heartTransparent.png'
-									style='margin-top: 60px; margin-left: 5px; height: 60px;'>
-								<h6 style='font-weight: bold; font-size: 28px;'>${vs.index}</h6>
+									style='margin-top: 60px; margin-left: 5px; height: 60px;'>								
+								<h6 style='font-weight: bold; font-size: 28px;'>${films.likeCount}</h6>			
+								
 							</div>
-					</a></li>
+						</a>
+					</li>
 				</ul>
-
 			</c:forEach>
 		</div>
 
@@ -625,7 +646,7 @@
 
 						<a href='/film/${reviews.filmid}' class='mainFilmTitle'
 							id='mypage_review_title' style='font-size: 25px; color: blue;'>${reviews.title}</a><br>
-
+						<span style='float: right;'>reviewed by <a href="/mypage/main?userid=${reviews.userid}"><img id="replyImg" src="https://younghoon.s3.ap-northeast-2.amazonaws.com/${reviews.profilePhoto}" alt="profile" style="width: 40px; height: 40px; border-radius: 50%;"></a>    <a href='/mypage/main?userid=${reviews.userid}' style='font-size: 18px;'>${reviews.nickname}</a></span>
 						<div class='RatingStar'>
 							<div class='RatingScore'>
 								<div class='outer-star'>
@@ -638,19 +659,19 @@
 
 						<div class='row' style='margin-top: 5px;'>
 
-							<div class='col-1'>
+							<div class='col-2'>
 
 								<h6>
-									<a href='/film/${reviews.filmid}/review/${reviews.rno}'><img
-										src='/resources/img/fullheart.png' style='height: 25px;'>${reviews.likeCnt}</a>
+									<a href='/film/${reviews.filmid}/review/${reviews.rno}' style='font-size: 16px;'>
+									<img src='/resources/img/fullheart.png' style='height: 25px;'> ${reviews.likeCnt}</a>
 								</h6>
 
 							</div>
 
-							<div class='col-1'>
+							<div class='col-2'>
 								<h6>
-									<a href='/film/${reviews.filmid}/review/${reviews.rno}'><img
-										src='/resources/img/reply.png' style='height: 25px;'>${reviews.commentCnt}</a>
+									<a href='/film/${reviews.filmid}/review/${reviews.rno}' style="font-size: 16px">
+									<img src='/resources/img/reply.png' style='height: 25px;'>  ${reviews.commentCnt}</a>
 								</h6>
 							</div>
 						</div>
@@ -672,6 +693,54 @@
 			</c:forEach>
 
 		</div>
+		
+		<hr>       
+
+        <section class="feature">            
+            
+            <div class="inWrap">            
+
+                <h1 class="display-6">FILMUS's FILMS</h1>
+
+            	<hr>
+            	
+            	<select id="filmsByGenre" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 200px;">
+				  <option value="ALL" selected>Total (choose genre)</option>
+				  <option value="SF">SF</option>
+				  <option value="가족">가족</option>
+				  <option value="공포">공포</option>
+				  <option value="드라마">드라마</option>
+				  <option value="로맨스">로맨스</option>
+				  <option value="모험">모험</option>
+				  <option value="미스터리">미스터리</option>
+				  <option value="범죄">범죄</option>
+				  <option value="스릴러">스릴러</option>
+				  <option value="애니메이션">애니메이션</option>
+				  <option value="액션">액션</option>
+				  <option value="역사">역사</option>
+				  <option value="음악">음악</option>
+				  <option value="코미디">코미디</option>
+				  <option value="판타지">판타지</option>
+				</select>         
+                
+                <div class="fInner swiper-container">
+                    <ul id="swiperUl" class="swiper-wrapper" style="margin-top: 30px;">
+                    	<c:forEach items="${allFilms}" var="allFilms">
+                           <li class="swiper-slide"><a href="/film/${allFilms.filmid}" style='background: url(https://www.themoviedb.org/t/p/original${allFilms.poster}) center center no-repeat; background-size: cover;'>
+                           <span>${allFilms.title}<br>(${allFilms.year})</span></a></li>                        
+                      	</c:forEach>   
+                    </ul>             
+                    
+                    <div class="swiper-pagination"></div>                    
+         
+                </div>
+                <div class="button">
+                    <div class="back"><a href="#" style='background: url(../resources/img/back-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
+                    <div class="next"><a href="#" style='background: url(../resources/img/next-svgrepo-com.svg) center center no-repeat; background-size: 30px 30px;'><span class="hidden"></span></a></div>
+                </div>
+            </div>            
+            
+        </section>
 
 	</div>
 	<!-- alert Modal -->

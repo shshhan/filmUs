@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="/resources/css/layout.css">
     <link rel="stylesheet" href="/resources/css/swiper.css">
     
-    <script src="../resources/js/jquery-1.8.3.min.js"></script>
-    <script src="../resources/js/swiper.js"></script>
+    <script src="/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="/resources/js/swiper.js"></script>
 
     <script>
         window.onload = function(){
@@ -438,7 +438,7 @@
         <div id='mypage_info'>
 
             <div id='mypage_profile'>
-                <h1 class="display-6">PROFILE</h1>            
+                <h1 class="display-6">${userVO.nickname}'s PROFILE</h1>            
                 
                 <hr>
                 
@@ -539,7 +539,7 @@
             
             <div class="inWrap">            
 
-                <h1 class="display-6">Favorite Films</h1>
+                <h1 class="display-6">My Favorite Films</h1>
 
             <hr>         
                 

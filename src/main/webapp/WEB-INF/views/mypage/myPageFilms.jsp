@@ -188,7 +188,8 @@
 
                 <hr>
 
-				
+				<c:set var='userid' value='${criFilm.userid}' />
+                <c:set var='sessionUserid' value='${__LOGIN__.userId}' />
 				<c:forEach items="${films}" var="films">
 				<form action="/mypage/deleteFilmReaction" method="POST" id='form_${films.userid}_${films.filmid}_${films.code}'>
 				<input type='hidden' name='userid' value='${pageMaker.criFilm.userid}'>
@@ -214,7 +215,7 @@
 	
 	                        </div>
 	                            
-	                        <button id='delBtn' onclick="deleteFilmReaction('${films.userid}', ${films.filmid}, ${films.code})" type="button" class="btn btn-outline-danger btn-sm">Del</button>
+	                        <button id='delBtn' onclick="deleteFilmReaction('${films.userid}', ${films.filmid}, ${films.code})" type="button" class="btn btn-outline-danger btn-sm" style="${sessionUserid eq userid ? 'display:inline' : 'display:none'}">Del</button>
 	                    </div>
 	
 	                </div>

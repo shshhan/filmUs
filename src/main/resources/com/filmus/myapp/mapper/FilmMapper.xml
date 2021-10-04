@@ -11,6 +11,7 @@
 		FROM fm_film f
 		LEFT OUTER JOIN (SELECT film_id, ROUND( AVG(rate), 2 ) AS avgRate, ROUND( AVG(rate), 2 )*20 AS width
 		                 FROM fm_review	
+		                 WHERE delete_ts is null
 		                 GROUP BY film_id) r
 		             ON f.film_id=r.film_id
 		WHERE f.film_id=#{filmId}
@@ -26,16 +27,16 @@
 	</select>
 	
 	<select id="getReviews" resultType="com.filmus.myapp.domain.FilmReviewVO">
-		SELECT	/*+ index_desc(fm_review_pk) */
-				r.rno, r.writer, r.rate, r.rate*20 AS width, r.content, r.is_spoiled, r.insert_ts, r.update_ts, r.like_cnt, r.comment_cnt, u.nickname, u.profile_photo_path
+		SELECT r.rno, r.writer, r.rate, r.rate*20 AS width, r.content, r.is_spoiled, r.insert_ts, r.update_ts, r.like_cnt, r.comment_cnt, u.nickname, u.profile_photo_path
 		FROM fm_review r
 		INNER JOIN fm_user u
 				ON r.writer = u.user_id
 		WHERE film_id=#{filmId}
 		  AND r.delete_ts is null
-		ORDER BY r.like_cnt
+		ORDER BY r.like_cnt DESC, r.insert_ts DESC
 		OFFSET ( #{currPage} - 1) * #{amount} ROWS
         FETCH NEXT #{amount} ROWS ONLY
+	
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
@@ -46,23 +47,7 @@
 				ON r.film_id=f.film_id
 		WHERE r.film_id=#{filmId}
 		  AND rno > 0
-		]]>
-		<!-- <choose>
-			<when test="category eq 'T' .toString()">
-			</when>
-			<when test="category eq 'A' .toString()">
-					AND delete_ts IS NULL
-					<![CDATA[AND (sus_to IS NULL OR sus_to < current_date)]]>
-				</when>
-				<when test="category eq 'D' .toString()">
-					AND delete_ts IS NOT NULL					
-				</when>
-				<when test="category eq 'S' .toString()">
-					AND delete_ts IS NULL
-					<![CDATA[AND sus_to >= current_date]]>
-				</when>
-		</choose> -->
-	
+		]]>	
 	</select>
 	
 	

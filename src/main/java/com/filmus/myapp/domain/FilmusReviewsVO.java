@@ -20,6 +20,8 @@ public class FilmusReviewsVO {
 	private String title;
 	private String poster;
 	private Double width;
+	private Integer userid;
+	private String profilePhoto;
 
 
 } //end class
