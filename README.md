@@ -2,7 +2,13 @@
 
 ## ■ Info
 
-- #### 전체 포트폴리오 [**보기**](https://drive.google.com/file/d/1QAr3PWZCvtJrCjO4w1c-YCoZBGkzroZL/view?usp=sharing)
+- #### 프로젝트 포트폴리오 [**보기**](https://drive.google.com/file/d/1QAr3PWZCvtJrCjO4w1c-YCoZBGkzroZL/view?usp=sharing)
+- #### 서비스 [**바로가기**](http://filmus.site/)
+
+
+
+- AWS 클라우드 기반으로 서버를 옮긴 뒤, 메일 전송과 파일 업로드/다운로드에서 오류가 발생해 수정 중입니다. (2021/10/08)
+
 
 ___
 
