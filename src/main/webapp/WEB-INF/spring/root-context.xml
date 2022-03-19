@@ -24,10 +24,10 @@
       <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 
        <!-- dev -->
-<!--      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202106301639_high?TNS_ADMIN=/Users/shawn/dev/oracle/oracleClouldWallet/Wallet_DB202106301639"/>-->
+<!--      <property name="jdbcUrl" value="${devJdbcURL}"/>-->
 
        <!-- AWS Ubuntu -->
-       <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@db202106301639_high?TNS_ADMIN=/home/ubuntu/ATP"/>
+       <property name="jdbcUrl" value="${prodJdbcURL}"/>
 
       <property name="username" value="${oracleUser}"/>
       <property name="password" value="${oraclePw}"/>

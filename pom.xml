@@ -21,12 +21,12 @@
 
 	<properties>
 		<java-version>11</java-version>
- 		<java-home>${env.JAVA_HOME}</java-home>
+		<java-home>/Users/shawn/.jenv/versions/zulu64-11.0.13</java-home>
 
  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<org.springframework-version>5.3.9</org.springframework-version>
-		<org.springsecurity-version>5.3.9.RELEASE</org.springsecurity-version>
+		<org.springframework-version>5.3.17</org.springframework-version>
+		<org.springsecurity-version>5.6.2</org.springsecurity-version>
 		<org.aspectj-version>1.9.7</org.aspectj-version>
 		<org.slf4j-version>1.7.32</org.slf4j-version>
 		<log4j2-version>2.17.2</log4j2-version>
@@ -286,24 +286,6 @@
 		</dependency>
 
 
-		<!-- ================== Misc ================== -->
-
-
-		<!--javax.inject -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
-		
-		<!-- json-simple -->
-		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
-		</dependency>
-
-
 		<!-- ====================== Mail ==================== -->
 
 		<!-- javax.mail -> spring-context-support도 함께 필요 -->
@@ -332,25 +314,21 @@
 			
 			<scope>provided</scope>
 		</dependency>
-		
-		
-		<!-- ================== JSON ================== -->
-		
-		
-		<!-- jackson-databind -->
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.12.4</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.2</version>
 		</dependency>
-		
-		<!-- jackson-mapper-asl -->
+
+
+		<!-- json-simple -->
 		<dependency>
-		    <groupId>org.codehaus.jackson</groupId>
-		    <artifactId>jackson-mapper-asl</artifactId>
-		    <version>1.9.13</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
-		
 				
 		<!-- ============= Oracle JDBC ============= -->
 		
@@ -400,7 +378,7 @@
 	
 	<build>
 		
-		<finalName>/</finalName>
+<!--		<finalName></finalName>-->
         
 		<plugins>
             <plugin>
