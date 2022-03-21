@@ -21,7 +21,8 @@
 
 	<properties>
 		<java-version>11</java-version>
-		<java-home>/Users/shawn/.jenv/versions/zulu64-11.0.13</java-home>
+		<java-home>${env.JAVA_HOME}</java-home>
+<!--		<java-home>/Users/shawn/.jenv/versions/zulu64-11.0.13</java-home>-->
 
  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
