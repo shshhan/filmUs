@@ -94,7 +94,7 @@ public class SearchController {
 		
 		List<SearchPeopleVO> films = this.service.serachFilmsByPeopleId(peopleId);
 		
-		films.forEach(log::info);
+//		films.forEach(log::info);
 		
 		model.addAttribute("result", films);
 		

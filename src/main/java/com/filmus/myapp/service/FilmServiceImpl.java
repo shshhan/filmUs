@@ -53,7 +53,7 @@ public class FilmServiceImpl
 		
 		//영화 감독, 출연진 정보 가져오기
 		List<FilmPeopleVO> filmPeople = this.mapper.getFilmPeople(filmId);
-		filmPeople.forEach(log::info);
+//		filmPeople.forEach(log::info);
 		
 		List<FilmPeopleVO> director = new ArrayList<>();
 		List<FilmPeopleVO> cast = new ArrayList<>();
